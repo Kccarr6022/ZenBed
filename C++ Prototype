@@ -1,1 +1,130 @@
 
+//9 motors on at a time, 1 in the middle at max charge,
+//4 in front is gradually increasing while 4 in back are decreasing
+
+#include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
+
+Adafruit_PWMServoDriver board_0 = Adafruit_PWMServoDriver(0x40); //for I/O expanders
+Adafruit_PWMServoDriver board_1 = Adafruit_PWMServoDriver(0x41);
+
+int numOfMotors = 32; //dont forget to change the number for the array!!
+int vMin = 1200;
+int vMax = 4000;
+int vRange = vMax - vMin;
+int vChange = 20;	//voltage change per cycle
+
+int motorsRunning = 9;    //has to be odd
+int midMotor = motorsRunning/2 +1;
+int percentInterval = (vRange/midMotor)+vMin;
+
+int delayAmt = 10;
+
+int Motors[32][3]; //[numOfMotors][num of variables]		//This is the array to change if you change the num of motors
+//1: motor num, 2: Strength, 3:1-inc 2-dec 3-pause
+
+
+void setup() {
+  Serial.begin(9600);
+
+  board_0.begin();
+  board_0.setPWMFreq(1600);
+  board_1.begin();
+  board_1.setPWMFreq(1600);
+  
+  for(int num = 0; num < numOfMotors; num++){
+    Motors[num][1] = num;               //setting motor nums
+    Motors[num][2] = 0;                 //setting all motor strength to 0
+    Motors[num][3] = 3;                 //setting all motors to pause
+  }
+  Motors[0][2] = vMin - vChange; //set motor 0 V to min voltage to start. the -vChange is due to the logic at the start
+  Motors[0][3] = 1;//set motor 0 to increase to start
+}
+
+//Motors[motorNum][]   since ima copy and paste this one a lot
+void loop() {
+  // put your main code here, to run repeatedly:
+    
+    for(int motorNum = 0; motorNum < numOfMotors; motorNum++){
+      
+      if(motorNum != 0){
+        if(Motors[motorNum][3] == 3){
+          if(Motors[motorNum-1][2] >= percentInterval){
+            Motors[motorNum][3] = 1;    
+            //if previous motor reaches interval, set current motor to increase
+              if(Motors[motorNum][2] == 0){
+                Motors[motorNum][2] = vMin - vChange;
+              }
+            }          
+          }
+
+        }
+        else{
+          
+          if(Motors[motorNum+numOfMotors-1][2] >= percentInterval){
+            if(Motors[motorNum][3] == 3){
+              Motors[motorNum][3] = 1;
+              //if previous motor reaches interval, set current motor to increase
+                if(Motors[motorNum][2] == 0){
+                  Motors[motorNum][2] = vMin - vChange;
+                }
+              }
+            }
+        }
+        if(Motors[motorNum][3] == 3){
+        }
+        else if(Motors[motorNum][3] == 1){
+          //if motor is increasing
+          
+          if(Motors[motorNum][2] >= vMax){
+            //if motor at or above max V, set to decreasing and reduce V
+
+            Motors[motorNum][2] -= vChange;
+            if(motorNum < pinsPerBoard){
+              board_0.setPWM(Motors[motorNum][1], 0, Motors[motorNum][2]); //set motor num, strength
+            }
+            else{
+              board_1.setPWM(Motors[motorNum][1] - pinsPerBoard, 0, Motors[motorNum][2]);
+            }
+            Motors[motorNum][3] = 2;
+          }
+          else{
+            Motors[motorNum][2] += vChange;
+            
+            if(motorNum < pinsPerBoard){
+              board_0.setPWM(Motors[motorNum][1], 0, Motors[motorNum][2]); //set motor num, strength
+            }
+            else{
+              board_1.setPWM(Motors[motorNum][1] - pinsPerBoard, 0, Motors[motorNum][2]);
+            }
+          }
+        }
+        else if(Motors[motorNum][3] == 2){
+          //if motor is decreasing
+          if(Motors[motorNum][2] <= vMin){
+          
+            //if motor at or below min V, set to wait and reset V
+            Motors[motorNum][2] = 0; //reset motor strength
+            if(motorNum < pinsPerBoard){
+              board_0.setPWM(Motors[motorNum][1], 0, Motors[motorNum][2]); //set motor num, strength
+            }
+            else{
+              board_1.setPWM(Motors[motorNum][1] - pinsPerBoard, 0, Motors[motorNum][2]);
+            }
+            Motors[motorNum][3] = 3;
+          
+          }
+          else{
+            Motors[motorNum][2] -= vChange;
+            
+            if(motorNum < pinsPerBoard){
+              board_0.setPWM(Motors[motorNum][1], 0, Motors[motorNum][2]); //set motor num, strength
+            }
+            else{
+              board_1.setPWM(Motors[motorNum][1] - pinsPerBoard, 0, Motors[motorNum][2]);
+            }
+          }
+        }
+       }
+  delay(delayAmt);
+}
