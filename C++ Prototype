@@ -8,7 +8,7 @@
 Adafruit_PWMServoDriver board_0 = Adafruit_PWMServoDriver(0x40); //for I/O expanders
 Adafruit_PWMServoDriver board_1 = Adafruit_PWMServoDriver(0x41);
 
-int numOfMotors = 32; //dont forget to change the number for the array!!
+int numOfMotors = 32; //dont forget to change the number for the array!! Should be 31
 int vMin = 1200;
 int vMax = 4000;
 int vRange = vMax - vMin;
@@ -34,8 +34,8 @@ void setup() {
   
   for(int num = 0; num < numOfMotors; num++){
     Motors[num][1] = num;               //setting motor nums
-    Motors[num][2] = 0;                 //setting all motor strength to 0
-    Motors[num][3] = 3;                 //setting all motors to pause
+    Motors[num][2] = 0;                 //setting all motor strength to 0 = strength of 0
+    Motors[num][3] = 3;                 //setting all motors to pause 3 = pause
   }
   Motors[0][2] = vMin - vChange; //set motor 0 V to min voltage to start. the -vChange is due to the logic at the start
   Motors[0][3] = 1;//set motor 0 to increase to start
@@ -45,7 +45,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
     
-    for(int motorNum = 0; motorNum < numOfMotors; motorNum++){
+    for(int motorNum = 0; motorNum < numOfMotors; motorNum++){ //goes through int Motors
       
       if(motorNum != 0){
         if(Motors[motorNum][3] == 3){
