@@ -1,5 +1,5 @@
-from Classes.zenbedclass import ZenBed
 from Classes.motorclass import Motor
+from Classes.zenbedclass import ZenBed
 import sys
 import time
 from adafruit_servokit import ServoKit
