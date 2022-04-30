@@ -1,5 +1,8 @@
 #from zenbedclass import ZenBed
 #from motorclass import Motor
+from motorclass import Motor
+from zenbedclass import ZenBed
+
 import sys
 import time
 from board import SCL, SDA

@@ -9,18 +9,18 @@ nbPCAServo=10 #The first 10 pins are filled
 
 #Parameters
 MIN_IMP  =[500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500]
-MAX_IMP  =[2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500]
+MAX_IMP  =[5000, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500]
 MIN_ANG  =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 MAX_ANG  =[180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180]
 
 #Objects
 pca = ServoKit(channels=16) # Creates an object from class "ServoKit" where channels = 16
-
+pca2 = ServoKit(channels=16) # Second motor for more motors 
 # function init 
 def init():
 
     for i in range(nbPCAServo): # Loops for amount of servos connected
-        pca.servo[i].set_pulse_width_range(1200 , 4000) #Turns on vibration motor of choice
+        pca.servo[i].set_pulse_width_range(4000 , 5000) # Initialization of pulse
 
 
 # function main 
