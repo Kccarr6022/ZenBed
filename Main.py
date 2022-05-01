@@ -11,9 +11,9 @@ import busio
 from adafruit_pca9685 import PCA9685
 
 
-
+# Used for testing.
 def init():
-    #Creates Motorboard objects
+    # Creates Motorboard objects
     i2c_bus = busio.I2C(SCL, SDA)
     MotorBoard = PCA9685(i2c_bus)
     MotorBoard.frequency = 60
