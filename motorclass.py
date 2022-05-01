@@ -1,5 +1,6 @@
 from adafruit_pca9685 import PCA9685
 from zenbedclass import ZenBed
+from board import SCL, SDA
 import busio
 
 
@@ -13,12 +14,12 @@ class Motor(ZenBed):
     def __init__(self, motorx, motory):
         self.MotorLocationXmax = 10
         self.MotorLocationYmax = 10
-        self.MotorLocationX = motorx #Location of x value (int)\character value 0=A
-        self.MotorLocationY = motory #Location of y value (int)
+        self.MotorLocationX = motorx  # Location of x value (int)\character value 0=A
+        self.MotorLocationY = motory  # Location of y value (int)
 
         """
-        During later implementation include if statements using conditions motorx and motory to determine which
-        PCA board to instantiate to declare variable "MotorBoard".
+            During later implementation include if statements using conditions motorx and motory to determine which
+            PCA board to instantiate to declare variable "MotorBoard".
         """
 
         # Creates Motorboard objects from first PCA.
