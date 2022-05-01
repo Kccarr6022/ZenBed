@@ -12,20 +12,23 @@ from adafruit_pca9685 import PCA9685
 
 
 
-def init():
-    #Creates Motorboard objects
-    i2c_bus = busio.I2C(SCL, SDA)
-    MotorBoard = PCA9685(i2c_bus)
-    MotorBoard.frequency = 60
+def __init__():
+    #Place Initialization code in here
     pass
 
 def main():
+    #initialization of board1
     i2c_bus = busio.I2C(SCL, SDA)
     MotorBoard = PCA9685(i2c_bus)
     MotorBoard.frequency = 60
-    MotorBoard.channels[3].duty_cycle = 0
+    
+             #Motor0 on testing
+    MotorBoard.channels[0].duty_cycle = 0xfffe
+    time.sleep(20)
+    MotorBoard.channels[0].duty_cycle = 0
+
     pass
 
 if __name__ == '__main__':
-    init()
+    __init__()
     main()

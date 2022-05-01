@@ -28,25 +28,19 @@ def init():
     
     #Instantiates Motors to MotorGrid
     #MotorGrid[0][0] = Motor(0,0)
-    
-    pass
 
 def main():
     
-    #Initialization
-    i2c_bus = busio.I2C(SCL, SDA)
-    MotorBoard = PCA9685(i2c_bus)
-    MotorBoard.frequency = 60
     
     #Turns on motor 0
     
     Motor0 = Motor(3,0)
     Motor0.MotorOn()
+    MotorBoard.channels[0].duty_cycle = 0xfffe
     time.sleep(20)
     Motor0.MotorOff()
     
     #MotorGrid[0][0].on()# Full power for motor
-    pass
 
 if __name__ == '__main__':
     init()

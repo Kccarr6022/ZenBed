@@ -12,12 +12,13 @@ class Motor(ZenBed):
         The following algorithm is designed to turn on the specific motor in the array.
         """
         
-    def MotorOn(self):
+    def MotorOn(self): # Error
         if 0 < self.MotorLocationX < 10: #Checks what PCI to call from
            if 0 < self.MotorLocationY < 10:
-                MotorBoard.channels[3].duty_cycle = 0xfffe
+                MotorBoard.channels[MotorLocationX].duty_cycle = 0xfffe
+                print("Works")
     
-        pass
+        pass 
     
     def MotorHalfOn(self):
         if 0 < self.MotorLocationX < 10: #Checks what PCI to call from
@@ -32,3 +33,11 @@ class Motor(ZenBed):
                 MotorBoard.channels[self.MotorLocationX].duty_cycle = 0
     
         pass
+        
+    def MotorOn(self, PercentPower):
+        if 0 < self.MotorLocationX < 10: #Checks what PCI to call from
+           if 0 < self.MotorLocationY < 10:
+                MotorBoard.channels[MotorLocationX].duty_cycle = PercentPower * 0x7fff
+                print("Works")
+    
+        pass 
