@@ -11,7 +11,7 @@ import busio
 
 
 class Motor(ZenBed):
-    def __init__(self, motorx, motory):
+    def __init__(self, motorx, motory): # Motor(x, y)
         self.MotorLocationXmax = 10
         self.MotorLocationYmax = 10
         self.MotorLocationX = motorx  # Location of x value (int)\character value 0=A
@@ -24,42 +24,27 @@ class Motor(ZenBed):
 
         # Creates Motorboard objects from first PCA.
         self.i2c_bus = busio.I2C(SCL, SDA)
-        self.MotorBoard = PCA9685(i2c_bus)
+        self.MotorBoard = PCA9685(self.i2c_bus)
         self.MotorBoard.frequency = 60
         
         pass
 
     # Turns on motor
     def motoron(self): # Error
-        if 0 < self.MotorLocationX < 10: # Checks what PCI to call from
-            if 0 < self.MotorLocationY < 10: # For later in project
-                self.MotorBoard.channels[self.MotorLocationX].duty_cycle = 0xfffe
-
-        pass 
+        self.MotorBoard.channels[self.MotorLocationX].duty_cycle = 0xfffe # Turns on to full
 
     # Turns motor to 50%
 
     def motorhalfon(self):  # Error
-        if 0 < self.MotorLocationX < 10:  # Checks what PCI to call from
-            if 0 < self.MotorLocationY < 10:  # For later in project
-                self.MotorBoard.channels[self.MotorLocationX].duty_cycle = 0x7fff
+        self.MotorBoard.channels[self.MotorLocationX].duty_cycle = 0x7fff # Turns to half
 
-        pass
 
     # Turns motor to 0
     def motoroff(self):  # Error
-        if 0 < self.MotorLocationX < 10:  # Checks what PCI to call from
-            if 0 < self.MotorLocationY < 10:  # For later in project
-                self.MotorBoard.channels[self.MotorLocationX].duty_cycle = 0
-
-        pass
+        self.MotorBoard.channels[self.MotorLocationX].duty_cycle = 0 # Turns off
 
     # Gives vibration motor percent power
-    def motoroff(self, percentpower):
+    def motorpercenton(self, percentpower): # Percent on
         if percentpower > 1:  # safety lock
             percentpower = 1
-        if 0 < self.MotorLocationX < 10:  # Checks what PCI to call from
-            if 0 < self.MotorLocationY < 10:  # For later in project
-                self.MotorBoard.channels[self.MotorLocationX].duty_cycle = 0xfffe * percentpower
-
-        pass
+        self.MotorBoard.channels[self.MotorLocationX].duty_cycle = 0xfffe * percentpower

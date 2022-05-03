@@ -1,48 +1,50 @@
-#from zenbedclass import ZenBed
-#from motorclass import Motor
 from motorclass import Motor
 import zenbedclass
-
 import sys
 import time
-from board import SCL, SDA
-import busio
-#from adafruit_servokit import ServoKit
-from adafruit_pca9685 import PCA9685
 
 # MotorGrid Size
 MOTORGRIDXSIZE = 10
 MOTORGRIDYSIZE = 10
 
+# Create motor = 
 
-def init(): #
+
+
+def CircleLoop():
     
-    # Creates MotorGrid
-    # MotorGrid = [[Motor(x,y) for x in range(MotorGridXSize)] for y in
-                 # range(MotorGridYSize)]
+    motor = []
     
-    # Instantiates Motors to MotorGrid
-    # MotorGrid[0][0] = Motor(0,0)
+    for i in range(10):
+        motor.append(Motor(i, 0))
+        motor[i].motoron()
+        time.sleep(2)
+        motor[i].motoroff()
 
-
-# Used for testing
+    
 def main():
-
-    # Instantiates MotorBoard
-    self.i2c_bus = busio.I2C(SCL, SDA)
-    self.MotorBoard = PCA9685(i2c_bus)
-    self.MotorBoard.frequency = 60
+    CircleLoop()
     
-    motor0 = Motor(3,0)
-    Motor0.MotorOn()
-    MotorBoard.channels[0].duty_cycle = 0xfffe
-    time.sleep(20)
-    Motor0.MotorOff()
+
+
+main()
+
+
+
+# Sample algorithm
+"""def patternfullon():
     
-    # MotorGrid[0][0].on()# Full power for motor
-
-
-if __name__ == '__main__':
-
-    init()
-    main()
+    motor = []
+    power = 100
+    
+    for i in range(10):
+        for i in range(power)
+            motor.append(Motor(i, 0))
+            motor[i].motorpercenton(power/100)
+            time.sleep(2)
+        
+    for i in range(10):
+        motor.append(Motor(i, 0))
+        motor[i].motoroff()
+        time.sleep(2)
+"""
