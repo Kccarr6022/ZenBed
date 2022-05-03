@@ -1,29 +1,26 @@
 from motorclass import Motor
-import zenbedclass
+from zenbedclass import ZenBed
+from enum import Enum
 import sys
 import time
 
+class Leters(Enum):
+    A = 1
+    B = 2
+    C = 3
+    D = 4
+
+Letter = Letters() # Letter.A - > 1
+
 # MotorGrid Size
-MOTORGRIDXSIZE = 10
-MOTORGRIDYSIZE = 10
-
-# Create motor = 
+MOTORGRIDXSIZE = 4
+MOTORGRIDYSIZE = 6
 
 
-
-def CircleLoop():
-    
-    motor = []
-    
-    for i in range(10):
-        motor.append(Motor(i, 0))
-        motor[i].motoron()
-        time.sleep(2)
-        motor[i].motoroff()
-
-    
 def main():
-    CircleLoop()
+    
+    zenbed = ZenBed() # Creates ZenBed object
+    zenbed.CircleLoop() # Uses object function "CircleLoop"
     
 
 
