@@ -1,27 +1,49 @@
 from motorclass import Motor
 from zenbedclass import ZenBed
-from enum import Enum
+from PCA import PCA9685
 import sys
 import time
+import busio
+from board import SCL, SDA
 
-class Leters(Enum):
-    A = 1
-    B = 2
-    C = 3
-    D = 4
+# Letters
+A = 1
+B = 2
+C = 3
+D = 4
+E = 5
+F = 6
+G = 7
+H = 8
+I = 9
+J = 10
+K = 11
+L = 12
 
-Letter = Letters() # Letter.A - > 1
 
 # MotorGrid Size
-MOTORGRIDXSIZE = 4
-MOTORGRIDYSIZE = 6
+MOTORGRIDXSIZE = 12
+MOTORGRIDYSIZE = 18
 
 
 def main():
     
-    zenbed = ZenBed() # Creates ZenBed object
+    """zenbed = ZenBed() # Creates ZenBed object
     zenbed.CircleLoop() # Uses object function "CircleLoop"
+    """
     
+    # Object create
+    i2c_bus = busio.I2C(SCL, SDA)
+    
+    #def __init__( self, i2c_bus: I2C, *, address: int = 0x40, reference_clock_speed: int = 25000000
+    PCA = PCA9685(i2c_bus, 0x41)
+    print(str(SCL))
+    print(str(SDA))
+    print(str(i2c_bus))
+    PCA.frequency = 60
+    PCA.channels[0].duty_cycle = 0    
+    
+
 
 
 main()
