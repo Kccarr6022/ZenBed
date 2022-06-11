@@ -6,6 +6,9 @@ import time
 import busio
 from board import SCL, SDA
 
+# creates i2c object
+i2c_bus = busio.I2C(SCL, SDA)
+
 # Letters
 A = 1
 B = 2
@@ -25,6 +28,10 @@ L = 12
 MOTORGRIDXSIZE = 12
 MOTORGRIDYSIZE = 18
 
+# Motor Array
+
+
+
 
 def main():
     
@@ -33,17 +40,30 @@ def main():
     """
     
     # Object create
-    i2c_bus = busio.I2C(SCL, SDA)
     
-    #def __init__( self, i2c_bus: I2C, *, address: int = 0x40, reference_clock_speed: int = 25000000
-    PCA = PCA9685(i2c_bus, 0x41)
-    print(str(SCL))
-    print(str(SDA))
-    print(str(i2c_bus))
-    PCA.frequency = 60
-    PCA.channels[0].duty_cycle = 0    
+    # Motor[a, 4].percent(25)
     
-
+    MotorA = Motor(A, 10)
+    MotorA.motorpercenton(0)
+    
+    MotorA = Motor(A, 10)
+    MotorA.motorpercenton(0)
+    
+    MotorA = Motor(A, 10)
+    MotorA.motorpercenton(0)
+    
+    MotorA = Motor(A, 10)
+    MotorA.motorpercenton(0)
+    
+    """
+    count = 0
+    PCA[16]
+    for i in range(0, 15):
+        PCA[i] = PCA9685(i2c_bus, 0x40 + i)
+        PCA[i].frequency = 60
+        for j in range(0, 15):
+            PCA[count].channels[j].duty_cycle = 0x
+    """    
 
 
 main()

@@ -1,4 +1,4 @@
-from adafruit_pca9685 import PCA9685
+from PCA import PCA9685
 from board import SCL, SDA
 import busio
 
@@ -41,83 +41,85 @@ class Motor():
             self.PCA board to instantiate to declare variable "MotorBoard".
         """
     
-        # Instantiates self.PCA address based on coordinates
+        # Instantiates PCA address and channel based on coordinates O(n^2) startup
+        # Gives channel number at startup time allowing O(1) time complexity at run
         
-        # self.PCA0
+        # PCA0
         if (A <= motorx <= F and 1 <= motory <= 2 or motory == 3 and A <= motory <= D):
-            self.PCA = PCA9685(i2c_bus)
+            self.PCA = PCA9685(i2c_bus, 0x40)
+            #
         
-        # self.PCA1
+        # PCA1
         elif (A <= motorx <= F and 4 <= motory <= 5 or
             motory == 3 and E <= motory <= F or
             A <= motorx <= B and motory == 6):
-            self.PCA = PCA9685(0x41)
+            self.PCA = PCA9685(i2c_bus, 0x41)
         
-        # self.PCA2
+        # PCA2
         elif (C <= motorx <= F and motory == 6 or
             7 <= motory <= 8 and A <= motory <= F):
-            self.PCA = PCA9685(0x42)
+            self.PCA = PCA9685(i2c_bus, 0x42)
             
-        # self.PCA3
+        # PCA3
         elif (A <= motorx <= F and motory == 9):
-            self.PCA = PCA9685(0x43)
+            self.PCA = PCA9685(i2c_bus, 0x43)
         
-        # self.PCA4
+        # PCA4
         elif (A <= motorx <= F and 10 <= motory <= 11 or motory == 12 and A <= motory <= D):
-            self.PCA = PCA9685(0x44)
+            self.PCA = PCA9685(i2c_bus, 0x44)
             
-        # self.PCA5
+        # PCA5
         elif (A <= motorx <= F and 13 <= motory <= 14 or
             motory == 12 and E <= motory <= F or
             A <= motorx <= B and motory == 15):
-            self.PCA = PCA9685(0x45)
+            self.PCA = PCA9685(i2c_bus, 0x45)
             
-        # self.PCA6
+        # PCA6
         elif (C <= motorx <= F and motory == 15 or
             16 <= motory <= 17 and A <= motory <= F):
-            self.PCA = PCA9685(0x46)
+            self.PCA = PCA9685(i2c_bus, 0x46)
             
-        # self.PCA7
+        # PCA7
         elif (A <= motorx <= F and motory == 18):
-            self.PCA = PCA9685(0x47)
+            self.PCA = PCA9685(i2c_bus, 0x47)
             
-        # self.PCA8
+        # PCA8
         elif (G <= motorx <= L and 1 <= motory <= 2 or motory == 3 and G <= motory <= J):
-            self.PCA = PCA9685(0x48)
+            self.PCA = PCA9685(i2c_bus, 0x48)
             
-        # self.PCA9    
+        # PCA9    
         elif (G <= motorx <= L and 4 <= motory <= 5 or
             motory == 3 and K <= motory <= L or
             G <= motorx <= H and motory == 6):
-            self.PCA = PCA9685(0x49)
+            self.PCA = PCA9685(i2c_bus, 0x49)
             
-        # self.PCA10
+        # PCA10
         elif (I <= motorx <= L and motory == 6 or
             7 <= motory <= 8 and G <= motory <= L):
-            self.PCA = PCA9685(0x50)
+            self.PCA = PCA9685(i2c_bus, 0x50)
             
-        # self.PCA11
+        # PCA11
         elif (G <= motorx <= L and motory == 9):
-            self.PCA = PCA9685(0x51)
+            self.PCA = PCA9685(i2c_bus, 0x51)
             
-        # self.PCA12
+        # PCA12
         elif (G <= motorx <= L and 10 <= motory <= 11 or motory == 12 and G <= motory <= J):
-            self.PCA = PCA9685(0x52)
+            self.PCA = PCA9685(i2c_bus, 0x52)
             
-        # self.PCA13
+        # PCA13
         elif (G <= motorx <= L and 13 <= motory <= 14 or
             motory == 12 and K <= motory <= L or
             G <= motorx <= H and motory == 15):
-            self.PCA = PCA9685(0x53)
+            self.PCA = PCA9685(i2c_bus, 0x53)
             
-        # self.PCA14
+        # PCA14
         elif (I <= motorx <= L and motory == 15 or
             16 <= motory <= 17 and G <= motory <= L):
-            self.PCA = PCA9685(0x54)
+            self.PCA = PCA9685(i2c_bus, 0x54)
         
-        # self.PCA15
+        # PCA15
         elif (G <= motorx <= L and motory == 18):
-            self.PCA = PCA9685(0x55)
+            self.PCA = PCA9685(i2c_bus, 0x55)
             
             
         else:
@@ -129,10 +131,15 @@ class Motor():
         Old decleration code
 
         self.i2c_bus = busio.I2C(SCL, SDA)
-        self.MotorBoard = self.PCA9685(self.i2c_bus)
+        self.MotorBoard = self.PCA9685(i2c_bus, self.i2c_bus)
         self.MotorBoard.frequency = 60
         """
         pass
+    
+    # Turns on all motors connected to the PCA to 20%
+    def Testpcas(self, percent):
+        for i in range(0, 5):
+            self.PCA.channels[i].duty_cycle = (0xfffe * 0.1) # Turns on to 20%
 
     # Turns on motor
     def motoron(self): # Error
@@ -141,7 +148,7 @@ class Motor():
     # Turns motor to 50%
 
     def motorhalfon(self):  # Error
-        self.PCA = self.PCA9685(0x40)
+        self.PCA = self.PCA9685(i2c_bus, 0x40)
  # Turns to half
 
 
@@ -153,4 +160,4 @@ class Motor():
     def motorpercenton(self, percentpower): # Percent on
         if percentpower > 100:  # safety lock
             percentpower = 100
-        self.PCA.channels[0].duty_cycle = 0xfffe * (percentpower / 100)
+        self.PCA.channels[0].duty_cycle = int(0xFFFF * percentpower / 100)
