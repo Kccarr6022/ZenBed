@@ -124,7 +124,7 @@ class PCA9685:
         self.i2c_device = i2c_device.I2CDevice(I2C, address)
         self.channels = PCAChannels(self)
         """Sequence of 16 `PWMChannel` objects. One for each channel."""
-        self.reference_clock_speed = 25000000
+        self.reference_clock_speed = 27000000
         """The reference clock speed in Hz."""
         self.reset()
 

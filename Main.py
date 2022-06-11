@@ -23,39 +23,56 @@ J = 10
 K = 11
 L = 12
 
-
 # MotorGrid Size
 MOTORGRIDXSIZE = 12
 MOTORGRIDYSIZE = 18
 
 # Motor Array
+Matrix = [[0 for x in range(MOTORGRIDXSIZE)] for y in range(MOTORGRIDYSIZE)]
+
+# Motor test  
+def testallmotors():
+    for i in range(0, 15):
+        PCA = PCA9685(i2c_bus, 0x40 + i)
+        PCA.frequency = 60
+        for j in range(0, 15):
+            PCA.channels[j].duty_cycle = int(0xFFFF * 15 / 100)
+    time.sleep(10)
+    for i in range(0, 15):
+        PCA = PCA9685(i2c_bus, 0x40 + i)
+        PCA.frequency = 1600
+        for j in range(0, 15):
+            PCA.channels[j].duty_cycle = int(0xFFFF * 0 / 100)
 
 
+# Test single motors
+def testsinglemotors():
+    motorC1 = Motor(J, 14)
+    motorC1.motorpercenton(15)
+    time.sleep(5)
+    motorC1.motorpercenton(0)
+    
+def userinput():
+    int(input("Motor to turn on(letter+num = {0...100}"))
 
 
 def main():
+    testsinglemotors()
     
-    """zenbed = ZenBed() # Creates ZenBed object
-    zenbed.CircleLoop() # Uses object function "CircleLoop"
-    """
     
-    # Object create
+main()
+
+"""
+    MotorB = Motor(G, 10)
+    MotorB.motorpercenton(10)
     
-    # Motor[a, 4].percent(25)
+    MotorC = Motor(A, 1) # check
+    MotorC.motorpercenton(0)
     
-    MotorA = Motor(A, 10)
-    MotorA.motorpercenton(0)
+    MotorD = Motor(A, 16)
+    MotorD.motorpercenton(0)
+
     
-    MotorA = Motor(A, 10)
-    MotorA.motorpercenton(0)
-    
-    MotorA = Motor(A, 10)
-    MotorA.motorpercenton(0)
-    
-    MotorA = Motor(A, 10)
-    MotorA.motorpercenton(0)
-    
-    """
     count = 0
     PCA[16]
     for i in range(0, 15):
@@ -65,8 +82,6 @@ def main():
             PCA[count].channels[j].duty_cycle = 0x
     """    
 
-
-main()
 
 
 
