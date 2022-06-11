@@ -34,9 +34,7 @@ L = 12
 
 class Motor():
     def __init__(self, motorX, motorY): # Motor(x, y) Creating ZenBed Matrix
-        
-        self.MotorLocationXmax = 12
-        self.MotorLocationYmax = 18
+            
         self.channel = 0 # default value is first channel
 
         """
@@ -75,9 +73,9 @@ class Motor():
                 X += 1
        """
         
-        # PCA0
+        # PCA0 < works correct
         if ( A <= motorX <= F and 1 <= motorY <= 2 or
-            motorY == 3 and A <= motorY <= D):
+            motorY == 3 and A <= motorX <= D):
             self.PCA = PCA9685(i2c_bus, 0x40)
             
             if (motorX == A and motorY == 1):
@@ -114,9 +112,9 @@ class Motor():
                 self.channel = 15
                 
         
-        # PCA1
+        # PCA1 < works correct
         elif (A <= motorX <= F and 4 <= motorY <= 5 or
-            motorY == 3 and E <= motorY <= F or
+            motorY == 3 and E <= motorX <= F or
             A <= motorX <= B and motorY == 6):
             self.PCA = PCA9685(i2c_bus, 0x41)
             
@@ -153,9 +151,9 @@ class Motor():
             if (motorX == B and motorY == 6):
                 self.channel = 15
         
-        # PCA2
+        # PCA2 < works correct
         elif (C <= motorX <= F and motorY == 6 or
-            7 <= motorY <= 8 and A <= motorY <= F):
+            7 <= motorY <= 8 and A <= motorX <= F):
             self.PCA = PCA9685(i2c_bus, 0x42)
             
             if (motorX == C and motorY == 6):
@@ -191,7 +189,7 @@ class Motor():
             if (motorX == F and motorY == 8):
                 self.channel = 15
             
-        # PCA3
+        # PCA3 < works correct
         elif (A <= motorX <= F and motorY == 9):
             self.PCA = PCA9685(i2c_bus, 0x43)
             
@@ -209,9 +207,9 @@ class Motor():
                 self.channel = 5
             
         
-        # PCA4
+        # PCA4 < works correct
         elif (A <= motorX <= F and 10 <= motorY <= 11 or
-              motorY == 12 and A <= motorY <= D):
+              motorY == 12 and A <= motorX <= D):
             self.PCA = PCA9685(i2c_bus, 0x44)
             
             if (motorX == A and motorY == 10):
@@ -247,9 +245,9 @@ class Motor():
             if (motorX == D and motorY == 12):
                 self.channel = 15
             
-        # PCA5
+        # PCA5 < works correct
         elif (A <= motorX <= F and 13 <= motorY <= 14 or
-            motorY == 12 and E <= motorY <= F or
+            motorY == 12 and E <= motorX <= F or
             A <= motorX <= B and motorY == 15):
             self.PCA = PCA9685(i2c_bus, 0x45)
             
@@ -286,7 +284,7 @@ class Motor():
             if (motorX == B and motorY == 15):
                 self.channel = 15
             
-        # PCA6
+        # PCA6 < works correct
         elif (C <= motorX <= F and motorY == 15 or
              A <= motorX <= F and 16 <= motorY <= 17):
             self.PCA = PCA9685(i2c_bus, 0x46)
@@ -324,7 +322,7 @@ class Motor():
             if (motorX == F and motorY == 17):
                 self.channel = 15
             
-        # PCA7
+        # PCA7 < works correct
         elif (A <= motorX <= F and motorY == 18):
             self.PCA = PCA9685(i2c_bus, 0x47)
             
@@ -341,9 +339,9 @@ class Motor():
             if (motorX == F and motorY == 18):
                 self.channel = 5
             
-        # PCA8
+        # PCA8 < works correct
         elif (G <= motorX <= L and 1 <= motorY <= 2
-              or motorY == 3 and G <= motorY <= J):
+              or motorY == 3 and G <= motorX <= J):
             self.PCA = PCA9685(i2c_bus, 0x48)
             
             if (motorX == G and motorY == 1):
@@ -379,9 +377,9 @@ class Motor():
             if (motorX == J and motorY == 3):
                 self.channel = 15
             
-        # PCA9    
+        # PCA9 < works correct 
         elif (G <= motorX <= L and 4 <= motorY <= 5 or
-            motorY == 3 and K <= motorY <= L or
+            motorY == 3 and K <= motorX <= L or
             G <= motorX <= H and motorY == 6):
             self.PCA = PCA9685(i2c_bus, 0x49)
             
@@ -418,9 +416,9 @@ class Motor():
             if (motorX == H and motorY == 6):
                 self.channel = 15
             
-        # PCA10
+        # PCA10 < works correct
         elif (I <= motorX <= L and motorY == 6 or
-            7 <= motorY <= 8 and G <= motorY <= L):
+            7 <= motorY <= 8 and G <= motorX <= L):
             self.PCA = PCA9685(i2c_bus, 0x4a)
             
             if (motorX == I and motorY == 6):
@@ -456,7 +454,7 @@ class Motor():
             if (motorX == L and motorY == 8):
                 self.channel = 15
             
-        # PCA11
+        # PCA11 < works correct
         elif (G <= motorX <= L and motorY == 9):
             self.PCA = PCA9685(i2c_bus, 0x4b)
             
@@ -473,9 +471,9 @@ class Motor():
             if (motorX == L and motorY == 9):
                 self.channel = 5
             
-        # PCA12
+        # PCA12 < works correct
         elif (G <= motorX <= L and 10 <= motorY <= 11 or
-              motorY == 12 and G <= motorY <= J):
+              motorY == 12 and G <= motorX <= J):
             self.PCA = PCA9685(i2c_bus, 0x4c)
             
             if (motorX == G and motorY == 10):
@@ -511,9 +509,9 @@ class Motor():
             if (motorX == J and motorY == 12):
                 self.channel = 15
             
-        # PCA13
+        # PCA13 < works correct
         elif (G <= motorX <= L and 13 <= motorY <= 14 or
-            motorY == 12 and K <= motorY <= L or
+            motorY == 12 and K <= motorX <= L or
             G <= motorX <= H and motorY == 15):
             self.PCA = PCA9685(i2c_bus, 0x4d)
             
@@ -550,9 +548,9 @@ class Motor():
             if (motorX == H and motorY == 15):
                 self.channel = 15
             
-        # PCA14
+        # PCA14 < works correct
         elif (I <= motorX <= L and motorY == 15 or
-            16 <= motorY <= 17 and G <= motorY <= L):
+            16 <= motorY <= 17 and G <= motorX <= L):
             self.PCA = PCA9685(i2c_bus, 0x4e)
             
             if (motorX == I and motorY == 15):
@@ -588,7 +586,7 @@ class Motor():
             if (motorX == L and motorY == 17):
                 self.channel = 15
         
-        # PCA15
+        # PCA15 < works correct
         elif (G <= motorX <= L and motorY == 18):
             self.PCA = PCA9685(i2c_bus, 0x4f)
             
@@ -604,13 +602,17 @@ class Motor():
                 self.channel = 4
             if (motorX == L and motorY == 18):
                 self.channel = 5
+        
+        # Allows grid to be instantiated
+        elif (motorX == 0 or motorY == 0):
+            self = None
             
         else:
-            print("Motor coordinates out of bounds.\n\a")
+            print("x is " + str(motorX) + " y is " + str(motorY))
             quit()
         
-        
-        self.PCA.frequency = 60
+        if self != None:
+            self.PCA.frequency = 60
         """
         Old decleration code
 
@@ -621,25 +623,25 @@ class Motor():
         pass
     
     # Turns on all motors connected to the PCA to 20%
-    def Testpcas(self, percent):
-        for i in range(0, 5):
-            self.PCA.channels[i].duty_cycle = (0xfffe * 0.1) # Turns on to 20%
+    def Testpcas(self):
+        for i in range(0, 15):
+            self.PCA.channels[i].duty_cycle = int(0xfffe * 0) # Turns on to 20%
 
     # Turns on motor
-    def motoron(self):
+    def on(self):
         self.PCA.channels[self.channel].duty_cycle = 0xfffe # Turns on to full
 
     # Turns motor to 50%
-    def motorhalfon(self):
+    def half(self):
         self.PCA.channels[self.channel].duty_cycle = 0x7FFF # Turns on to half
 
 
     # Turns motor to 0
-    def motoroff(self):
+    def off(self):
         self.PCA.channels[self.channel].duty_cycle = 0 # Turns off
 
     # Gives vibration motor percent power
-    def motorpercenton(self, percentpower): # Percent on
+    def percent(self, percentpower): # Percent on
         if percentpower > 50:  # safety lock / testing
             percentpower = 50
         self.PCA.channels[self.channel].duty_cycle = int(0xFFFF * percentpower / 100)

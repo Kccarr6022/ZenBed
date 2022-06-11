@@ -27,17 +27,22 @@ L = 12
 MOTORGRIDXSIZE = 12
 MOTORGRIDYSIZE = 18
 
-# Motor Array
-Matrix = [[0 for x in range(MOTORGRIDXSIZE)] for y in range(MOTORGRIDYSIZE)]
+# Grid
+
+mtr = [[Motor(x, y) for y in range(0, 18)] for x in range(0, L)]
+grid = [[0 for y in range(0, 18)] for x in range(0, L)]
+
+# grid test
+
 
 # Motor test  
 def testallmotors():
     for i in range(0, 15):
         PCA = PCA9685(i2c_bus, 0x40 + i)
-        PCA.frequency = 60
+        PCA.frequency = 1600
         for j in range(0, 15):
             PCA.channels[j].duty_cycle = int(0xFFFF * 15 / 100)
-    time.sleep(10)
+    time.sleep(5)
     for i in range(0, 15):
         PCA = PCA9685(i2c_bus, 0x40 + i)
         PCA.frequency = 1600
@@ -47,17 +52,25 @@ def testallmotors():
 
 # Test single motors
 def testsinglemotors():
-    motorC1 = Motor(J, 14)
-    motorC1.motorpercenton(15)
-    time.sleep(5)
-    motorC1.motorpercenton(0)
     
-def userinput():
-    int(input("Motor to turn on(letter+num = {0...100}"))
+    motorC1 = Motor(A, 1)
+    motorC1.Testpcas()
+"""    
+def usercontrol(): #
+    while True:
+        
+        #Command = ""
+        #while Command != 
+        #Command = input()
+"""
+        
 
 
 def main():
-    testsinglemotors()
+    #Motor[A][4].percent(0)
+    
+    mtr[L][18].percent(15)
+    
     
     
 main()
