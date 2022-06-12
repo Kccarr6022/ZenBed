@@ -70,16 +70,32 @@ def usercontrol(): #
         #while Command != 
         #Command = input()
 """
-        
+
+def verwave(): # Pattern for ZENBED (import to zenbedclass)
+    while True:
+        for y in range (1, 18):
+            for x in range (A, L):
+                mtr[x][y].percent(23) # 0 to 100
+                mtr[x + 1][y].percent(23) # 0 to 100
+                mtr[x][y].percent(23) # 0 to 100
+                mtr[x + 1][y].percent(23) # 0 to 100
+            time.sleep(0.23)
+            for x in range (A, L):
+                mtr[x][y].percent(0) # 0 to 100
+                mtr[x + 1][y].percent(0) # 0 to 100
 
 
 def main():
-    zenbed = ZenBed()
-    zenbed.pattern2
+    while True:
+        for y in range (1, 18):
+            for x in range (A, L):
+                mtr[x][y].percent(10) # 0 to 10
+                mtr[x + 1][y].percent(10) # 0 to 10
+            time.sleep(0.23)
+            for x in range (A, L):
+                mtr[x][y].percent(0) # 0 to 10
+                mtr[x + 1][y].percent(0) # 0 to 10
+    
                 
-
-        
-    
-    
-    
+                
 main()

@@ -24,16 +24,13 @@ class ZenBed:
     def __init__(self): # Initializing all the PCAs / Motors are connected to PCAs
         
         
-        # Initializing a a double array of motors
+        # Initializing a a double list of motors
         self.mtr = []
 
-        for x in range(0, 13):
+        for x in range(0, MOTORGRIDXSIZE + 1):
             self.mtr.append([])
-            for y in range(0, 19):
+            for y in range(0, MOTORGRIDYSIZE + 1):
                 self.mtr[x].append(Motor(x,y))
-        
-        
-        
         
         # Algorithms 
         
@@ -52,8 +49,8 @@ class ZenBed:
         while True:
             for x in range (A, L):
                 for y in range (1, 18):
-                    self.mtr[x][y].percent(0) # 0 to 10
-                    self.mtr[x + 1][y].percent(0) # 0 to 10
+                    self.mtr[x][y].percent(15) # 0 to 10
+                    self.mtr[x + 1][y].percent(15) # 0 to 10
                 time.sleep(1)
                 for y in range (1, 19):
                     self.mtr[x][y].percent(0)
