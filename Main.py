@@ -27,13 +27,21 @@ L = 12
 MOTORGRIDXSIZE = 12
 MOTORGRIDYSIZE = 18
 
-# Grid
+# Grid (Nested List)
+mtr = []
 
-mtr = [[Motor(x, y) for y in range(0, 18)] for x in range(0, L)]
-grid = [[0 for y in range(0, 18)] for x in range(0, L)]
+for x in range(0, 13):
+    mtr.append([])
+    for y in range(0, 19):
+        mtr[x].append(Motor(x,y))
+
 
 # grid test
-
+def print_grid(param):
+    for row in param:
+        for e in row:
+            print(e, end ='')
+        print()
 
 # Motor test  
 def testallmotors():
@@ -67,9 +75,14 @@ def usercontrol(): #
 
 
 def main():
-    #Motor[A][4].percent(0)
-    
-    mtr[L][18].percent(15)
+    while True:
+        for x in range (A, L):
+            for y in range (1, 18):
+                mtr[x][y].percent(0) # 0 to 10
+            time.sleep(1)
+            for y in range (1, 18):
+                mtr[x][y].percent(0)
+        
     
     
     

@@ -25,9 +25,12 @@ class ZenBed:
         
         
         # Initializing a a double array of motors
-        self.rows = []
-        self.columns = []
-        self.grid
+        self.mtr = []
+
+        for x in range(0, 13):
+            self.mtr.append([])
+            for y in range(0, 19):
+                self.mtr[x].append(Motor(x,y))
         
         
         
