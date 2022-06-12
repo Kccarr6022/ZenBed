@@ -38,8 +38,6 @@ class ZenBed:
         # Algorithms 
         
     def Waving(): # Current 1d array loop <- Functional
-    
-        
         while True:
             for i in range(1, 18):
                 for j in range(A, L):
@@ -50,5 +48,12 @@ class ZenBed:
                     Motora = Motor(j, i)
                     Motora.percent(0)
                 
-            
-
+    def pattern2():
+        while True:
+            for x in range (A, L):
+                for y in range (1, 18):
+                    self.mtr[x][y].percent(0) # 0 to 10
+                    self.mtr[x + 1][y].percent(0) # 0 to 10
+                time.sleep(1)
+                for y in range (1, 19):
+                    self.mtr[x][y].percent(0)

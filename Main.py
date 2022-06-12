@@ -1,7 +1,6 @@
 from motorclass import Motor
 from zenbedclass import ZenBed
 from PCA import PCA9685
-import sys
 import time
 import busio
 from board import SCL, SDA
@@ -75,56 +74,12 @@ def usercontrol(): #
 
 
 def main():
-    while True:
-        for x in range (A, L):
-            for y in range (1, 18):
-                mtr[x][y].percent(0) # 0 to 10
-            time.sleep(1)
-            for y in range (1, 18):
-                mtr[x][y].percent(0)
+    zenbed = ZenBed()
+    zenbed.pattern2
+                
+
         
     
     
     
 main()
-
-"""
-    MotorB = Motor(G, 10)
-    MotorB.motorpercenton(10)
-    
-    MotorC = Motor(A, 1) # check
-    MotorC.motorpercenton(0)
-    
-    MotorD = Motor(A, 16)
-    MotorD.motorpercenton(0)
-
-    
-    count = 0
-    PCA[16]
-    for i in range(0, 15):
-        PCA[i] = PCA9685(i2c_bus, 0x40 + i)
-        PCA[i].frequency = 60
-        for j in range(0, 15):
-            PCA[count].channels[j].duty_cycle = 0x
-    """    
-
-
-
-
-# Sample algorithm
-"""def patternfullon():
-    
-    motor = []
-    power = 100
-    
-    for i in range(10):
-        for i in range(power)
-            motor.append(Motor(i, 0))
-            motor[i].motorpercenton(power/100)
-            time.sleep(2)
-        
-    for i in range(10):
-        motor.append(Motor(i, 0))
-        motor[i].motoroff()
-        time.sleep(2)
-"""
