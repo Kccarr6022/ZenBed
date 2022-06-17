@@ -66,36 +66,79 @@ def testsinglemotors():
 def usercontrol(): #
     while True:
         
-        #Command = ""
-        #while Command != 
+        #Command
+        
+        
+        
+        
+        
+        
+        
+        lmmkl''''''';llkkkl;'';lkkl;'';lkkl;l'lk       mmklmkl
+        'll;while Command != 
         #Command = input()
 """
 
-def verwave(): # Pattern for ZENBED (import to zenbedclass)
+def line(): # Pattern for ZENBED (import to zenbedclass)
+    while True:
+        for y in range (1, 18):
+                for x in range (A, L):
+                    mtr[x][y].percent(0) # 0 to 100
+                    mtr[x][y+1].percent(0)
+                time.sleep(1)
+                for x in range (A, L):
+                    mtr[x][y].percent(0)
+                    mtr[x][y+1].percent(0)
+
+#         for x in range (A, L):
+#             mtr[x][y].percent(15) # 0 to 100
+#             
+#             mtr[x + 1][y].percent(15) # 0 to 100
+            
+def onebyone(): # Pattern for ZENBED (import to zenbedclass)
+    while True:
+        for y in range (1, 18):           
+            for x in range (I, L):
+                mtr[x][y].percent(15) # 0 to 100
+                time.sleep(1)
+        for x in range (A, L):
+            mtr[x][y].percent(15) # 0 to 100
+            
+            mtr[x + 1][y].percent(15) # 0 to 100
+
+def stop():
     while True:
         for y in range (1, 18):
             for x in range (A, L):
-                mtr[x][y].percent(23) # 0 to 100
-                mtr[x + 1][y].percent(23) # 0 to 100
-                mtr[x][y].percent(23) # 0 to 100
-                mtr[x + 1][y].percent(23) # 0 to 100
-            time.sleep(0.23)
+                mtr[x][y].percent(0)
+                mtr[x][y+1].percent(0)
+            time.sleep(.1)
             for x in range (A, L):
-                mtr[x][y].percent(0) # 0 to 100
-                mtr[x + 1][y].percent(0) # 0 to 100
+                mtr[x][y].percent(0)
+                mtr[x][y+1].percent(0)
 
+           
+def pattern3():
+    while True:
+        for y in range (1, 18):
+                for x in range (A, L):
+                    mtr[x][y].percent(20)
+                    mtr[x][y+1].percent(20)
+                time.sleep(1)
+                for x in range (A, L):
+                    mtr[x][y].percent(10)
+                    mtr[x][y+1].percent(10)
+                time.sleep(3)
+                for x in range (A, L):
+                    mtr[x][y].percent(0)
+                    mtr[x][y+1].percent(0)
+
+"""
+    Motor on -> mtr[letter][number].percent(percent power)
+    
+"""
 
 def main():
-    while True:
-        for y in range (1, 18):
-            for x in range (A, L):
-                mtr[x][y].percent(10) # 0 to 10
-                mtr[x + 1][y].percent(10) # 0 to 10
-            time.sleep(0.23)
-            for x in range (A, L):
-                mtr[x][y].percent(0) # 0 to 10
-                mtr[x + 1][y].percent(0) # 0 to 10
-    
-                
-                
+    stop()
+
 main()

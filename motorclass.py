@@ -642,6 +642,6 @@ class Motor():
 
     # Gives vibration motor percent power
     def percent(self, percentpower): # Percent on
-        if percentpower > 50:  # safety lock / testing
-            percentpower = 50
+        if percentpower > 80:  # safety lock / testing
+            percentpower = 80
         self.PCA.channels[self.channel].duty_cycle = int(0xFFFF * percentpower / 100)

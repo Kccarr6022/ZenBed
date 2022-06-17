@@ -48,9 +48,9 @@ class ZenBed:
     def pattern2():
         while True:
             for x in range (A, L):
-                for y in range (1, 18):
-                    self.mtr[x][y].percent(15) # 0 to 10
-                    self.mtr[x + 1][y].percent(15) # 0 to 10
+                for y in range (1, 19):
+                    self.mtr[x][y].percent(40) # 0 to 10
+                    self.mtr[x + 1][y].percent(40) # 0 to 10
                 time.sleep(1)
                 for y in range (1, 19):
                     self.mtr[x][y].percent(0)
