@@ -62,29 +62,18 @@ def testsinglemotors():
     
     motorC1 = Motor(A, 1)
     motorC1.Testpcas()
-"""    
-def usercontrol(): #
-    while True:
-        
-        #Command
-        
-        
-        
-        
-        
-        
-        
-        lmmkl''''''';llkkkl;'';lkkl;'';lkkl;l'lk       mmklmkl
-        'll;while Command != 
-        #Command = input()
-"""
+
 
 def line(): # Pattern for ZENBED (import to zenbedclass)
+    """
+    Turns on two rows at a time and moves downward.
+    Turns off motors once the loop has moved through all rows.
+    """
     while True:
         for y in range (1, 18):
                 for x in range (A, L):
-                    mtr[x][y].percent(0) # 0 to 100
-                    mtr[x][y+1].percent(0)
+                    mtr[x][y].percent(15) # 0 to 100
+                    mtr[x][y+1].percent(15)
                 time.sleep(1)
                 for x in range (A, L):
                     mtr[x][y].percent(0)
@@ -110,13 +99,7 @@ def stop():
     while True:
         for y in range (1, 18):
             for x in range (A, L):
-                mtr[x][y].percent(0)
-                mtr[x][y+1].percent(0)
-            time.sleep(.1)
-            for x in range (A, L):
-                mtr[x][y].percent(0)
-                mtr[x][y+1].percent(0)
-
+                mtr[x][y].percent(0)               
            
 def pattern3():
     while True:
@@ -133,12 +116,22 @@ def pattern3():
                     mtr[x][y].percent(0)
                     mtr[x][y+1].percent(0)
 
+         
 """
     Motor on -> mtr[letter][number].percent(percent power)
-    
 """
 
+def test_single_motors_by_Christian(x_pos, y_pos):
+    mtr[x_pos][y_pos].percent(40)
+    time.sleep(50)
+    mtr[x_pos][y_pos].percent(0)
+    
+
+
 def main():
+    #print_grid(mtr)
+    #   test_single_motors_by_Christian(1,A)
     stop()
+    print("After stop")
 
 main()
