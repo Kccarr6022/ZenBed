@@ -26,15 +26,6 @@ L = 12
 MOTORGRIDXSIZE = 12
 MOTORGRIDYSIZE = 18
 
-# Grid (Nested List)
-mtr = []
-
-for x in range(0, 13):
-    mtr.append([])
-    for y in range(0, 19):
-        mtr[x].append(Motor(x,y))
-
-
 # grid test
 def print_grid(param):
     for row in param:
@@ -42,96 +33,16 @@ def print_grid(param):
             print(e, end ='')
         print()
 
-# Motor test  
-def testallmotors():
-    for i in range(0, 15):
-        PCA = PCA9685(i2c_bus, 0x40 + i)
-        PCA.frequency = 1600
-        for j in range(0, 15):
-            PCA.channels[j].duty_cycle = int(0xFFFF * 15 / 100)
-    time.sleep(5)
-    for i in range(0, 15):
-        PCA = PCA9685(i2c_bus, 0x40 + i)
-        PCA.frequency = 1600
-        for j in range(0, 15):
-            PCA.channels[j].duty_cycle = int(0xFFFF * 0 / 100)
-
-
-# Test single motors
-def testsinglemotors():
-    
-    motorC1 = Motor(A, 1)
-    motorC1.Testpcas()
-
-
-def line(): # Pattern for ZENBED (import to zenbedclass)
-    """
-    Turns on two rows at a time and moves downward.
-    Turns off motors once the loop has moved through all rows.
-    """
-    while True:
-        for y in range (1, 18):
-                for x in range (A, L):
-                    mtr[x][y].percent(15) # 0 to 100
-                    mtr[x][y+1].percent(15)
-                time.sleep(1)
-                for x in range (A, L):
-                    mtr[x][y].percent(0)
-                    mtr[x][y+1].percent(0)
-
-#         for x in range (A, L):
-#             mtr[x][y].percent(15) # 0 to 100
-#             
-#             mtr[x + 1][y].percent(15) # 0 to 100
-            
-def onebyone(): # Pattern for ZENBED (import to zenbedclass)
-    while True:
-        for y in range (1, 18):           
-            for x in range (I, L):
-                mtr[x][y].percent(15) # 0 to 100
-                time.sleep(1)
-        for x in range (A, L):
-            mtr[x][y].percent(15) # 0 to 100
-            
-            mtr[x + 1][y].percent(15) # 0 to 100
-
-def stop():
-    while True:
-        for y in range (1, 18):
-            for x in range (A, L):
-                mtr[x][y].percent(0)               
-           
-def pattern3():
-    while True:
-        for y in range (1, 18):
-                for x in range (A, L):
-                    mtr[x][y].percent(20)
-                    mtr[x][y+1].percent(20)
-                time.sleep(1)
-                for x in range (A, L):
-                    mtr[x][y].percent(10)
-                    mtr[x][y+1].percent(10)
-                time.sleep(3)
-                for x in range (A, L):
-                    mtr[x][y].percent(0)
-                    mtr[x][y+1].percent(0)
 
          
 """
     Motor on -> mtr[letter][number].percent(percent power)
 """
 
-def test_single_motors_by_Christian(x_pos, y_pos):
-    mtr[x_pos][y_pos].percent(40)
-    time.sleep(50)
-    mtr[x_pos][y_pos].percent(0)
-    
-
-
 def main():
-    #print_grid(mtr)
-    #   test_single_motors_by_Christian(1,A)
-    stop()
-    print("After stop")
+    Zenbed = ZenBed()
+    Zenbed.stop()
 
 main()
+
+# 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

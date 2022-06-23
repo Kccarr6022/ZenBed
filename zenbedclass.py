@@ -27,7 +27,6 @@ L = 12
 class ZenBed:
 
     def __init__(self):  # Initializing all the PCAs / Motors are connected to PCAs
-
         # Initializing a a double list of motors
 
         self.mtr = []
@@ -39,9 +38,23 @@ class ZenBed:
 
         # Algorithms
 
-    def waving(self):  # Current 1d array loop <- Functional
+    def Rectanglepattern(self):  # Current 1d array loop <- Functional
         """
-        Waving pattern for zenbed.
+        Rectangle pattern for zenbed.
+        """
+        while True:
+            for i in range(1, 18):
+                for j in range(A, L):
+                    motora = Motor(j, i)
+                    motora.percent(14)
+                time.sleep(0.5)
+                for j in range(A, L):
+                    motora = Motor(j, i)
+                    motora.percent(0)
+    
+    def Circlepattern(self):  # Current 1d array loop <- Functional
+        """
+        Rectangle pattern for zenbed.
         """
         while True:
             for i in range(1, 18):
@@ -53,16 +66,29 @@ class ZenBed:
                     motora = Motor(j, i)
                     motora.percent(0)
 
-    def pattern2(self):
+    def Zigzagpattern(self):  # Current 1d array loop <- Functional
         """
-        Vertical downwards pattern for zenbed.
+        Rectangle pattern for zenbed.
         """
-
         while True:
-            for x in range(A, L):
-                for y in range(1, 19):
-                    self.mtr[x][y].percent(40)  # 0 to 10
-                    self.mtr[x + 1][y].percent(40)  # 0 to 10
-                time.sleep(1)
-                for y in range(1, 19):
-                    self.mtr[x][y].percent(0)
+            for i in range(1, 18):
+                for j in range(A, L):
+                    motora = Motor(j, i)
+                    motora.percent(0)
+                time.sleep(0.5)
+                for j in range(A, L):
+                    motora = Motor(j, i)
+                    motora.percent(0)
+                    
+    def Inifinitypattern(self, speed, power_level, width):
+        print("Incomplete")
+        
+    def on(self, percent):
+        for y in range (1, 19):
+            for x in range (A, L):
+                self.mtr[x][y].percent(percent)
+    
+    def off(self):
+        for y in range (1, 19):
+            for x in range (A, L):
+                self.mtr[x][y].percent(0)      
