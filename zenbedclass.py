@@ -27,18 +27,21 @@ class ZenBed:
 
     def __init__(self):  # Initializing all the PCAs / Motors are connected to PCAs
         # Initializing a a double list of motors
-        
-        self.pattern_time = 10 # Percent
-        self.pattern_start_power = 10 # The percent the motors increment by in a wave
-        self.pattern_max_power = 90
-        self.pattern_rate_of_change = 20
-        self.pattern_wave_length = 3
         self.mtr = []
-
         for x in range(0, MOTORGRIDXSIZE + 1):
             self.mtr.append([])
             for y in range(0, MOTORGRIDYSIZE + 1):
                 self.mtr[x].append(Motor(x, y))
+        
+        # Pattern variables
+        self.pattern_wave_length = 3
+        self.pattern_time = 10 # Time in seconds of patterns
+        self.pattern_start_power = 10 # Where the first motor in the wave starts by
+        self.pattern_max_power = 50 # Where the power in the wave is highest
+        self.pattern_rate_of_change =  int(((self.pattern_max_power - self.pattern_start_power) * 2) / (self.pattern_wave_length - 1))# The option to change the rate of power increments
+        
+
+        
 
     # Sequences
     
@@ -52,16 +55,19 @@ class ZenBed:
         """
         if (len(sequence) < self.pattern_wave_length):
             print("Pattern wave length is greater than sequence")
+            return
         while True:
-            count = 1
             for x in range(0, len(sequence), 1):
-                for add in range(0, self.pattern_wave_length, 1):
-                    if (sequence[x+add].x <= MOTORGRIDXSIZE or sequence[x+add].y <= MOTORGRIDYSIZE):
-                        sequence[x+add].percent(self.pattern_max_power - self.pattern_rate_of_change
-                                                * (self.pattern_wave_length - add))
+                for current in range(0, self.pattern_wave_length, 1):
+                    if (sequence[x+current].x <= MOTORGRIDXSIZE or sequence[x+current].y <= MOTORGRIDYSIZE):
+                        if (current <= (self.pattern_wave_length/2 + 1)):
+                            sequence[x+current].percent(self.pattern_start_power + self.pattern_rate_of_change * current)
+                        else:
+                            sequence[x+current].percent(self.pattern_start_power - self.pattern_rate_of_change * (current - (self.pattern_wave_length/2 + 1)))
+                        self.status()
+
                     else:
                         return
-                    self.status()
                 if (sequence[x-1] != None):
                     sequence[x-1].percent(0) # Turns off previous motor
                 time.sleep(1/(len(sequence)) * self.pattern_time) # Pattern time will be pattern_time seconds
@@ -74,6 +80,7 @@ class ZenBed:
             for y in range(0, 19):
                 print((str(self.mtr[x][y].motor_power)), end ='')
             print()
+        print()
             
     def returnrow(self, y):
         returned = []

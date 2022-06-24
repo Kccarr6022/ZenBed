@@ -655,6 +655,6 @@ class Motor:
             if (self.motor_power > 0): print("\a") # Motor buzz    
             
             self.motor_power = percentpower
-            self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
-                                                             * self.motor_power / 100)
+            #self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
+            #                                                 * self.motor_power / 100)
 
