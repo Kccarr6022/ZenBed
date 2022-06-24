@@ -56,13 +56,15 @@ class ZenBed:
             count = 1
             for x in range(0, len(sequence), 1):
                 for add in range(0, self.pattern_wave_length, 1):
-                    if (sequence[x+add] != None):
+                    if (sequence[x+add].x <= MOTORGRIDXSIZE or sequence[x+add].y <= MOTORGRIDYSIZE):
                         sequence[x+add].percent(self.pattern_max_power - self.pattern_rate_of_change
                                                 * (self.pattern_wave_length - add))
-                        time.sleep(1/(len(sequence)) * self.pattern_time) # Pattern time will be pattern_time seconds
-                    if (sequence[x-1] != None):
-                        sequence[x-1].percent(0) # Turns off previous motor
+                    else:
+                        return
                     self.status()
+                if (sequence[x-1] != None):
+                    sequence[x-1].percent(0) # Turns off previous motor
+                time.sleep(1/(len(sequence)) * self.pattern_time) # Pattern time will be pattern_time seconds
                     
     def status(self):
         """

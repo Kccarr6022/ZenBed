@@ -35,6 +35,8 @@ class Motor:
 
         self.channel = 0  # default value is first channel
         self.motor_power = 0
+        self.x = motorX
+        self.y = motorY
 
         # PCA0 < works correct
 

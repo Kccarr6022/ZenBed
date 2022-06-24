@@ -43,8 +43,8 @@ def main():
 
     Zenbed = ZenBed()
     #Zenbed.pattern(circle)
-    Zenbed.pattern_time = 5
-    Zenbed.pattern_rate_of_change = 2
+    Zenbed.pattern_time = 15
+    Zenbed.pattern_rate_of_change = 30
     #Zenbed.linearpattern(Zenbed.returnrow(18))
     Zenbed.off()
 
