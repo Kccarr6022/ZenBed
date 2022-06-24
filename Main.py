@@ -26,12 +26,7 @@ L = 12
 MOTORGRIDXSIZE = 12
 MOTORGRIDYSIZE = 18
 
-# grid test
-def print_grid(param):
-    for row in param:
-        for e in row:
-            print(e, end ='')
-        print()
+
 
 
          
@@ -44,8 +39,9 @@ def main():
     Zenbed = ZenBed()
     #Zenbed.pattern(circle)
     Zenbed.pattern_time = 15
+    Zenbed.pattern_wave_length = 3 
     print(str(Zenbed.pattern_rate_of_change))
-    Zenbed.linearpattern(Zenbed.returnrow(18))
+    #Zenbed.linearpattern(Zenbed.returnrow(18))
     Zenbed.off()
 
 main()
