@@ -28,11 +28,11 @@ class ZenBed:
     def __init__(self):  # Initializing all the PCAs / Motors are connected to PCAs
         # Initializing a a double list of motors
         
-        self.time = 10 # Percent
+        self.pattern_time = 10 # Percent
         self.pattern_start_power = 10 # The percent the motors increment by in a wave
         self.pattern_max_power = 50
-        self.pattern_rate_of_change = 
-        self.pattern_width = 9
+        self.pattern_rate_of_change = 20
+        self.pattern_wave_length = 9
         self.mtr = []
 
         for x in range(0, MOTORGRIDXSIZE + 1):
@@ -40,41 +40,30 @@ class ZenBed:
             for y in range(0, MOTORGRIDYSIZE + 1):
                 self.mtr[x].append(Motor(x, y))
 
-        # Sequences
+    # Sequences
+    
+    
         
         # Algorithms
 
-    def pattern(self, sequence):  # Current 1d array loop <- Functional
+    def linearpattern(self, sequence):  # Takes double list of motors and converts to pattern.
         """
         Takes a pattern sequence and translates this into a functional pattern in zenbed.
         """
+        if (len(sequence) < self.pattern_wave_length):
+            print("Pattern wave length is greater than sequence")
         while True:
-            for x in range(0, max_sequence, 1):
-                for add in range(0, self.width):
-                    sequence[x+add].percent(self.max_power - )
+            count = 1
+            for x in range(0, len(sequence), 1):
+                for add in range(0, self.pattern_wave_length, 1):
+                    if (sequence[x+add] != None):
+                        sequence[x+add].percent(self.pattern_max_power - self.pattern_rate_of_change
+                                                * (self.pattern_wave_length - add))
+                        time.sleep(1/(len(sequence)) * pattern_time) # Pattern time will be pattern_time seconds
+                    if (sequence[x-1] != None):
+                        sequence[x-1].percent(0) # Turns off previous motor
     
-    def Circlepattern(self):  # Current 1d array loop <- Functional
-        """
-        Rectangle pattern for zenbed.
-        """
-        while True:
-            for i in range(1, 18):
-                for j in range(A, L):
-                    motora = Motor(j, i)
-                    motora.percent(0)
-                time.sleep(0.5)
-                for j in range(A, L):
-                    motora = Motor(j, i)
-                    motora.percent(0)
-
-    def Zigzagpattern(self):  # Current 1d array loop <- Functional
-        """
-        Zigzag pattern for zenbed.
-        """
-        
-                    
-    def Inifinitypattern(self, speed, power_level, width):
-        print("Incomplete")
+    
         
     def row(self, y, percent):
         for x in range(A, L):

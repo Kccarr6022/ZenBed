@@ -33,6 +33,7 @@ class Motor:
     def __init__(self, motorX, motorY):  # Motor(x, y) Creating ZenBed Matrix
 
         self.channel = 0  # default value is first channel
+        self.motor_power = 0
 
         # PCA0 < works correct
 
@@ -629,6 +630,8 @@ class Motor:
         self.PCA.channels[self.channel].duty_cycle = 0  # Turns off
 
     # Gives vibration motor percent power
+    
+    # 
 
     def percent(self, percentpower):  # Percent on
         """
@@ -638,8 +641,10 @@ class Motor:
         percentpower (int): percentage of the motor power
 
         """
-
+        
         if percentpower > 80:  # safety lock / testing
             percentpower = 80
+    
+        self.motor_power = percentpower
         self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
-                                                         * percentpower / 100)
+                                                         * self.motor_power / 100)
