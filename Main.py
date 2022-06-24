@@ -36,12 +36,14 @@ def print_grid(param):
 
          
 """
-    Motor on -> mtr[letter][number].percent(percent power)
+    Motor on -> Zenbed.mtr[letter][number].percent(percent power)
 """
 
 def main():
+
     Zenbed = ZenBed()
-    Zenbed.stop()
+    Zenbed.pattern(circle)
+    
 
 main()
 

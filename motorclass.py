@@ -585,7 +585,7 @@ class Motor:
             quit()
 
         if self != None:
-            self.PCA.frequency = 60
+            self.PCA.frequency = 1600
         pass
 
     # Turns on all motors connected to the PCA to 20%
