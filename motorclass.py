@@ -2,6 +2,7 @@
 from PCA import PCA9685
 from board import SCL, SDA  # Only works with RaspberryPi
 import busio
+import os
 
 # I2C
 
@@ -644,7 +645,14 @@ class Motor:
         
         if percentpower > 80:  # safety lock / testing
             percentpower = 80
-    
-        self.motor_power = percentpower
-        self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
-                                                         * self.motor_power / 100)
+        
+        if (percentpower < 0):
+            print("Negative power level")
+        else:
+            
+            if (self.motor_power > 0): print("\a") # Motor buzz    
+            
+            self.motor_power = percentpower
+            self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
+                                                             * self.motor_power / 100)
+

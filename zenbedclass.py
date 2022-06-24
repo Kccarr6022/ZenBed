@@ -30,9 +30,9 @@ class ZenBed:
         
         self.pattern_time = 10 # Percent
         self.pattern_start_power = 10 # The percent the motors increment by in a wave
-        self.pattern_max_power = 50
+        self.pattern_max_power = 90
         self.pattern_rate_of_change = 20
-        self.pattern_wave_length = 9
+        self.pattern_wave_length = 3
         self.mtr = []
 
         for x in range(0, MOTORGRIDXSIZE + 1):
@@ -59,11 +59,32 @@ class ZenBed:
                     if (sequence[x+add] != None):
                         sequence[x+add].percent(self.pattern_max_power - self.pattern_rate_of_change
                                                 * (self.pattern_wave_length - add))
-                        time.sleep(1/(len(sequence)) * pattern_time) # Pattern time will be pattern_time seconds
+                        time.sleep(1/(len(sequence)) * self.pattern_time) # Pattern time will be pattern_time seconds
                     if (sequence[x-1] != None):
                         sequence[x-1].percent(0) # Turns off previous motor
-    
-    
+                    self.status()
+                    
+    def status(self):
+        """
+        Outputs current power levels of motors in grid
+        """
+        for x in range(A, L+1):
+            for y in range(0, 19):
+                print((str(self.mtr[x][y].motor_power)), end ='')
+            print()
+            
+    def returnrow(self, y):
+        returned = []
+        for x in range(A, L):
+            returned.append(self.mtr[x][y])
+        return returned
+        
+    def returncolumn(self, x):
+        returned = []
+        for y in range(1, 19):
+            returned.append(self.mtr[x][y])
+        return returned
+        
         
     def row(self, y, percent):
         for x in range(A, L):
