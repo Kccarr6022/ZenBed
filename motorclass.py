@@ -37,6 +37,8 @@ class Motor:
         self.motor_power = 0
         self.x = motorX
         self.y = motorY
+        self.increasing = False # Set to either true or false 
+        self.decreasing = False # Set to either true or false
 
         # PCA0 < works correct
 

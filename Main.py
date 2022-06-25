@@ -5,6 +5,7 @@ import time
 import busio
 from board import SCL, SDA
 
+
 # creates i2c object
 i2c_bus = busio.I2C(SCL, SDA)
 
@@ -39,9 +40,9 @@ def main():
     Zenbed = ZenBed()
     #Zenbed.pattern(circle)
     Zenbed.pattern_time = 15
-    Zenbed.pattern_wave_length = 3 
-    print(str(Zenbed.pattern_rate_of_change))
-    #Zenbed.linearpattern(Zenbed.returnrow(18))
+    Zenbed.pattern_rate_of_change = 5
+    Zenbed.pattern_power = 50
+    #Zenbed.shiftpattern(Zenbed.returnrow(18))
     Zenbed.off()
-
+    
 main()
