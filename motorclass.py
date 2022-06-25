@@ -32,13 +32,15 @@ L = 12
 class Motor:
 
     def __init__(self, motorX, motorY):  # Motor(x, y) Creating ZenBed Matrix
-
+        
+        
+        self.PCA = PCA9685(i2c_bus, 0x40)
         self.channel = 0  # default value is first channel
         self.motor_power = 0
         self.x = motorX
         self.y = motorY
-        self.increasing = False # Set to either true or false 
-        self.decreasing = False # Set to either true or false
+        self.increasing = None # Set to either true or false 
+        self.decreasing = None # Set to either true or false
 
         # PCA0 < works correct
 
