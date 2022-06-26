@@ -90,65 +90,6 @@ class ZenBed:
             self.off()
             
     # Algorithms
-    def string_to_sequence(self, string):
-        string = string + "!"
-        print(string)
-        sequence = []
-        motors = []
-        #sequence.append([])
-        list = 0 # The list to append
-        count = 0
-        x = 0
-        y = 0
-        for char in range(0, len(string)):
-            if string[char] == '!':
-                for x in sequence:
-                    for mtr in x:
-                        print(chr(mtr.x + 64) + str(mtr.y), end = ' ')
-                    print()
-            if count % 3 == 0: # X coordinate
-                x = ord(string[char]) - ord('A') + 1
-            elif count % 3 == 1: # Y coordinate
-                if (0 <= (ord(string[char + 1]) - ord('0')) <= 9):
-                    y = 10
-                    continue            
-                if y < 10:
-                    y = ord(string[char]) - ord('0')
-                elif y == 10:
-                    y = y + ord(string[char]) - ord('0')
-                motors.append(self.mtr[x][y])
-                print("Added motor " + chr(x + 64) + str(y) + " to list " + str(list))
-
-            elif count % 3 == 2: # Operation
-                if (string[char] == ' '):
-                    pass
-                elif (string[char] == ','):
-                    sequence.append(motors)
-                    print("Motors", end = ' ')
-                    for x in sequence[list]:
-                        print(chr(x.x + 64) + str(x.y), end = ' ')
-                    print("passed successfully.")
-                    motors = []
-                    list = list + 1
-                    x = 0
-                    y = 0
-                    continue
-                elif string[char] == '!':
-                    sequence.append(motors)
-                    print("Motors")
-                    for x in motors:
-                        print(chr(x.x + 64) + str(x.y), end = ' ')
-                    print("passed successfully.")
-                    return sequence
-                else:
-                    sequence.append(motors)
-                    print(string)
-                    return sequence
-            else:
-                print(string)
-                return sequence
-            count = count + 1
-            
     def string_to_seq(self, string):
         string = string + "!"
         list = 0
@@ -159,11 +100,11 @@ class ZenBed:
         y = 0
         for char in range(0, len(string), 1):
             
-            if ('A' <= string[char] <= 'L'):
+            if 'A' <= string[char] <= 'L':
                 x = ord(string[char]) - ord('A') + 1
             
-            elif ('0' <= string[char] <= '9'):
-                if ('0' <= string[char + 1] <= '9'):
+            elif '0' <= string[char] <= '9':
+                if '0' <= string[char + 1] <= '9':
                     y = 10
                     continue
                 y = y + ord(string[char]) - ord('0')
@@ -172,7 +113,7 @@ class ZenBed:
                 x = 0
                 y = 0
                 
-            elif (string[char] == ','):
+            elif string[char] == ',':
                 sequence.insert(list, motors)
                 print("Motors", end = ' ')
                 for x in motors:
@@ -181,7 +122,7 @@ class ZenBed:
                 list = list + 1
                 motors = []
                 
-            elif (string[char] == '!'):
+            elif string[char] == '!':
                 sequence.insert(list, motors)
                 list = list + 1
                 print("Motors ")
@@ -192,43 +133,12 @@ class ZenBed:
             else:
                 continue
         
-            
-    
-    def linearpattern(self, sequence):  # Takes double list of motors and converts to pattern.
-        """
-        Takes a pattern sequence and translates this into a functional pattern in zenbed.
-        """
-        if (len(sequence) < self.pattern_wave_length):
-            print("Pattern wave length is greater than sequence")
-            return
-        while True:
-            for current in range(0, len(sequence), 1):
-                self.start = time.perf_counter()
-                for wave_pos in range(0, self.pattern_wave_length + 1, 1):
-                    if (sequence[current+wave_pos].x <= MOTORGRIDXSIZE or sequence[current+wave_pos].y <= MOTORGRIDYSIZE):
-                        if (wave_pos <= (self.pattern_wave_length/2 + 1)):
-                            sequence[current+wave_pos].percent(self.pattern_start_power + self.pattern_rate_of_change * wave_pos)
-                        else:
-                            sequence[current+wave_pos].percent(self.pattern_max_power - self.pattern_rate_of_change * (wave_pos - (self.pattern_wave_length/2 + 1)))
-                        
 
-                    else:
-                        return
-                if (sequence[current-1] != None):
-                    sequence[current-1].percent(0) # Turns off previous motor
-                self.end = time.perf_counter() - self.start
-                time.sleep(self.end) # Pattern time will be pattern_time seconds
-                self.end = time.perf_counter() - self.start
-                self.status()
-     
      
     def sequence_to_pattern(self, sequence):  # Takes double list of motors and converts to pattern.
         """
         Takes a pattern sequence and translates this into a functional pattern in zenbed.
         """
-        
-        
-        
         sequence[0][0].increasing = True # Pattern start
             
         while True:
@@ -237,10 +147,10 @@ class ZenBed:
             for check in range(0, len(sequence), 1):
                 
                 # Checks if motor is increasing or decreasing
-                if sequence[check][0].increasing == True:
+                if sequence[check][0].increasing:
                     for motor in range(0, len(sequence[check])):
                         sequence[check][motor].percent(sequence[check][motor].motor_power + self.pattern_rate_of_change)
-                elif sequence[check][0].decreasing == True:
+                elif sequence[check][0].decreasing:
                     for motor in range(0, len(sequence[check])):
                         sequence[check][motor].percent(sequence[check][motor].motor_power - self.pattern_rate_of_change)
                 
@@ -253,6 +163,12 @@ class ZenBed:
                 elif sequence[check][0].motor_power == 0:
                     sequence[check][0].decreasing = False
                 
+            self.end = time.perf_counter() - self.start
+            try:
+                time.sleep(self.pattern_time - self.end)
+            except ValueError as error:
+                print("The pattern frame ran ", '{:.6f}s '.format(-1 * (self.pattern_time - self.end)), "over the set latency!")
+
             self.end = time.perf_counter() - self.start
             self.status()
             
@@ -270,7 +186,7 @@ class ZenBed:
                     # Checks if motor is increasing or decreasing
                     if self.mtr[1][1].motor_power < self.pattern_max_power and self.mtr[1][1].decreasing != True:
                         self.mtr[x][y].percent(self.mtr[x][y].motor_power + self.pattern_rate_of_change)
-                    elif self.mtr[1][1].decreasing == True:
+                    elif self.mtr[1][1].decreasing:
                         self.mtr[x][y].percent(self.mtr[x][y].motor_power - self.pattern_rate_of_change)
                     elif self.mtr[1][1].motor_power >= self.pattern_max_power:
                         self.mtr[1][1].decreasing = True
@@ -295,14 +211,14 @@ class ZenBed:
         print()
         
             
-    def returnrow(self, y):
+    def return_row(self, y):
         returned = []
         for x in range(0, MOTORGRIDXSIZE):
             returned.append([])
             returned[x].append(self.mtr[x][y])
         return returned
         
-    def returncolumn(self, x):
+    def return_column(self, x):
         returned = []
         for y in range(1, 19):
             returned.append(self.mtr[x][y])
