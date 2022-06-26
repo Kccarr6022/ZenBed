@@ -52,12 +52,13 @@ def pattern(bed, pattern):
 def main():
     Zenbed = ZenBed()
     #rectangle_array = Zenbed.string_to_seq(Zenbed.string_rectangle)
-    Zenbed.pattern_rate_of_change = 5
+    #Zenbed.pattern_rate_of_change = 5
     #Zenbed.status()
     #Zenbed.sequence_to_pattern(Zenbed.rectangle)
     #pattern(Zenbed, Zenbed.string_rectangle)
-    Zenbed.all_motors_increase()
-    #pattern(Zenbed, input("Enter in a pattern: "))
+    #Zenbed.all_motors_increase()
+    #patterns = "A1 A2 A3, A4, A5, A6, A7"
+    #pattern(Zenbed, patterns)
     Zenbed.off()
     
     

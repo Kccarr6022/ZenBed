@@ -105,7 +105,7 @@ class ZenBed:
             if string[char] == '!':
                 for x in sequence:
                     for mtr in x:
-                        print(chr(mtr.x + 64) + str(mtr.x), end = ' ')
+                        print(chr(mtr.x + 64) + str(mtr.y), end = ' ')
                     print()
             if count % 3 == 0: # X coordinate
                 x = ord(string[char]) - ord('A') + 1
@@ -127,7 +127,7 @@ class ZenBed:
                     sequence.append(motors)
                     print("Motors", end = ' ')
                     for x in sequence[list]:
-                        print(chr(x.x + 64) + str(x.x), end = ' ')
+                        print(chr(x.x + 64) + str(x.y), end = ' ')
                     print("passed successfully.")
                     motors = []
                     list = list + 1
@@ -138,7 +138,7 @@ class ZenBed:
                     sequence.append(motors)
                     print("Motors")
                     for x in motors:
-                        print(chr(x.x + 64) + str(x.x), end = ' ')
+                        print(chr(x.x + 64) + str(x.y), end = ' ')
                     print("passed successfully.")
                     return sequence
                 else:
