@@ -1,12 +1,26 @@
 # -*- coding: utf-8 -*-
-from PCA import PCA9685
-from board import SCL, SDA  # Only works with RaspberryPi
-import busio
+try:
+    from PCA import PCA9685
+    from board import SCL, SDA  # Only works with RaspberryPi
+    import busio
+except:
+    print("Not connected to Zenbed")
+    print("Entering remote development mode...")
+    remote_dev = True
+
 import os
+import time
 
 # I2C
 
-i2c_bus = busio.I2C(SCL, SDA)
+try:
+    i2c_bus = busio.I2C(SCL, SDA)
+    print("Zenbed connected")
+    time.sleep(5)
+
+except NameError as error:
+    print("Zenbed not connected")
+    time.sleep(5)
 
 # MotorGrid Size
 
@@ -32,21 +46,25 @@ L = 12
 class Motor:
 
     def __init__(self, motorX, motorY):  # Motor(x, y) Creating ZenBed Matrix
-        
-        
-        self.PCA = PCA9685(i2c_bus, 0x40)
+        try:
+            self.PCA = PCA9685(i2c_bus, 0x40)
+        except NameError as error:
+            print("No PCA detected")
         self.channel = 0  # default value is first channel
         self.motor_power = 0
         self.x = motorX
         self.y = motorY
-        self.increasing = None # Set to either true or false 
-        self.decreasing = None # Set to either true or false
+        self.increasing = None  # Set to either true or false
+        self.decreasing = None  # Set to either true or false
 
         # PCA0 < works correct
 
         if A <= motorX <= F and 1 <= motorY <= 2 or motorY == 3 and A \
                 <= motorX <= D:
-            self.PCA = PCA9685(i2c_bus, 0x40)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x40)
 
             if motorX == A and motorY == 1:
                 self.channel = 0
@@ -85,7 +103,10 @@ class Motor:
 
             # PCA1 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x41)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x41)
 
             if motorX == E and motorY == 3:
                 self.channel = 0
@@ -124,7 +145,10 @@ class Motor:
 
             # PCA2 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x42)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x42)
 
             if motorX == C and motorY == 6:
                 self.channel = 0
@@ -162,7 +186,10 @@ class Motor:
 
             # PCA3 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x43)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x43)
 
             if motorX == A and motorY == 9:
                 self.channel = 0
@@ -181,7 +208,10 @@ class Motor:
 
             # PCA4 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x44)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x44)
 
             if motorX == A and motorY == 10:
                 self.channel = 0
@@ -220,7 +250,10 @@ class Motor:
 
             # PCA5 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x45)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x45)
 
             if motorX == E and motorY == 12:
                 self.channel = 0
@@ -259,7 +292,10 @@ class Motor:
 
             # PCA6 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x46)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x46)
 
             if motorX == C and motorY == 15:
                 self.channel = 0
@@ -297,7 +333,10 @@ class Motor:
 
             # PCA7 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x47)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x47)
 
             if motorX == A and motorY == 18:
                 self.channel = 0
@@ -316,7 +355,10 @@ class Motor:
 
             # PCA8 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x48)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x48)
 
             if motorX == G and motorY == 1:
                 self.channel = 0
@@ -355,7 +397,10 @@ class Motor:
 
             # PCA9 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x49)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x49)
 
             if motorX == K and motorY == 3:
                 self.channel = 0
@@ -394,7 +439,10 @@ class Motor:
 
             # PCA10 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4a)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x4a)
 
             if motorX == I and motorY == 6:
                 self.channel = 0
@@ -432,7 +480,10 @@ class Motor:
 
             # PCA11 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4b)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x4b)
 
             if motorX == G and motorY == 9:
                 self.channel = 0
@@ -451,7 +502,10 @@ class Motor:
 
             # PCA12 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4c)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x4c)
 
             if motorX == G and motorY == 10:
                 self.channel = 0
@@ -490,7 +544,10 @@ class Motor:
 
             # PCA13 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4d)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x4d)
 
             if motorX == K and motorY == 12:
                 self.channel = 0
@@ -529,7 +586,10 @@ class Motor:
 
             # PCA14 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4e)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x4e)
 
             if motorX == I and motorY == 15:
                 self.channel = 0
@@ -567,7 +627,10 @@ class Motor:
 
             # PCA15 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4f)
+            if remote_dev:
+                pass
+            else:
+                self.PCA = PCA9685(i2c_bus, 0x4f)
 
             if motorX == G and motorY == 18:
                 self.channel = 0
@@ -592,22 +655,25 @@ class Motor:
             'x is ' + str(motorX) + ' y is ' + str(motorY)
             quit()
 
-        if self != None:
+        try:
             self.PCA.frequency = 60
-        pass
+        except AttributeError as error:
+            pass
 
     # Turns on all motors connected to the PCA to 20%
 
     def Testpcas(self):
         """
         Tests the PCA attached is functioning.
-
         In order to ensure that the circuitry for the bed is functioning
         properly this function will turn on all motors connected to the PCA.
         """
 
-        for i in range(0, 15):
-            self.PCA.channels[i].duty_cycle = int(0xfffe * 0)  # Turns on to 20%
+        if self.PCA:
+            for i in range(0, 15):
+                self.PCA.channels[i].duty_cycle = int(0xfffe * 0)  # Turns on to 20%
+        else:
+            pass
 
     # Turns on motor
 
@@ -616,7 +682,8 @@ class Motor:
         Sets motor to full power.
         """
 
-        self.PCA.channels[self.channel].duty_cycle = 0xfffe  # Turns on to full
+        if self.PCA:
+            self.PCA.channels[self.channel].duty_cycle = 0xfffe  # Turns on to full
 
     # Turns motor to 50%
 
@@ -624,8 +691,8 @@ class Motor:
         """
         Sets motor to 50% power.
         """
-
-        self.PCA.channels[self.channel].duty_cycle = 0x7FFF  # Turns on to half
+        if self.PCA:
+            self.PCA.channels[self.channel].duty_cycle = 0x7FFF  # Turns on to half
 
     # Turns motor to 0
 
@@ -633,30 +700,31 @@ class Motor:
         """
         Sets motor to 0% power.
         """
-
-        self.PCA.channels[self.channel].duty_cycle = 0  # Turns off
+        if self.PCA:
+            self.PCA.channels[self.channel].duty_cycle = 0  # Turns off
 
     # Gives vibration motor percent power
-    
-    # 
+
+    #
 
     def percent(self, percentpower):  # Percent on
         """
         Sets motor to user defined power in percent.
-
         Parameters:
         percentpower (int): percentage of the motor power
-
         """
-        
+
         if percentpower > 80:  # safety lock / testing
             percentpower = 80
-        
+
         if (percentpower < 0):
             print("Negative power level")
         else:
-              
-            self.motor_power = int(percentpower)
-            self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
-                                                             * self.motor_power / 100)
 
+            self.motor_power = int(percentpower)
+
+            try:
+                self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
+                                                                 * self.motor_power / 100)
+            except AttributeError as error:
+                pass
