@@ -44,21 +44,26 @@ MOTORGRIDYSIZE = 18
 """
 
 
-Rectangle = "A1 A2 A3 A4 A5 A6 A7 A8 A9 A9, B1"
+
 
 def pattern(bed, pattern):
     bed.sequence_to_pattern(bed.string_to_seq(pattern))
 
+rectangle = "D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E11, D12 E12, D13 E13, D14 E14, D15 E15, D16 D17 E16 E17, F16 F17, G16 G17, H16 H17 I16 I17, H15 I15, H14 I14, H13 I13, H12 I12, H11 I11, H10 I10, H9 I9, H8 I8, H7 I7, H6 I6, H5 I5, H4 I4, H3 I3 H2 I2, G2 G3, F2 F3, D2 E2 Dsd3 E3"
+
+
+
 def main():
     Zenbed = ZenBed()
     #rectangle_array = Zenbed.string_to_seq(Zenbed.string_rectangle)
-    #Zenbed.pattern_rate_of_change = 5
+    Zenbed.pattern_rate_of_change = 5
+    Zenbed.pattern_max_power = 40
+    Zenbed.pattern_start_power = 10
     #Zenbed.status()
     #Zenbed.sequence_to_pattern(Zenbed.rectangle)
     #pattern(Zenbed, Zenbed.string_rectangle)
     #Zenbed.all_motors_increase()
-    #patterns = "A1 A2 A3, A4, A5, A6, A7"
-    #pattern(Zenbed, patterns)
+    Zenbed.pattern(rectangle) # 
     Zenbed.off()
     
     

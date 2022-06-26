@@ -88,8 +88,7 @@ class ZenBed:
         
         def __del__(self):
             self.off()
-
-        
+            
     # Algorithms
     def string_to_sequence(self, string):
         string = string + "!"
@@ -256,6 +255,9 @@ class ZenBed:
                 
             self.end = time.perf_counter() - self.start
             self.status()
+            
+    def pattern(self, pattern):
+        self.sequence_to_pattern(self.string_to_seq(pattern))
     
     def all_motors_increase(self):  # Takes double list of motors and converts to pattern.
         """
