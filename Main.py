@@ -44,8 +44,11 @@ MOTORGRIDYSIZE = 18
     Zenbed.pattern_start_power = 20 * self.pattern_percent_power # Where the first motor in the wave starts by
     Zenbed.pattern_max_power = 50 * self.pattern_percent_power # Where the power in the wave is highest
     Zenbed.pattern_rate_of_change =  1 * self.pattern_percent_power # The option to change the rate of power increments
-"""
-
+    
+    for x in range(A,L + 1): 
+        for y in range(1,19):
+            Zenbed.mtr[x][y].percent(20) #Set all motors to power level
+    """
 
 
 
@@ -59,14 +62,17 @@ randodiagnal = "A1, B2, C3, D4, E5, F6, G7 H7, G8 H8, G9 H9, G10 H10, G11 G12 H1
 def main():
     Zenbed = ZenBed()
     #rectangle_array = Zenbed.string_to_seq(Zenbed.string_rectangle)
-    Zenbed.pattern_rate_of_change = 5
+    Zenbed.pattern_rate_of_change = 15
     Zenbed.pattern_max_power = 40
     Zenbed.pattern_start_power = 10
-    Zenbed.status()
     #Zenbed.sequence_to_pattern(Zenbed.rectangle)
     #pattern(Zenbed, Zenbed.string_rectangle)
     #Zenbed.all_motors_increase()
-    #Zenbed.pattern(randodiagnal) # 
+    #Zenbed.pattern(rectangle)
+    #Zenbed.mtr[B][18].percent(30) #Set the power level of a single motor
+    #Zenbed.on(20) #Also sets all motors to power level
+    Zenbed.status()
+    time.sleep(10)
     Zenbed.off()
     
     
