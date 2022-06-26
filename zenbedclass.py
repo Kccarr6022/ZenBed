@@ -260,15 +260,18 @@ class ZenBed:
     def all_motors_increase(self):  # Takes double list of motors and converts to pattern.
         """
         Takes a pattern sequence and translates this into a functional pattern in zenbed.
-        """
+        """ 
         while True:
             self.start = time.perf_counter()
-            #ramp down == False 
             for x in range(0, MOTORGRIDXSIZE + 1):
                 for y in range(0, MOTORGRIDYSIZE + 1):
                     # Checks if motor is increasing or decreasing
-                    if self.mtr[1][1].motor_power < self.pattern_max_power:
+                    if self.mtr[1][1].motor_power < self.pattern_max_power and self.mtr[1][1].decreasing != True:
                         self.mtr[x][y].percent(self.mtr[x][y].motor_power + self.pattern_rate_of_change)
+                    elif self.mtr[1][1].decreasing == True:
+                        self.mtr[x][y].percent(self.mtr[x][y].motor_power - self.pattern_rate_of_change)
+                    elif self.mtr[1][1].motor_power >= self.pattern_max_power:
+                        self.mtr[1][1].decreasing = True
                     else:
                         self.mtr[x][y].percent(self.mtr[x][y].motor_power - self.pattern_rate_of_change)
             

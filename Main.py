@@ -56,7 +56,8 @@ def main():
     #Zenbed.status()
     #Zenbed.sequence_to_pattern(Zenbed.rectangle)
     #pattern(Zenbed, Zenbed.string_rectangle)
-    pattern(Zenbed, input("Enter in a pattern: "))
+    Zenbed.all_motors_increase()
+    #pattern(Zenbed, input("Enter in a pattern: "))
     Zenbed.off()
     
     
