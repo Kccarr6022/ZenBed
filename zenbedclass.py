@@ -81,56 +81,119 @@ class ZenBed:
                           [self.mtr[F][2], self.mtr[F][3]],
                           [self.mtr[D][2], self.mtr[E][2], self.mtr[D][3], self.mtr[E][3]]
                           ]
-
+        
+        self.string_rectangle = "D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E11, D12 E12, D13 E13, D14 E14, D15 E15, D16 D17 E16 E17, F16 F17, G16 G17, H16 H17 I16 I17, H15 I15, H14 I14, H13 I13, H12 I12, H11 I11, H10 I10, H9 I9, H8 I8, H7 I7, H6 I6, H5 I5, H4 I4, H3 I3 H2 I2, G2 G3, F2 F3, D2 E2 Dsd3 E3"
+        # self.string_test = "D4 E14, D5 E5"
+         #self.zigzag = []
         
         def __del__(self):
             self.off()
 
-    #self.zigzag = []
-    #self.testtopbottom = []
-    #self.testtopbottom
-    
         
     # Algorithms
     def string_to_sequence(self, string):
+        string = string + "!"
+        print(string)
         sequence = []
-        sequence.append([])
-        list = 0 # The list to append to
-        element = 0
+        motors = []
+        #sequence.append([])
+        list = 0 # The list to append
         count = 0
         x = 0
         y = 0
         for char in range(0, len(string)):
+            if string[char] == '!':
+                for x in sequence:
+                    for mtr in x:
+                        print(chr(mtr.x + 64) + str(mtr.x), end = ' ')
+                    print()
             if count % 3 == 0: # X coordinate
                 x = ord(string[char]) - ord('A') + 1
             elif count % 3 == 1: # Y coordinate
-                try:
-                    if (0 <= (ord(string[char + 1]) - ord('0')) <= 9):
-                        y = 10
-                        continue
-                
-                    if y < 10:
-                        y = ord(string[char]) - ord('0')
-                    elif y == 10:
-                        y = y + ord(string[char]) - ord('0')
-                    sequence[list].append(self.mtr[x][y])
-                except IndexError: 
-                    return sequence 
+                if (0 <= (ord(string[char + 1]) - ord('0')) <= 9):
+                    y = 10
+                    continue            
+                if y < 10:
+                    y = ord(string[char]) - ord('0')
+                elif y == 10:
+                    y = y + ord(string[char]) - ord('0')
+                motors.append(self.mtr[x][y])
+                print("Added motor " + chr(x + 64) + str(y) + " to list " + str(list))
+
             elif count % 3 == 2: # Operation
                 if (string[char] == ' '):
-                    element = element + 1
+                    pass
                 elif (string[char] == ','):
-                    element = 0
-                    sequence.append([])
+                    sequence.append(motors)
+                    print("Motors", end = ' ')
+                    for x in sequence[list]:
+                        print(chr(x.x + 64) + str(x.x), end = ' ')
+                    print("passed successfully.")
+                    motors = []
                     list = list + 1
+                    x = 0
+                    y = 0
+                    continue
+                elif string[char] == '!':
+                    sequence.append(motors)
+                    print("Motors")
+                    for x in motors:
+                        print(chr(x.x + 64) + str(x.x), end = ' ')
+                    print("passed successfully.")
+                    return sequence
                 else:
+                    sequence.append(motors)
+                    print(string)
                     return sequence
             else:
+                print(string)
                 return sequence
             count = count + 1
             
-    
-    
+    def string_to_seq(self, string):
+        string = string + "!"
+        list = 0
+        element = 0
+        sequence = []
+        motors = []
+        x = 0
+        y = 0
+        for char in range(0, len(string), 1):
+            
+            if ('A' <= string[char] <= 'L'):
+                x = ord(string[char]) - ord('A') + 1
+            
+            elif ('0' <= string[char] <= '9'):
+                if ('0' <= string[char + 1] <= '9'):
+                    y = 10
+                    continue
+                y = y + ord(string[char]) - ord('0')
+                motors.insert(element, self.mtr[x][y])
+                print("Added motor " + chr(x + 64) + str(y) + " to list ")
+                x = 0
+                y = 0
+                
+            elif (string[char] == ','):
+                sequence.insert(list, motors)
+                print("Motors", end = ' ')
+                for x in motors:
+                        print(chr(x.x + 64) + str(x.y), end = ' ')
+                print("passed successfully.")
+                list = list + 1
+                motors = []
+                
+            elif (string[char] == '!'):
+                sequence.insert(list, motors)
+                list = list + 1
+                print("Motors ")
+                for x in motors:
+                        print(chr(x.x + 64) + str(x.y), end = ' ')
+                print("passed successfully.")
+                return sequence
+            else:
+                continue
+        
+            
     
     def linearpattern(self, sequence):  # Takes double list of motors and converts to pattern.
         """
@@ -164,9 +227,8 @@ class ZenBed:
         """
         Takes a pattern sequence and translates this into a functional pattern in zenbed.
         """
-        if (len(sequence) < self.pattern_wave_length):
-            print("Pattern wave length is greater than sequence")
-            return
+        
+        
         
         sequence[0][0].increasing = True # Pattern start
             
@@ -184,9 +246,9 @@ class ZenBed:
                         sequence[check][motor].percent(sequence[check][motor].motor_power - self.pattern_rate_of_change)
                 
                 # Checks if motor power reaches start power
-                if sequence[check - 1][0].motor_power == self.pattern_start_power and sequence[check][0].motor_power == 0:
+                if sequence[check - 1][0].motor_power >= self.pattern_start_power and sequence[check][0].motor_power == 0:
                     sequence[check][0].increasing = True
-                elif sequence[check][0].motor_power == self.pattern_max_power:
+                elif sequence[check][0].motor_power >= self.pattern_max_power:
                     sequence[check][0].decreasing = True
                     sequence[check][0].increasing  = False
                 elif sequence[check][0].motor_power == 0:
@@ -195,9 +257,26 @@ class ZenBed:
             self.end = time.perf_counter() - self.start
             self.status()
     
+    def all_motors_increase(self):  # Takes double list of motors and converts to pattern.
+        """
+        Takes a pattern sequence and translates this into a functional pattern in zenbed.
+        """
+        while True:
+            self.start = time.perf_counter()
+            #ramp down == False 
+            for x in range(0, MOTORGRIDXSIZE + 1):
+                for y in range(0, MOTORGRIDYSIZE + 1):
+                    # Checks if motor is increasing or decreasing
+                    if self.mtr[1][1].motor_power < self.pattern_max_power:
+                        self.mtr[x][y].percent(self.mtr[x][y].motor_power + self.pattern_rate_of_change)
+                    else:
+                        self.mtr[x][y].percent(self.mtr[x][y].motor_power - self.pattern_rate_of_change)
+            
+            self.end = time.perf_counter() - self.start
+            self.status()
     
     def status(self):
-        for y in range(0, 19):
+        for y in range(1, 19):
             for x in range(A, L+1):
                 if 10 <= self.mtr[x][y].motor_power <= 99:
                     print( str(self.mtr[x][y].motor_power), end =' ')
@@ -242,7 +321,7 @@ class ZenBed:
         for y in range (1, 19):
             for x in range (A, L+1):
                 self.mtr[x][y].percent(percent)
-    
+
     def off(self):
         for y in range (1, 19):
             for x in range (A, L+1):

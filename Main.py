@@ -46,14 +46,18 @@ MOTORGRIDYSIZE = 18
 
 Rectangle = "A1 A2 A3 A4 A5 A6 A7 A8 A9 A9, B1"
 
-def main():
+def pattern(bed, pattern):
+    bed.sequence_to_pattern(bed.string_to_seq(pattern))
 
+def main():
     Zenbed = ZenBed()
-    Zenbed.pattern_start_power = 10
-    Zenbed.pattern_rate_of_change =  5
+    #rectangle_array = Zenbed.string_to_seq(Zenbed.string_rectangle)
+    Zenbed.pattern_rate_of_change = 5
+    #Zenbed.status()
     #Zenbed.sequence_to_pattern(Zenbed.rectangle)
-    #Zenbed.sequence_to_pattern(Zenbed.string_to_sequence(Zenbed.rectangle))
-    Zenbed.status()
+    #pattern(Zenbed, Zenbed.string_rectangle)
+    pattern(Zenbed, input("Enter in a pattern: "))
     Zenbed.off()
+    
     
 main()

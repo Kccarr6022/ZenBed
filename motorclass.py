@@ -593,7 +593,7 @@ class Motor:
             quit()
 
         if self != None:
-            self.PCA.frequency = 1600
+            self.PCA.frequency = 60
         pass
 
     # Turns on all motors connected to the PCA to 20%
@@ -655,9 +655,7 @@ class Motor:
         if (percentpower < 0):
             print("Negative power level")
         else:
-            
-            if (self.motor_power > 0): print("\a") # Motor buzz    
-            
+              
             self.motor_power = int(percentpower)
             self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
                                                              * self.motor_power / 100)
