@@ -33,6 +33,9 @@ MOTORGRIDYSIZE = 18
          
 """
     Motor on -> Zenbed.mtr[letter][number].percent(percent power)
+    Pattern -> variable_name = "Capital letter first (X coordinate) -> number (Y coordinate) -> comma (Seperates the elements grouped)" 
+    
+    Put variable_name in Zenbed.pattern(variable_name)
     
     Zenbed.pattern_wave_length = 3
     Zenbed.pattern_time = 10 # Time in seconds of patterns
