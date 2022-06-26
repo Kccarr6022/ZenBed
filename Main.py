@@ -1,9 +1,5 @@
 from motorclass import Motor
 from zenbedclass import ZenBed
-from PCA import PCA9685
-import time
-import busio
-from board import SCL, SDA
 
 
 # creates i2c object
