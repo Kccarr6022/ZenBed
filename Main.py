@@ -54,7 +54,7 @@ def pattern(bed, pattern):
 
 rectangle = "D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E11, D12 E12, D13 E13, D14 E14, D15 E15, D16 D17 E16 E17, F16 F17, G16 G17, H16 H17 I16 I17, H15 I15, H14 I14, H13 I13, H12 I12, H11 I11, H10 I10, H9 I9, H8 I8, H7 I7, H6 I6, H5 I5, H4 I4, H3 I3 H2 I2, G2 G3, F2 F3, D2 E2 Dsd3 E3"
 
-
+randodiagnal = "A1, B2, C3, D4, E5, F6, G7 H7, G8 H8, G9 H9, G10 H10, G11 G12 H11 H12, F11 F12, E11 E12, D11 D12, C11 C12, B11 B12, A11 A12, A10, A9, A8, A7, A6, A5, A4, A3, A2, A1"
 
 def main():
     Zenbed = ZenBed()
@@ -62,11 +62,11 @@ def main():
     Zenbed.pattern_rate_of_change = 5
     Zenbed.pattern_max_power = 40
     Zenbed.pattern_start_power = 10
-    #Zenbed.status()
+    Zenbed.status()
     #Zenbed.sequence_to_pattern(Zenbed.rectangle)
     #pattern(Zenbed, Zenbed.string_rectangle)
     #Zenbed.all_motors_increase()
-    Zenbed.pattern(rectangle) # 
+    #Zenbed.pattern(randodiagnal) # 
     Zenbed.off()
     
     
