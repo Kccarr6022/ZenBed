@@ -80,10 +80,10 @@ class ZenBed:
                           [self.mtr[D][2], self.mtr[E][2], self.mtr[D][3], self.mtr[E][3]]
                           ]
 
-        self.string_rectangle = "D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E11, D12 E12, D13 E13, " \ 
-                                "D14 E14, D15 E15, D16 D17 E16 E17, F16 F17, G16 G17, H16 H17 I16 I17, H15 I15, " \
-                                "H14 I14, H13 I13, H12 I12, H11 I11, H10 I10, H9 I9, H8 I8, H7 I7, H6 I6, H5 I5, " \
-                                "H4 I4, H3 I3 H2 I2, G2 G3, F2 F3, D2 E2 Dsd3 E3 "
+        self.string_rectangle = """D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E11, D12 E12, D13 E13, 
+                                D14 E14, D15 E15, D16 D17 E16 E17, F16 F17, G16 G17, H16 H17 I16 I17, H15 I15,
+                                "H14 I14, H13 I13, H12 I12, H11 I11, H10 I10, H9 I9, H8 I8, H7 I7, H6 I6, H5 I5,
+                                "H4 I4, H3 I3 H2 I2, G2 G3, F2 F3, D2 E2 D3 E3 """
 
         # self.string_test = "D4 E14, D5 E5"
         # self.zigzag = []
