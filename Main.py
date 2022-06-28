@@ -1,5 +1,7 @@
 from motorclass import Motor
 from zenbedclass import ZenBed
+from sequences import expanding_circle
+import time
 
 # Letters
 A = 1
@@ -49,11 +51,11 @@ pattern_1 = "A1, B2, C3, D4, E5, F6, G7 H7, G8 H8, G9 H9, G10 H10, G11 G12 H11 H
 def main():
     zenbed = ZenBed()
     # rectangle_array = Zenbed.string_to_seq(Zenbed.string_rectangle)
-    zenbed.pattern_rate_of_change = 15
+    zenbed.pattern_rate_of_change = 3
     zenbed.pattern_max_power = 40
-    zenbed.pattern_start_power = 10
+    zenbed.pattern_start_power = 20
 
-    zenbed.pattern(rectangle)
+    zenbed.pattern(expanding_circle)
     zenbed.status()
     time.sleep(10)
     zenbed.off()
