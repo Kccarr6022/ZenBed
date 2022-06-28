@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 try:
-    from PCA import PCA9685
+    from ..PCA import PCA9685
     from board import SCL, SDA  # Only works with RaspberryPi
     import busio
 except:
