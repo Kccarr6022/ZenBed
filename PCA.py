@@ -28,9 +28,9 @@ __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_PCA9685.git"
 
 import time
 
-from adafruit_register.i2c_struct import UnaryStruct
-from adafruit_register.i2c_struct_array import StructArray
-from adafruit_bus_device import i2c_device
+from adafruit.adafruit_register.i2c_struct import UnaryStruct
+from adafruit.adafruit_register.i2c_struct_array import StructArray
+from adafruit.adafruit_bus_device import i2c_device
 
 try:
     from typing import Optional, Type
