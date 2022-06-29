@@ -1,6 +1,6 @@
 from classes.zenbedclass import ZenBed
 from sequences import expanding_circle_sequence
-from patterns import expanding_circle, Rectangle
+from patterns import expanding_circle, rectangle
 import time
 
 # Letters
@@ -50,7 +50,7 @@ pattern_1 = "A1, B2, C3, D4, E5, F6, G7 H7, G8 H8, G9 H9, G10 H10, G11 G12 H11 H
 
 def main():
     zenbed = ZenBed()
-    zenbed.pattern(Expanding_circle)
+    zenbed.pattern(expanding_circle)
     zenbed.status()
     zenbed.off()
     return 0
