@@ -1,6 +1,6 @@
 from classes.zenbedclass import ZenBed
-from sequences import expanding_circle 
-from patterns import Expanding_circle, Rectangle
+from sequences import expanding_circle_sequence
+from patterns import expanding_circle, Rectangle
 import time
 
 # Letters
