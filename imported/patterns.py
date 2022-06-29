@@ -1,4 +1,4 @@
-from classes.patternclass import Pattern
+from ..classes.patternclass import Pattern
 
 # Imported pattern 1 -> rectangle
 rectangle = Pattern()
