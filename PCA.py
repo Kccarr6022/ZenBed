@@ -28,8 +28,8 @@ __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_PCA9685.git"
 
 import time
 
-from adafruit.adafruit_register import UnaryStruct
-from adafruit.adafruit_register import StructArray
+from adafruit.adafruit_register.i2c_struct import UnaryStruct
+from adafruit.adafruit_register.i2c_struct_array import StructArray
 from adafruit.adafruit_bus_device.i2c_device import i2c_device
 
 try:
