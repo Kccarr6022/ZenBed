@@ -6,6 +6,7 @@ MOTORGRIDYSIZE = 18
 
 class Pattern:
     def __init__(self) -> None:
+        self.name = ""
         self.time = 0.1  # default time per frame
         self.percent_power = 100 # default percentage power
         self.start_power = 20 # default start power

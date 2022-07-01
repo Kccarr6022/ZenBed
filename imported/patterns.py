@@ -1,7 +1,8 @@
-from ..classes.patternclass import Pattern
+from classes.patternclass import Pattern
 
 # Imported pattern 1 -> rectangle
 rectangle = Pattern()
+rectangle.name = "rectangle"
 rectangle.time = 0.1
 rectangle.rate_of_change = 1
 rectangle.max_power = 50
@@ -14,10 +15,11 @@ rectangle.sequence = """D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E
 
 # Imported pattern 2 -> expanding_circle
 expanding_circle = Pattern()
+expanding_circle.name = "expanding_circle"
 expanding_circle.time = 0.1
-expanding_circle.rate_of_change = 5
+expanding_circle.rate_of_change = 3
 expanding_circle.max_power = 50
-expanding_circle.start_power = 10
+expanding_circle.start_power = 20
 expanding_circle.percent_power = 100
 expanding_circle.sequence = """F7 G7, F6 G6 F8 G8, E5 E6 E7 E8 E9 F5 F9 G5 G9 H5 H6 H7 H8 H9, D4 D5 D6 D7 D8 D9 D10 D11
 E4 E10 E11 F4 F10 F11 G4 G10 G11 H4 H10 H11 I4 I5 I6 I7 I8 I9 I10 I11, B2 B3 B4 B5 B6 B7

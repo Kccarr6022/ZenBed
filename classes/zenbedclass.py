@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from .motorclass import Motor
-from .patternclass import Pattern
+from classes.motorclass import Motor
+from classes.patternclass import Pattern
 import time
 
 # Grid size
@@ -24,7 +24,7 @@ K = 11
 L = 12
 
 
-class ZenBed:
+class Zenbed:
 
     def __init__(self):  # Initializing all the PCAs / Motors are connected to PCAs
         # Initializing a a double list of motors

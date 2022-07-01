@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 try:
-    from ..adafruit.PCA import PCA9685
-    from board import SCL, SDA  # Only works with RaspberryPi
+    from .adafruit.PCA import PCA9685
+    from board import SCL, SDA  # Only works when board is available
     import busio
 except:
     print("Not connected to Zenbed")
