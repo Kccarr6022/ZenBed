@@ -55,6 +55,7 @@ class Motor:
         self.motor_power = 0
         self.x = motorX
         self.y = motorY
+        self.hold = None
         self.increasing = None  # Set to either true or false
         self.decreasing = None  # Set to either true or false
 

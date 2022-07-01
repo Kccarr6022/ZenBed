@@ -46,48 +46,11 @@ class Zenbed:
         self.start = 0
         self.end = 0
 
-        # Sequences
-        self.rectangle = [[self.mtr[D][4], self.mtr[E][4]],
-                          [self.mtr[D][5], self.mtr[E][5]],
-                          [self.mtr[D][6], self.mtr[E][6]],
-                          [self.mtr[D][7], self.mtr[E][7]],
-                          [self.mtr[D][8], self.mtr[E][8]],
-                          [self.mtr[D][9], self.mtr[E][9]],
-                          [self.mtr[D][10], self.mtr[E][10]],
-                          [self.mtr[D][11], self.mtr[E][11]],
-                          [self.mtr[D][12], self.mtr[E][12]],
-                          [self.mtr[D][13], self.mtr[E][13]],
-                          [self.mtr[D][14], self.mtr[E][14]],
-                          [self.mtr[D][15], self.mtr[E][15]],
-                          [self.mtr[D][16], self.mtr[E][16], self.mtr[D][17], self.mtr[E][17]],
-                          [self.mtr[F][16], self.mtr[F][17]],
-                          [self.mtr[G][16], self.mtr[G][17]],
-                          [self.mtr[H][16], self.mtr[H][17], self.mtr[I][16], self.mtr[I][17]],
-                          [self.mtr[H][15], self.mtr[I][15]],
-                          [self.mtr[H][14], self.mtr[I][14]],
-                          [self.mtr[H][13], self.mtr[I][13]],
-                          [self.mtr[H][12], self.mtr[I][12]],
-                          [self.mtr[H][11], self.mtr[I][11]],
-                          [self.mtr[H][10], self.mtr[I][10]],
-                          [self.mtr[H][9], self.mtr[I][9]],
-                          [self.mtr[H][8], self.mtr[I][8]],
-                          [self.mtr[H][7], self.mtr[I][7]],
-                          [self.mtr[H][6], self.mtr[I][6]],
-                          [self.mtr[H][5], self.mtr[I][5]],
-                          [self.mtr[H][4], self.mtr[I][4]],
-                          [self.mtr[H][3], self.mtr[I][3], self.mtr[H][2], self.mtr[I][2]],
-                          [self.mtr[G][2], self.mtr[G][3]],
-                          [self.mtr[F][2], self.mtr[F][3]],
-                          [self.mtr[D][2], self.mtr[E][2], self.mtr[D][3], self.mtr[E][3]]
-                          ]
-
         self.string_rectangle = """D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E11, D12 E12, D13 E13, 
                                 D14 E14, D15 E15, D16 D17 E16 E17, F16 F17, G16 G17, H16 H17 I16 I17, H15 I15,
                                 "H14 I14, H13 I13, H12 I12, H11 I11, H10 I10, H9 I9, H8 I8, H7 I7, H6 I6, H5 I5,
                                 "H4 I4, H3 I3 H2 I2, G2 G3, F2 F3, D2 E2 D3 E3 """
 
-        # self.string_test = "D4 E14, D5 E5"
-        # self.zigzag = []
 
         def __del__(self):
             self.off()
@@ -141,11 +104,22 @@ class Zenbed:
             else:
                 continue
 
-    def sequence_to_pattern(self, sequence):  # Takes double list of motors and converts to pattern.
+    def pattern(self, pattern):  # Takes double list of motors and converts to pattern.
         """
         Takes a pattern sequence and translates this into a functional pattern in zenbed.
         """
+
+
+        self.pattern_time = pattern.time
+        self.pattern_percent_power = pattern.percent_power
+        self.pattern_start_power = pattern.start_power
+        self.pattern_max_power = pattern.max_power
+        self.pattern_rate_of_change = pattern.rate_of_change
+        sequence = self.string_to_sequence(pattern.sequence)
+
         sequence[0][0].increasing = True  # Pattern start
+
+        
 
         while True:
             self.start = time.perf_counter()
@@ -165,8 +139,18 @@ class Zenbed:
                     0].motor_power == 0:
                     sequence[check][0].increasing = True
                 elif sequence[check][0].motor_power >= self.pattern_max_power:
-                    sequence[check][0].decreasing = True
-                    sequence[check][0].increasing = False
+                    if pattern.hold and sequence[-1][0].motor_power < pattern.max_power:
+                        sequence[check][0].increasing = False
+                        pass
+                    elif pattern.hold and sequence[-1][0].motor_power >= pattern.max_power:
+                        for x in range(0, pattern.hold):
+                            print("Hold for " + str(pattern.hold - x) + " more seconds...")
+                            time.sleep(1)
+                        self.off()
+                        sequence[0][0].increasing = True  # Pattern start
+                    else:
+                        sequence[check][0].decreasing = True
+                        sequence[check][0].increasing = False
                 elif sequence[check][0].motor_power == 0:
                     sequence[check][0].decreasing = False
 
@@ -180,18 +164,6 @@ class Zenbed:
             self.end = time.perf_counter() - self.start
             self.status()
 
-    def pattern(self, pattern):
-        """ Takes a pattern and variables to process pattern frames to a functioning sequence.
-
-        Args:
-            pattern (_type_): 
-        """
-        self.pattern_time = pattern.time
-        self.pattern_percent_power = pattern.percent_power
-        self.pattern_start_power = pattern.start_power
-        self.pattern_max_power = pattern.max_power
-        self.pattern_rate_of_change = pattern.rate_of_change
-        self.sequence(pattern.sequence)
 
     def sequence(self, pattern):
         """
@@ -310,3 +282,5 @@ class Zenbed:
         for y in range(1, 19):
             for x in range(A, L + 1):
                 self.mtr[x][y].percent(0)
+                self.mtr[x][y].increasing = False
+                self.mtr[x][y].decreasing = False
