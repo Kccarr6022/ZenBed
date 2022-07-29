@@ -4,6 +4,7 @@ from classes.patternclass import Pattern
 rectangle = Pattern()
 rectangle.name = "rectangle"
 rectangle.time = 0.1
+rectangle.hold = 0; # Hold set to false
 rectangle.rate_of_change = 1
 rectangle.max_power = 50
 rectangle.start_power = 10
@@ -17,6 +18,7 @@ rectangle.sequence = """D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E
 expanding_circle = Pattern()
 expanding_circle.name = "expanding_circle"
 expanding_circle.time = 0.1
+expanding_circle.hold = 0; # hold set to false
 expanding_circle.rate_of_change = 3
 expanding_circle.max_power = 50
 expanding_circle.start_power = 20
