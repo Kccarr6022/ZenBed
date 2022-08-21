@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from classes.motorclass import Motor
-from classes.patternclass import Pattern
+from ..classes.motorclass import Motor
 import time
 
 # Grid size
