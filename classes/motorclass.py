@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .adafruit.PCA import PCA9685
+from adafruit.PCA import PCA9685
 try:
     from board import SCL, SDA  # Only works when board is available
     import busio
