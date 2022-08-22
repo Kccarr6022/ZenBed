@@ -33,7 +33,7 @@ zenbed = Zenbed()
 
 
 # """ COMMANDS =============================================================
-#     Motor on -> Zenbed.mtr[letter][number].percent(percent power)
+#     Motor on -> zenbed.mtr[letter][number].percent(percent power)
     
 #     Put patterns in Zenbed.pattern(pattern)
     
@@ -48,7 +48,8 @@ zenbed = Zenbed()
 
 
 def main():
-    zenbed.pattern(rectangle) # Forever loop comment out to turn off Motors
+    zenbed.mtr[A][7].percent(20)
+    #zenbed.pattern(rectangle) # Forever loop comment out to turn off Motors
     zenbed.status()
     zenbed.off()
     return 0
