@@ -66,9 +66,21 @@ goacross
 flow
 """
 
+def testeachmotor():
+    for x in range(1, 13):
+        for y in range(1, 19):
+            zenbed.status()
+            zenbed.mtr[x][y].percent(20)
+            time.sleep(2)
+            zenbed.status()
+            zenbed.mtr[x][y].percent(0)
+            
+
 def main():
+
     #zenbed.mtr[A][17].percent(20)
     #zenbed.pattern(flow) # Forever loop comment out to turn off Motors
+    #testeachmotor()
     zenbed.status()
     zenbed.off()
     return 0
