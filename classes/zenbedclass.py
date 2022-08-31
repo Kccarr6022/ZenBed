@@ -254,13 +254,23 @@ class Zenbed:
         for y in range(1, 19):
             self.mtr[x][y].percent(percent)
 
+    def motoron(self, percent):
+        """
+        Takes percent and turns on to the percent parameter
+        :param percent(int): Percent motors are on
+        :return:
+        """
+        for y in range(1, 19):
+            for x in range(A, L + 1):
+                self.mtr[C][18].percent(percent)
+
     def testmtrs(self):
         """
         Turns on selected range of motors to 15% power
         :return:
         """
-        for y in range(12, 19):
-            for x in range(C, F + 1):
+        for y in range(1, 3):
+            for x in range(K, L + 1):
                 self.mtr[x][y].percent(25)
                 
     def on(self):
