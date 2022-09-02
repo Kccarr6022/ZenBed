@@ -3,11 +3,11 @@ from classes.patternclass import Pattern
 # Imported pattern 1 -> rectangle
 rectangle = Pattern()
 rectangle.name = "rectangle"
-rectangle.time = 0.1
+rectangle.time = 0.3
 rectangle.hold = 0; # Hold set to false
-rectangle.rate_of_change = 1
-rectangle.max_power = 40
-rectangle.start_power = 10
+rectangle.rate_of_change = 3
+rectangle.max_power = 18
+rectangle.start_power = 6
 rectangle.percent_power = 100
 rectangle.sequence = """D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E11, D12 E12, D13 E13,
 D14 E14, D15 E15, D16 D17 E16 E17, F16 F17, G16 G17, H16 H17 I16 I17, H15 I15, H14 I14,
@@ -17,11 +17,11 @@ G2 G3, F2 F3, D2 E2 D3 E3"""
 # Imported pattern 2 -> expanding_circle
 expanding_circle = Pattern()
 expanding_circle.name = "expanding_circle"
-expanding_circle.time = 0.2
+expanding_circle.time = 0.3
 expanding_circle.hold = 0; # hold set to false
 expanding_circle.rate_of_change = 3
-expanding_circle.max_power = 30
-expanding_circle.start_power = 20
+expanding_circle.max_power = 18
+expanding_circle.start_power = 9
 expanding_circle.percent_power = 100
 expanding_circle.sequence = """F7 G7, F6 G6 F8 G8, E5 E6 E7 E8 E9 F5 F9 G5 G9 H5 H6 H7 H8 H9, D4 D5
 D6 D7 D8 D9 D10 D11 E4 E10 E11 F4 F10 F11 G4 G10 G11 H4 H10 H11 I4 I5 I6 I7 I8 I9 I10 I11, C3 C4
@@ -53,10 +53,10 @@ H12, G11 G12, F11 F12, E11 E12, D11 D12, C11 C12, B11 B12, A11 A12"""
 # Imported pattern 4 -> flow
 flow = Pattern()
 flow.name = "flow"
-flow.time = 0.2
+flow.time = 0.3
 flow.hold = 0; # hold set to false
-flow.rate_of_change = 6
-flow.max_power = 30 
+flow.rate_of_change = 3
+flow.max_power = 24 
 flow.start_power = 12
 flow.percent_power = 100
 flow.sequence = """A1 A2 A3 A4 A5 A6 A7 A8 A9 A10 A11 A12 A13 A14 A15 A16 A17 A18, B1 B2 B3 B4 B5 B6 B7 B8 B9 B10 B11 B12 B13 B14 B15 B16 B17 B18,
@@ -85,3 +85,17 @@ strobe.start_power = 15
 strobe.percent_power = 100
 strobe.sequence = """G18 H18 I18, G17 H17 I17, G16 H16 I16, G18 H18 I18, G15 H15 I15 G16 H16 I16 G17 H17 I17, G14 H14 I14 G15 H15 I15 G16 H16 I16, G13 H13 I13 G14 H14 I14 G15 H15 I15""" 
 #G12 H12 I12, G11 H11 I11, G10 H10 I10, G9 H9 I9, G8 H8 I8, G7 H7 I7, G6 H6 I6, G5 H5 I5, G4 H4 I4, G3 H3 I3, G2 H2 I2, G1 H1 I1"""
+
+
+# Imported pattern 7 -> circle
+circle = Pattern()
+circle.name = "circle"
+circle.time = 0.3
+circle.hold = 0; # hold set to false
+circle.rate_of_change = 3
+circle.max_power = 24
+circle.start_power = 12
+circle.percent_power = 100
+circle.sequence = """F3, E3 F4, E4, D4 D5 E5, C6 D6, C7 D7 B7, B8 C8 D8, D9 C9 B9, 
+B10 C10 D10, C11 D11, C12 D12, D13 E13, D14 E14, E15, F15 E16, F16, G15, G14 H14, 
+G13 H13, H12 I12, H11 I11, H10 I10 J10, J9 I9 H9, H8 I8 J8, H7 J7 I7, I6 H6, H5 G6, G5 G4 H4"""
