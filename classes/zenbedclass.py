@@ -266,11 +266,11 @@ class Zenbed:
 
     def testmtrs(self):
         """
-        Turns on selected range of motors to 15% power
+        Turns on selected range of motors to 25% power
         :return:
         """
-        for y in range(1, 3):
-            for x in range(K, L + 1):
+        for y in range(1, 6):
+            for x in range(A, F + 1):
                 self.mtr[x][y].percent(25)
                 
     def on(self):

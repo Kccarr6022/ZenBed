@@ -99,3 +99,48 @@ circle.percent_power = 100
 circle.sequence = """F3, E3 F4, E4, D4 D5 E5, C6 D6, C7 D7 B7, B8 C8 D8, D9 C9 B9, 
 B10 C10 D10, C11 D11, C12 D12, D13 E13, D14 E14, E15, F15 E16, F16, G15, G14 H14, 
 G13 H13, H12 I12, H11 I11, H10 I10 J10, J9 I9 H9, H8 I8 J8, H7 J7 I7, I6 H6, H5 G6, G5 G4 H4"""
+
+# Imported pattern 8 -> leaf1
+leaf1 = Pattern()
+leaf1.name = "leaf1"
+leaf1.time = 0.2
+leaf1.hold = 0; # Hold set to false
+leaf1.rate_of_change = 3
+leaf1.max_power = 24
+leaf1.start_power = 12
+leaf1.percent_power = 100
+leaf1.sequence = """D3, D4 E4, E5 F5 E6, F6 F7 G7 H7, H6 I6 I5, I4 J4, J3 K3, K4, J5,
+J6 J7 I7 H8, G8 F8 E8 E7, D7 C7 C6, C5, D6, D8, E9 F9 F10, G10 G11 H10 H9 I9, J9 I8
+J8, K8 K7, L6, L7, K9, J10 I10 I11, H11 H12 G12 F12 F11, E12 E11 D11 D10, C10 C9 D9,
+C8 B8, B7, A7, A8 A9 B9, B10 B11 C11, C12 D12 D13 E13 F13, G13 H13 I13 I12 J12, J11 K11 K12,
+K10, L9, L10, L11 K13, J13 J14, I14 I15 H15 G15, F15 F16 E15 D15, D14 C14 C15, B14 C13, B13,
+B12 A12, A13 A14, A15 B15, B16 C16 C17 D17 E17, F17 G17 H17 H16 I16, J16 J15 K15 K14, L14,
+L15 K16, J17, I17, I18, H18, F1 G1 G2, G3 F3 F2 E2"""
+
+# Imported pattern 9 -> leaf2
+leaf2 = Pattern()
+leaf2.name = "leaf2"
+leaf2.time = 0.2
+leaf2.hold = 0; # Hold set to false
+leaf2.rate_of_change = 3
+leaf2.max_power = 24
+leaf2.start_power = 12
+leaf2.percent_power = 100
+leaf2.sequence = """C2, C3 D3, D4 E4 E5, E6 F6 F5 G6, G5 H5 H6, H4 I4, I3, J2, J3, J4, J5 I5 I6, I7 H7 G7 G8,
+F8 E8 E7 D7, C7 C6, C5 B5, B4, A4 A5, A6 B6, B7 B7 B8 C8, D9 E9 F9 F10, G10 G9 H9 I8, J8 J7,
+K6, K7, K8 J9, I9 I10 H10, H11 G11 F11 E11 E12, D12 D11 C11, C10 B10 B9, A8, A7, A9 A10,
+B11 B12 C12, D13 E13 F13 F12, G12 H12 I11, J11 J10 K10, K9, L8, L9 L10, K11 K12 J12,
+I12 I13 H13 G14, G15 F15 F14 E14, D15 D14 C14, C13 B13, A12, A13, B14 B15, C15 C16 D16,
+E16 E15 F16 G16, H16 H15 I15, I14 J14, K13, L12, L13 L14, K15 K16 J16, I17 H18 G18, G1 G2, F2, F3"""
+
+# Imported pattern 10 -> duelrectangle
+duelrectangle = Pattern()
+duelrectangle.name = "duelrectangle"
+duelrectangle.time = 0.2
+duelrectangle.hold = 0; # Hold set to false
+duelrectangle.rate_of_change = 3
+duelrectangle.max_power = 21
+duelrectangle.start_power = 9
+duelrectangle.percent_power = 100
+duelrectangle.sequence = """F3 G3, E3 H3, E4 H4, E5 H5, E6 H6, E7 H7, E8 H8, E9 H9, E10 H10,
+E11 H11, E12 H12, E13 H13, E14 H14, E15 H15, E16 H16, F16 G16, F17 G17, F18 G18, F1 G1, F2 G2"""
