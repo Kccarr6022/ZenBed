@@ -124,7 +124,7 @@ leaf2.time = 0.2
 leaf2.hold = 0; # Hold set to false
 leaf2.rate_of_change = 3
 leaf2.max_power = 24
-leaf2.start_power = 12
+leaf2.start_power = 9
 leaf2.percent_power = 100
 leaf2.sequence = """C2, C3 D3, D4 E4 E5, E6 F6 F5 G6, G5 H5 H6, H4 I4, I3, J2, J3, J4, J5 I5 I6, I7 H7 G7 G8,
 F8 E8 E7 D7, C7 C6, C5 B5, B4, A4 A5, A6 B6, B7 B7 B8 C8, D9 E9 F9 F10, G10 G9 H9 I8, J8 J7,
