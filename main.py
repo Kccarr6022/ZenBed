@@ -79,14 +79,16 @@ def testeachmotor():
 
 def main():
 
-    #zenbed.mtr([A][1].percent(20))
-    zenbed.off()
+            
+
+    zenbed.mtr[A][1].percent(20)
+    #zenbed.off()
     #zenbed.motoron(25)
     #zenbed.testmtrs()
-    #zenbed.pattern(duelrectangle) # Forever loop comment out to turn off Motors
+    #zenbed.pattern(leaf2) # Forever loop comment out to turn off Motors
     #testeachmotor()
     zenbed.status()
-    #zenbed.off()
+    zenbed.off()
     return 0
 
 if __name__ == "__main__":

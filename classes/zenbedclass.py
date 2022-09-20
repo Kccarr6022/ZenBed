@@ -262,7 +262,7 @@ class Zenbed:
         """
         for y in range(1, 19):
             for x in range(A, L + 1):
-                self.mtr[A][4].percent(percent)
+                self.mtr[B][6].percent(percent)
 
     def testmtrs(self):
         """
@@ -270,7 +270,7 @@ class Zenbed:
         :return:
         """
         for y in range(4, 6):
-            for x in range(A, D + 1):
+            for x in range(A, F + 1):
                 self.mtr[x][y].percent(25)
                 
     def on(self):
