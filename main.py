@@ -1,5 +1,5 @@
 from classes.zenbedclass import Zenbed
-from imported.patterns import expanding_circle, rectangle, goacross, flow, strobe, circle, leaf1, leaf2, duelrectangle
+from imported.patterns import expanding_circle, rectangle, goacross, flow, strobe, circle, leaf1, leaf2, duelrectangle, infinity, zigzag, scan, scans
 
 import sqlite3
 import time
@@ -53,7 +53,7 @@ zenbed = Zenbed()
 # #     Zenbed.pattern_percent_power # Percent power for patterns
 # #     Zenbed.pattern_start_power # Where the first motor in the wave starts by
 # #     Zenbed.pattern_max_power = # Where the power in the wave is highest
-# #     Zenbed.pattern_rate_of_change # The option to change the rate of power increments
+# #     Zenbed.pattern_power_interval # The option to change the rate of power increments
     
 #     """ ===================================================================
 
@@ -81,11 +81,12 @@ def main():
 
             
 
-    #zenbed.mtr[C][2].percent(20)
+    
     zenbed.off()
+    zenbed.mtr[A][1].percent(0)
     #zenbed.motoron(25)
     #zenbed.testmtrs()
-    zenbed.pattern(expanding_circle) # Forever loop comment out to turn off Motors
+    #zenbed.pattern(flow) # Forever loop comment out to turn off Motors
     #testeachmotor()
     #zenbed.on(10)
     zenbed.status()
