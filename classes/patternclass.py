@@ -11,7 +11,7 @@ class Pattern:
         self.percent_power = 100 # default percentage power
         self.start_power = 20 # default start power
         self.max_power = 50 # default max power
-        self.rate_of_change = 4 # default rate of change
+        self.power_interval = 4 # default rate of change
         self.hold = 3 # when set to 0/ false by default
         self.sequence = "" # default sequence
         pass
