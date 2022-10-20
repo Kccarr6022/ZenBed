@@ -1,13 +1,27 @@
 # -*- coding: utf-8 -*-
+try:
+    from adafruit.PCA import PCA9685
+    from board import SCL, SDA  # Only works when board is available
+    import busio
+except:
+    print("Not connected to Zenbed")
+    print("Entering remote development mode...")
+    remote_dev = True
 
-from adafruit.PCA import PCA9685
-from board import SCL, SDA  # Only works when board is available
-import busio
 import os
 import time
+from tokenize import Name
 
 # I2C
-i2c_bus = busio.I2C(SCL, SDA)
+
+try:
+    i2c_bus = busio.I2C(SCL, SDA)
+    print("Zenbed connected")
+    time.sleep(5)
+
+except NameError as error:
+    print("Zenbed not connected")
+    time.sleep(5)
 
 # MotorGrid Size
 
@@ -33,17 +47,29 @@ L = 12
 class Motor:
 
     def __init__(self, motorX, motorY):  # Motor(x, y) Creating ZenBed Matrix
-
+        try:
+            pass
+        except NameError as error:
+            print("No PCA detected")
         self.channel = 0  # default value is first channel
         self.motor_power = 0
         self.x = motorX
         self.y = motorY
+        self.hold = None
+        self.increasing = None  # Set to either true or false
+        self.decreasing = None  # Set to either true or false
 
-        # PCA0 < works correct
 
         if A <= motorX <= F and 1 <= motorY <= 2 or motorY == 3 and A \
                 <= motorX <= D:
-            self.PCA = PCA9685(i2c_bus, 0x40)
+            
+            # PCA1 < works correct
+
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x40)
+            except NameError as error:
+                print("Could not connect to PCA 1")
+                pass
 
             if motorX == A and motorY == 1:
                 self.channel = 0
@@ -80,9 +106,14 @@ class Motor:
         elif A <= motorX <= F and 4 <= motorY <= 5 or motorY == 3 and E \
                 <= motorX <= F or A <= motorX <= B and motorY == 6:
 
-            # PCA1 < works correct
+            # PCA2 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x41)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x41)
+            except NameError as error:
+                print("Could not connect to PCA 2")
+                pass
+
 
             if motorX == E and motorY == 3:
                 self.channel = 0
@@ -119,9 +150,14 @@ class Motor:
         elif C <= motorX <= F and motorY == 6 or 7 <= motorY <= 8 and A \
                 <= motorX <= F:
 
-            # PCA2 < works correct
+            # PCA3 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x42)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x42)
+            except NameError as error:
+                print("Could not connect to PCA 3")
+                pass
+
 
             if motorX == C and motorY == 6:
                 self.channel = 0
@@ -157,9 +193,14 @@ class Motor:
                 self.channel = 15
         elif A <= motorX <= F and motorY == 9:
 
-            # PCA3 < works correct
+            # PCA4 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x43)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x43)
+            except NameError as error:
+                print("Could not connect to PCA 4")
+                pass
+
 
             if motorX == A and motorY == 9:
                 self.channel = 0
@@ -176,9 +217,14 @@ class Motor:
         elif A <= motorX <= F and 10 <= motorY <= 11 or motorY == 12 \
                 and A <= motorX <= D:
 
-            # PCA4 < works correct
+            # PCA5 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x44)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x44)
+            except NameError as error:
+                print("Could not connect to PCA 5")
+                pass
+
 
             if motorX == A and motorY == 10:
                 self.channel = 0
@@ -215,9 +261,13 @@ class Motor:
         elif A <= motorX <= F and 13 <= motorY <= 14 or motorY == 12 \
                 and E <= motorX <= F or A <= motorX <= B and motorY == 15:
 
-            # PCA5 < works correct
+            # PCA6 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x45)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x45)
+            except NameError as error:
+                print("Could not connect to PCA 6")
+                pass
 
             if motorX == E and motorY == 12:
                 self.channel = 0
@@ -254,9 +304,13 @@ class Motor:
         elif C <= motorX <= F and motorY == 15 or A <= motorX <= F \
                 and 16 <= motorY <= 17:
 
-            # PCA6 < works correct
+            # PCA7 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x46)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x46)
+            except NameError as error:
+                print("Could not connect to PCA 7")
+                pass
 
             if motorX == C and motorY == 15:
                 self.channel = 0
@@ -292,9 +346,13 @@ class Motor:
                 self.channel = 15
         elif A <= motorX <= F and motorY == 18:
 
-            # PCA7 < works correct
+            # PCA8 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x47)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x47)
+            except NameError as error:
+                print("Could not connect to PCA 8")
+                pass
 
             if motorX == A and motorY == 18:
                 self.channel = 0
@@ -311,9 +369,13 @@ class Motor:
         elif G <= motorX <= L and 1 <= motorY <= 2 or motorY == 3 and G \
                 <= motorX <= J:
 
-            # PCA8 < works correct
+            # PCA9 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x48)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x48)
+            except NameError as error:
+                print("Could not connect to PCA 9")
+                pass
 
             if motorX == G and motorY == 1:
                 self.channel = 0
@@ -350,9 +412,13 @@ class Motor:
         elif G <= motorX <= L and 4 <= motorY <= 5 or motorY == 3 and K \
                 <= motorX <= L or G <= motorX <= H and motorY == 6:
 
-            # PCA9 < works correct
+            # PCA10 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x49)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x49)
+            except NameError as error:
+                print("Could not connect to PCA 10")
+                pass
 
             if motorX == K and motorY == 3:
                 self.channel = 0
@@ -389,9 +455,13 @@ class Motor:
         elif I <= motorX <= L and motorY == 6 or 7 <= motorY <= 8 and G \
                 <= motorX <= L:
 
-            # PCA10 < works correct
+            # PCA11 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4a)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x4a)
+            except NameError as error:
+                print("Could not connect to PCA 11")
+                pass
 
             if motorX == I and motorY == 6:
                 self.channel = 0
@@ -427,9 +497,13 @@ class Motor:
                 self.channel = 15
         elif G <= motorX <= L and motorY == 9:
 
-            # PCA11 < works correct
+            # PCA12 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4b)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x4b)
+            except NameError as error:
+                print("Could not connect to PCA 12")
+                pass
 
             if motorX == G and motorY == 9:
                 self.channel = 0
@@ -446,9 +520,13 @@ class Motor:
         elif G <= motorX <= L and 10 <= motorY <= 11 or motorY == 12 \
                 and G <= motorX <= J:
 
-            # PCA12 < works correct
+            # PCA13 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4c)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x4c)
+            except NameError as error:
+                print("Could not connect to PCA 13")
+                pass
 
             if motorX == G and motorY == 10:
                 self.channel = 0
@@ -485,9 +563,13 @@ class Motor:
         elif G <= motorX <= L and 13 <= motorY <= 14 or motorY == 12 \
                 and K <= motorX <= L or G <= motorX <= H and motorY == 15:
 
-            # PCA13 < works correct
+            # PCA14 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4d)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x4d)
+            except NameError as error:
+                print("Could not connect to PCA 14")
+                pass
 
             if motorX == K and motorY == 12:
                 self.channel = 0
@@ -524,9 +606,13 @@ class Motor:
         elif I <= motorX <= L and motorY == 15 or 16 <= motorY <= 17 \
                 and G <= motorX <= L:
 
-            # PCA14 < works correct
+            # PCA15 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4e)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x4e)
+            except NameError as error:
+                print("Could not connect to PCA 15")
+                pass
 
             if motorX == I and motorY == 15:
                 self.channel = 0
@@ -562,9 +648,13 @@ class Motor:
                 self.channel = 15
         elif G <= motorX <= L and motorY == 18:
 
-            # PCA15 < works correct
+            # PCA16 < works correct
 
-            self.PCA = PCA9685(i2c_bus, 0x4f)
+            try:
+                self.PCA = PCA9685(i2c_bus, 0x4f)
+            except NameError as error:
+                print("Could not connect to PCA 16")
+                pass
 
             if motorX == G and motorY == 18:
                 self.channel = 0
@@ -586,25 +676,28 @@ class Motor:
         else:
 
             print
-            'x is ' + str(motorX) + ' y is ' + str(motorY)
+            'out of range when x is ' + str(motorX) + ' and y is ' + str(motorY)
             quit()
 
-        if self != None:
-            self.PCA.frequency = 1600
-        pass
+        try:
+            self.PCA.frequency = 60
+        except AttributeError as error:
+            pass
 
     # Turns on all motors connected to the PCA to 20%
 
     def Testpcas(self):
         """
         Tests the PCA attached is functioning.
-
         In order to ensure that the circuitry for the bed is functioning
         properly this function will turn on all motors connected to the PCA.
         """
 
-        for i in range(0, 15):
-            self.PCA.channels[i].duty_cycle = int(0xfffe * 0)  # Turns on to 20%
+        if self.PCA:
+            for i in range(0, 15):
+                self.PCA.channels[i].duty_cycle = int(0xfffe * 0)  # Turns on to 20%
+        else:
+            pass
 
     # Turns on motor
 
@@ -613,7 +706,8 @@ class Motor:
         Sets motor to full power.
         """
 
-        self.PCA.channels[self.channel].duty_cycle = 0xfffe  # Turns on to full
+        if self.PCA:
+            self.PCA.channels[self.channel].duty_cycle = 0xfffe  # Turns on to full
 
     # Turns motor to 50%
 
@@ -621,8 +715,8 @@ class Motor:
         """
         Sets motor to 50% power.
         """
-
-        self.PCA.channels[self.channel].duty_cycle = 0x7FFF  # Turns on to half
+        if self.PCA:
+            self.PCA.channels[self.channel].duty_cycle = 0x7FFF  # Turns on to half
 
     # Turns motor to 0
 
@@ -630,32 +724,31 @@ class Motor:
         """
         Sets motor to 0% power.
         """
-
-        self.PCA.channels[self.channel].duty_cycle = 0  # Turns off
+        if self.PCA:
+            self.PCA.channels[self.channel].duty_cycle = 0  # Turns off
 
     # Gives vibration motor percent power
-    
-    # 
+
+    #
 
     def percent(self, percentpower):  # Percent on
         """
         Sets motor to user defined power in percent.
-
         Parameters:
         percentpower (int): percentage of the motor power
-
         """
-        
+
         if percentpower > 80:  # safety lock / testing
             percentpower = 80
-        
+
         if (percentpower < 0):
             print("Negative power level")
         else:
-            
-            if (self.motor_power > 0): print("\a") # Motor buzz    
-            
-            self.motor_power = int(percentpower)
-            self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
-                                                             * self.motor_power / 100)
 
+            self.motor_power = int(percentpower)
+
+            try:
+                self.PCA.channels[self.channel].duty_cycle = int(0xFFFF
+                                                                 * self.motor_power / 100)
+            except AttributeError as error:
+                pass
