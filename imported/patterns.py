@@ -3,7 +3,7 @@ from classes.patternclass import Pattern
 # Imported pattern 1 -> rectangle
 rectangle = Pattern()
 rectangle.name = "rectangle"
-rectangle.intervals_per_second = 0.2
+rectangle.intervals_per_second = 5
 rectangle.hold = 0; # Hold set to false
 rectangle.interval_power = 3
 rectangle.max_power = 24
@@ -17,8 +17,8 @@ G2 G3, F2 F3, D2 E2 D3 E3"""
 # Imported pattern 2 -> expanding_circle
 expanding_circle = Pattern()
 expanding_circle.name = "expanding_circle"
-expanding_circle.intervals_per_second = 0.3
-expanding_circle.hold = 0; # hold set to false
+expanding_circle.intervals_per_second = 5
+expanding_circle.hold = 1; # hold set to false
 expanding_circle.interval_power = 3
 expanding_circle.max_power = 18
 expanding_circle.start_power = 6

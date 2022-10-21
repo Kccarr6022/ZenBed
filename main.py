@@ -3,7 +3,6 @@ from imported.patterns import expanding_circle, rectangle, goacross, flow, strob
 
 import sqlite3
 import time
-import requests
 
 
 # Letters
@@ -23,11 +22,6 @@ L = 12
 # MotorGrid Size
 MOTORGRIDXSIZE = 12
 MOTORGRIDYSIZE = 18
-
-# database connection
-connection = sqlite3.connect('zenbed-database.db')
-c = connection.cursor()
-
 
 # Zenbed Initialization
 zenbed = Zenbed()
@@ -84,11 +78,11 @@ def main():
 
     
     zenbed.off()
-    zenbed.mtr[A][1].percent(0)
+    #zenbed.mtr[A][1].percent(0)
+    #testeachmotor()
     #zenbed.motoron(25)
     #zenbed.testmtrs()
-    zenbed.pattern(flow) # Forever loop comment out to turn off Motors
-    #testeachmotor()
+    #zenbed.pattern(expanding_circle) # Forever loop comment out to turn off Motors
     #zenbed.on(10)
     zenbed.status()
     return 0
