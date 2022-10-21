@@ -65,14 +65,19 @@ flow
 
 def main():
 
-            
-
-    
     zenbed.off()
     #zenbed.mtr[A][1].percent(0)
+<<<<<<< HEAD
     #zenbed.on(10)
     #zenbed.pattern(expanding_circle) # Forever loop comment out to turn off Motors
     
+=======
+    #testeachmotor()
+    #zenbed.motoron(25)
+    #zenbed.testmtrs()
+    #zenbed.pattern(expanding_circle) # Forever loop comment out to turn off Motors
+    #zenbed.on(10) 
+>>>>>>> ab0ea8e4c826b687136d5a03d746f235ce302fc4
     zenbed.status()
     return 0
 
