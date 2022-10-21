@@ -3,6 +3,7 @@ from imported.patterns import expanding_circle, rectangle, goacross, flow, strob
 
 import sqlite3
 import time
+import requests
 
 
 # Letters
@@ -53,7 +54,7 @@ zenbed = Zenbed()
 # #     Zenbed.pattern_percent_power # Percent power for patterns
 # #     Zenbed.pattern_start_power # Where the first motor in the wave starts by
 # #     Zenbed.pattern_max_power = # Where the power in the wave is highest
-# #     Zenbed.pattern_power_interval # The option to change the rate of power increments
+# #     Zenbed.pattern_interval_power # The option to change the rate of power increments
     
 #     """ ===================================================================
 

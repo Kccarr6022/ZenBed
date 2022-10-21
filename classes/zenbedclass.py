@@ -40,7 +40,7 @@ class Zenbed:
         self.pattern_percent_power = self.pattern_percent_power / 100
         self.pattern_start_power = 20 * self.pattern_percent_power  # Power level previous element must reach for the next element to start increasing
         self.pattern_max_power = 50 * self.pattern_percent_power  # Where the power in the wave is highest
-        self.pattern_power_interval = 1 * self.pattern_percent_power  # The percent of power that an element adjusts by.
+        self.pattern_interval_power = 1 * self.pattern_percent_power  # The percent of power that an element adjusts by.
         self.start = 0
         self.end = 0
 
@@ -112,7 +112,7 @@ class Zenbed:
         self.pattern_percent_power = pattern.percent_power
         self.pattern_start_power = pattern.start_power
         self.pattern_max_power = pattern.max_power
-        self.pattern_power_interval = pattern.power_interval
+        self.pattern_interval_power = pattern.interval_power
         sequence = self.string_to_sequence(pattern.sequence)
 
         sequence[0][0].increasing = True  # Pattern start
@@ -127,10 +127,10 @@ class Zenbed:
                 # Checks if motor is increasing or decreasing
                 if sequence[check][0].increasing:
                     for motor in range(0, len(sequence[check])):
-                        sequence[check][motor].percent(sequence[check][motor].motor_power + self.pattern_power_interval)
+                        sequence[check][motor].percent(sequence[check][motor].motor_power + self.pattern_interval_power)
                 elif sequence[check][0].decreasing:
                     for motor in range(0, len(sequence[check])):
-                        sequence[check][motor].percent(sequence[check][motor].motor_power - self.pattern_power_interval)
+                        sequence[check][motor].percent(sequence[check][motor].motor_power - self.pattern_interval_power)
 
                 # Checks if motor power reaches start power
                 if sequence[check - 1][0].motor_power >= self.pattern_start_power and sequence[check][
@@ -181,13 +181,13 @@ class Zenbed:
                 for y in range(0, MOTORGRIDYSIZE + 1):
                     # Checks if motor is increasing or decreasing
                     if self.mtr[1][1].motor_power < self.pattern_max_power and self.mtr[1][1].decreasing != True:
-                        self.mtr[x][y].percent(self.mtr[x][y].motor_power + self.pattern_power_interval)
+                        self.mtr[x][y].percent(self.mtr[x][y].motor_power + self.pattern_interval_power)
                     elif self.mtr[1][1].decreasing:
-                        self.mtr[x][y].percent(self.mtr[x][y].motor_power - self.pattern_power_interval)
+                        self.mtr[x][y].percent(self.mtr[x][y].motor_power - self.pattern_interval_power)
                     elif self.mtr[1][1].motor_power >= self.pattern_max_power:
                         self.mtr[1][1].decreasing = True
                     else:
-                        self.mtr[x][y].percent(self.mtr[x][y].motor_power - self.pattern_power_interval)
+                        self.mtr[x][y].percent(self.mtr[x][y].motor_power - self.pattern_interval_power)
 
             self.end = time.perf_counter() - self.start
             self.status()
