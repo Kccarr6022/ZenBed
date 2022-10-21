@@ -82,7 +82,6 @@ def main():
     #zenbed.pattern(expanding_circle) # Forever loop comment out to turn off Motors
     #zenbed.on(10) 
     zenbed.status()
-    wd
     return 0
 
 if __name__ == "__main__":
