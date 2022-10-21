@@ -271,7 +271,17 @@ class Zenbed:
         for y in range(1, 4):
             for x in range(A, D + 1):
                 self.mtr[x][y].percent(25)
-                
+
+    def testeachmotor():
+        for x in range(1, 13):
+            for y in range(1, 19):
+                self.mtr[x][y].percent(30)
+                self.status()
+                time.sleep(2)
+                self.off()
+                self.status()
+                time.sleep(1)
+
     def on(self):
         """
         Turns on all motors to 15% power

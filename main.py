@@ -60,16 +60,7 @@ expanding_circle
 goacross
 flow
 """
-
-def testeachmotor():
-    for x in range(1, 13):
-        for y in range(1, 19):
-            zenbed.mtr[x][y].percent(30)
-            zenbed.status()
-            time.sleep(2)
-            zenbed.off()
-            zenbed.status()
-            time.sleep(1)            
+            
             
 
 def main():
@@ -79,11 +70,9 @@ def main():
     
     zenbed.off()
     #zenbed.mtr[A][1].percent(0)
-    #testeachmotor()
-    #zenbed.motoron(25)
-    #zenbed.testmtrs()
-    #zenbed.pattern(expanding_circle) # Forever loop comment out to turn off Motors
     #zenbed.on(10)
+    #zenbed.pattern(expanding_circle) # Forever loop comment out to turn off Motors
+    
     zenbed.status()
     return 0
 
