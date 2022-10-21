@@ -74,17 +74,15 @@ def testeachmotor():
 
 def main():
 
-            
-
-    
     zenbed.off()
     #zenbed.mtr[A][1].percent(0)
     #testeachmotor()
     #zenbed.motoron(25)
     #zenbed.testmtrs()
     #zenbed.pattern(expanding_circle) # Forever loop comment out to turn off Motors
-    #zenbed.on(10)
+    #zenbed.on(10) 
     zenbed.status()
+    wd
     return 0
 
 if __name__ == "__main__":
