@@ -272,7 +272,7 @@ class Zenbed:
             for x in range(A, D + 1):
                 self.mtr[x][y].percent(25)
 
-    def testeachmotor():
+    def testeachmotor(self):
         for x in range(1, 13):
             for y in range(1, 19):
                 self.mtr[x][y].percent(30)
