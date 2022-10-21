@@ -35,7 +35,7 @@ class Zenbed:
 
         # Pattern variables
         self.pattern_wave_length = 3
-        self.pattern_time = 0.1  # frequency of element adjustment (every .1 seconds it increases by the rate of change)
+        self.pattern_intervals_per_second = 0.1  # frequency of element adjustment (every .1 seconds it increases by the rate of change)
         self.pattern_percent_power = 100
         self.pattern_percent_power = self.pattern_percent_power / 100
         self.pattern_start_power = 20 * self.pattern_percent_power  # Power level previous element must reach for the next element to start increasing
@@ -108,7 +108,7 @@ class Zenbed:
         """
 
 
-        self.pattern_time = pattern.time
+        self.pattern_intervals_per_second = pattern.intervals_per_second
         self.pattern_percent_power = pattern.percent_power
         self.pattern_start_power = pattern.start_power
         self.pattern_max_power = pattern.max_power
@@ -154,9 +154,9 @@ class Zenbed:
 
             self.end = time.perf_counter() - self.start
             try:
-                time.sleep(self.pattern_time - self.end)
+                time.sleep(self.pattern_intervals_per_second - self.end)
             except ValueError as error:
-                print("The pattern frame ran ", '{:.6f}s '.format(-1 * (self.pattern_time - self.end)),
+                print("The pattern frame ran ", '{:.6f}s '.format(-1 * (self.pattern_intervals_per_second - self.end)),
                       "over the set latency!")
 
             self.end = time.perf_counter() - self.start

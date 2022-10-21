@@ -49,7 +49,7 @@ zenbed = Zenbed()
 #     Select pattern
 #        zenbed.pattern()
     
-# #     Zenbed.pattern_time = 10 # Time in seconds of patterns
+# #     Zenbed.pattern_intervals_per_second = 10 # number of intervals per second
 # #     Zenbed.pattern_percent_power # Percent power for patterns
 # #     Zenbed.pattern_start_power # Where the first motor in the wave starts by
 # #     Zenbed.pattern_max_power = # Where the power in the wave is highest

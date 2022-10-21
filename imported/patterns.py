@@ -3,7 +3,7 @@ from classes.patternclass import Pattern
 # Imported pattern 1 -> rectangle
 rectangle = Pattern()
 rectangle.name = "rectangle"
-rectangle.time = 0.2
+rectangle.intervals_per_second = 0.2
 rectangle.hold = 0; # Hold set to false
 rectangle.power_interval = 3
 rectangle.max_power = 24
@@ -17,7 +17,7 @@ G2 G3, F2 F3, D2 E2 D3 E3"""
 # Imported pattern 2 -> expanding_circle
 expanding_circle = Pattern()
 expanding_circle.name = "expanding_circle"
-expanding_circle.time = 0.3
+expanding_circle.intervals_per_second = 0.3
 expanding_circle.hold = 0; # hold set to false
 expanding_circle.power_interval = 3
 expanding_circle.max_power = 18
@@ -38,7 +38,7 @@ expanding_circle.sequence = """F9 G9   ,  F8 G8 F10  G10  ,G7 F7 E7 E9 E8 H7 H8 
 # Imported pattern 3 -> goacross
 goacross = Pattern()
 goacross.name = "goacross"
-goacross.time = 0.2
+goacross.intervals_per_second = 0.2
 goacross.hold = 0; # hold set to false
 goacross.power_interval = 4
 goacross.max_power = 40
@@ -55,7 +55,7 @@ H12, G11 G12, F11 F12, E11 E12, D11 D12, C11 C12, B11 B12, A11 A12"""
 # Imported pattern 4 -> flow
 flow = Pattern()
 flow.name = "flow"
-flow.time = 0.2
+flow.intervals_per_second = 0.2
 flow.hold = 0; # hold set to false
 flow.power_interval = 2
 flow.max_power = 16
@@ -79,7 +79,7 @@ K1 K2 K3 K4 K5 K6 K7 K8 K9 K10 K11 K12 K13 K14 K15 K16 K17 K18, L1 L2 L3 L4 L5 L
 # Imported pattern 5 -> strobe
 strobe = Pattern()
 strobe.name = "strobe"
-strobe.time = 0.5
+strobe.intervals_per_second = 0.5
 strobe.hold = 0; # hold set to false
 strobe.power_interval = 15
 strobe.max_power = 30
@@ -92,7 +92,7 @@ strobe.sequence = """G18 H18 I18, G17 H17 I17, G16 H16 I16, G18 H18 I18, G15 H15
 # Imported pattern 7 -> circle
 circle = Pattern()
 circle.name = "circle"
-circle.time = 0.3
+circle.intervals_per_second = 0.3
 circle.hold = 0; # hold set to false
 circle.power_interval = 3
 circle.max_power = 24
@@ -105,7 +105,7 @@ G13 H13, H12 I12, H11 I11, H10 I10 J10, J9 I9 H9, H8 I8 J8, H7 J7 I7, I6 H6, H5 
 # Imported pattern 8 -> leaf1
 leaf1 = Pattern()
 leaf1.name = "leaf1"
-leaf1.time = 0.2
+leaf1.intervals_per_second = 0.2
 leaf1.hold = 0; # Hold set to false
 leaf1.power_interval = 3
 leaf1.max_power = 24
@@ -122,7 +122,7 @@ L15 K16, J17, I17, I18, H18, F1 G1 G2, G3 F3 F2 E2"""
 # Imported pattern 9 -> leaf2
 leaf2 = Pattern()
 leaf2.name = "leaf2"
-leaf2.time = 0.2
+leaf2.intervals_per_second = 0.2
 leaf2.hold = 0; # Hold set to false
 leaf2.power_interval = 3
 leaf2.max_power = 24
@@ -138,7 +138,7 @@ E16 E15 F16 G16, H16 H15 I15, I14 J14, K13, L12, L13 L14, K15 K16 J16, I17 H18 G
 # Imported pattern 10 -> duelrectangle
 duelrectangle = Pattern()
 duelrectangle.name = "duelrectangle"
-duelrectangle.time = 0.2
+duelrectangle.intervals_per_second = 0.2
 duelrectangle.hold = 0; # Hold set to false
 duelrectangle.power_interval = 3
 duelrectangle.max_power = 21
@@ -150,7 +150,7 @@ E11 H11, E12 H12, E13 H13, E14 H14, E15 H15, E16 H16, F16 G16, F17 G17, F18 G18,
 # Imported pattern 11 -> infinity
 infinity = Pattern()
 infinity.name = "infinity"
-infinity.time = 0.3
+infinity.intervals_per_second = 0.3
 infinity.hold = 0; # Hold set to false
 infinity.power_interval = 3
 infinity.max_power = 18
@@ -162,7 +162,7 @@ infinity.sequence = """G2 ,F3 ,E4 ,D5 D6 ,E7 ,F8  ,G9 ,H10  ,I11  , J12 J13 , I1
 # Imported pattern 11 -> infinity
 zigzag = Pattern()
 zigzag.name = "zigzag"
-zigzag.time = 0.2
+zigzag.intervals_per_second = 0.2
 zigzag.hold = 0; # Hold set to false
 zigzag.power_interval = 3
 zigzag.max_power = 21
@@ -174,7 +174,7 @@ zigzag.sequence = """A1 B1  C1 ,C2 D2 E2 ,D3 E3 F3 ,E4 F4 G4 ,F5 G5 H5 ,H6 I6  J
 
 scans = Pattern()
 scans.name = "scans"
-scans.time = 0.2
+scans.intervals_per_second = 0.2
 scans.hold = 0; # Hold set to false
 scans.power_interval = 3
 scans.max_power = 21
@@ -184,7 +184,7 @@ scans.sequence = """F1 G1 ,F2  G2 ,F3 G3 ,F4 G4 ,F5 G5 ,F6 G6 ,G5 F5 ,G4 F4 ,G3 
 
 scan = Pattern()
 scan.name = "scan"
-scan.time = 0.2
+scan.intervals_per_second = 0.2
 scan.hold = 0; # Hold set to false
 scan.power_interval = 3
 scan.max_power = 21
