@@ -154,9 +154,9 @@ class Zenbed:
 
             self.end = time.perf_counter() - self.start
             try:
-                time.sleep(self.pattern_intervals_per_second - self.end)
+                time.sleep( 1/self.pattern_intervals_per_second - self.end)
             except ValueError as error:
-                print("The pattern frame ran ", '{:.6f}s '.format(-1 * (self.pattern_intervals_per_second - self.end)),
+                print("The pattern frame ran ", '{:.6f}s '.format(-1 * ( 1/self.pattern_intervals_per_second - self.end)),
                       "over the set latency!")
 
             self.end = time.perf_counter() - self.start

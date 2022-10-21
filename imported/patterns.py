@@ -55,7 +55,7 @@ H12, G11 G12, F11 F12, E11 E12, D11 D12, C11 C12, B11 B12, A11 A12"""
 # Imported pattern 4 -> flow
 flow = Pattern()
 flow.name = "flow"
-flow.intervals_per_second = 0.2
+flow.intervals_per_second = 5
 flow.hold = 0; # hold set to false
 flow.interval_power = 2
 flow.max_power = 16
@@ -122,7 +122,7 @@ L15 K16, J17, I17, I18, H18, F1 G1 G2, G3 F3 F2 E2"""
 # Imported pattern 9 -> leaf2
 leaf2 = Pattern()
 leaf2.name = "leaf2"
-leaf2.intervals_per_second = 0.2
+leaf2.intervals_per_second = 5
 leaf2.hold = 0; # Hold set to false
 leaf2.interval_power = 3
 leaf2.max_power = 24
@@ -138,7 +138,7 @@ E16 E15 F16 G16, H16 H15 I15, I14 J14, K13, L12, L13 L14, K15 K16 J16, I17 H18 G
 # Imported pattern 10 -> duelrectangle
 duelrectangle = Pattern()
 duelrectangle.name = "duelrectangle"
-duelrectangle.intervals_per_second = 0.2
+duelrectangle.intervals_per_second = 5
 duelrectangle.hold = 0; # Hold set to false
 duelrectangle.interval_power = 3
 duelrectangle.max_power = 21
