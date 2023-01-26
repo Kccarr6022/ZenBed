@@ -17,9 +17,9 @@ G2 G3, F2 F3, D2 E2 D3 E3"""
 # Imported pattern 2 -> expanding_circle
 expanding_circle = Pattern()
 expanding_circle.name = "expanding_circle"
-expanding_circle.intervals_per_second = 5
-expanding_circle.hold = 1; # hold set to false
-expanding_circle.interval_power = 3
+expanding_circle.intervals_per_second = 8
+expanding_circle.hold = 0; # hold set to false
+expanding_circle.interval_power = 1
 expanding_circle.max_power = 18
 expanding_circle.start_power = 6
 expanding_circle.percent_power = 100
@@ -55,19 +55,18 @@ H12, G11 G12, F11 F12, E11 E12, D11 D12, C11 C12, B11 B12, A11 A12"""
 # Imported pattern 4 -> flow
 flow = Pattern()
 flow.name = "flow"
-flow.intervals_per_second = 5
+flow.intervals_per_second = 6
 flow.hold = 0; # hold set to false
-flow.interval_power = 2
-flow.max_power = 16
+flow.interval_power = 3
+flow.max_power = 24
 flow.start_power = 6
 flow.percent_power = 100
-flow.sequence = """A1 A2 A3 A4 A5 A6 A7 A8 A9 A10 A11 A12 A13 A14 A15 A16 A17 A18, B1 B2 B3 B4 B5 B6 B7 B8 B9 B10 B11 B12 B13 B14 B15 B16 B17 B18,
-C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 C11 C12 C13 C14 C15 C16 C17 C18, D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12 D13 D14 D15 D16 D17 D18,
+flow.sequence = """A1 A2 A3 A4 A5 A6 A7 A8 A9 A10 A11 A12 A13 A14 A15 A16 A17 A18, B1 B2 B3 B4 B5 B6 B7 B8 B9 B10 B11 B12 B13 B14 B15 B16 B17 B18, C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 C11 C12 C13 C14 C15 C16 C17 C18, D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12 D13 D14 D15 D16 D17 D18,
 E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14 E15 E16 E17 E18, F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15 F16 F17 F18,
 G1 G2 G3 G4 G5 G6 G7 G8 G9 G10 G11 G12 G13 G14 G15 G16 G17 G18, H1 H2 H3 H4 H5 H6 H7 H8 H9 H10 H11 H12 H13 H14 H15 H16 H17 H18,
 I1 I2 I3 I4 I5 I6 I7 I8 I9 I10 I11 I12 I13 I14 I15 I16 I17 I18, J1 J2 J3 J4 J5 J6 J7 J8 J9 J10 J11 J12 J13 J14 J15 J16 J17 J18,
 K1 K2 K3 K4 K5 K6 K7 K8 K9 K10 K11 K12 K13 K14 K15 K16 K17 K18, L1 L2 L3 L4 L5 L6 L7 L8 L9 L10 L11 L12 L13 L14 L15 L16 L17 L18"""
-
+# , 
 # K1 K2 K3 K4 K5 K6 K7 K8 K9 K10 K11 K12 K13 K14 K15 K16 K17 K18, J1 J2 J3 J4 J5 J6 J7 J8 J9 J10 J11 J12 J13 J14 J15 J16 J17 J18,
 # I1 I2 I3 I4 I5 I6 I7 I8 I9 I10 I11 I12 I13 I14 I15 I16 I17 I18, H1 H2 H3 H4 H5 H6 H7 H8 H9 H10 H11 H12 H13 H14 H15 H16 H17 H18,
 # G1 G2 G3 G4 G5 G6 G7 G8 G9 G10 G11 G12 G13 G14 G15 G16 G17 G18, F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15 F16 F17 F18,
@@ -79,9 +78,9 @@ K1 K2 K3 K4 K5 K6 K7 K8 K9 K10 K11 K12 K13 K14 K15 K16 K17 K18, L1 L2 L3 L4 L5 L
 # Imported pattern 5 -> strobe
 strobe = Pattern()
 strobe.name = "strobe"
-strobe.intervals_per_second = 0.5
+strobe.intervals_per_second = 8
 strobe.hold = 0; # hold set to false
-strobe.interval_power = 15
+strobe.interval_power = 1
 strobe.max_power = 30
 strobe.start_power = 15
 strobe.percent_power = 100
@@ -92,9 +91,9 @@ strobe.sequence = """G18 H18 I18, G17 H17 I17, G16 H16 I16, G18 H18 I18, G15 H15
 # Imported pattern 7 -> circle
 circle = Pattern()
 circle.name = "circle"
-circle.intervals_per_second = 0.3
+circle.intervals_per_second = 8
 circle.hold = 0; # hold set to false
-circle.interval_power = 3
+circle.interval_power = 1
 circle.max_power = 24
 circle.start_power = 12
 circle.percent_power = 100
@@ -202,5 +201,18 @@ alarm.interval_power = 20
 alarm.max_power = 20
 alarm.start_power = 20
 alarm.percent_power = 100
-alarm.sequence = """A1 B1 C1 D1 E1 F1 G1 H1 I1 J1 L1 K1 L2 K2 J2 H2 I2 G2 F3 F2 E2 E3 D3 D2 C2 C3 B3 B2 A2 A3 A4 A5       B4 B5   C5 C4 D4 D5   E5 E4 F4 G4 G3 H3 I3 J3 K3 L3 L4       L5 K5 K4 J4 I4 H4 F5 G5 H5 I5 J5 A14 A15 B14 B15 C14 C15 D14 D15 E14 E15 F14 F15 G14 G15 H14 H15 I14 I15 J14 K14 L14 L15 J15 K15  A16 B16 C16 D16 E16 F16 G16 H16 I16 J16 K16 L16 L17 K17 L18 K18 J18 J17 I17 I18 H18 H17 G17 G18 F18 F17  E18 D17 E17 D18 C17 C18 A17 B17 A18 B18 , L13 K13 J13 I13 H13 G13 F13 E13 D13 C13 B13 A13 A12 B12 C12 D12 E12 F12 G12 H12 I12  J12 K12 L12 L11 L10  K10  K11 J10  J11 I10  I11 H10  H11 G11 G10   F11 F10  E10  E11 D11 D10  C10   C11 A11 B11 B10  A10  A6 B6 C6 D6 E6 F6 G6 L6 K6 J6 H7 H6 I6 I7 J7 K7 L7 L8 K8 H8 I8 J8 L9 K9 J9 I9 H9 G9 F8 G8 G7 F7 E7 D8 E8 E9 F9 C9 D9 B9 A9 A8 A7 B8 C8 C7 B7 D7  
-"""
+alarm.sequence = """A1 B1 C1 D1 E1 F1 G1 H1 I1 J1 L1 K1 L2 K2 J2 H2 I2 G2 F3 F2 E2 E3 D3 D2 C2 C3 B3 B2 A2 A3 A4 A5 B4 B5 C5 C4 D4 D5 E5 E4 F4 G4 G3 H3 I3 J3 K3 L3 L4 L5 K5 K4 J4 I4 H4 F5 G5 H5 I5 J5 A14 A15 B14 B15 C14 C15 D14 D15 E14 E15 F14 F15 G14 G15 H14 H15 I14 I15 J14 K14 L14 L15 J15 K15  A16 B16 C16 D16 E16 F16 G16 H16 I16 J16 K16 L16 L17 K17 L18 K18 J18 J17 I17 I18 H18 H17 G17 G18 F18 F17  E18 D17 E17 D18 C17 C18 A17 B17 A18 B18, L13 K13 J13 I13 H13 G13 F13 E13 D13 C13 B13 A13 A12 B12 C12 D12 E12 F12 G12 H12 I12  J12 K12 L12 L11 L10  K10  K11 J10  J11 I10  I11 H10  H11 G11 G10   F11 F10  E10  E11 D11 D10  C10   C11 A11 B11 B10  A10  A6 B6 C6 D6 E6 F6 G6 L6 K6 J6 H7 H6 I6 I7 J7 K7 L7 L8 K8 H8 I8 J8 L9 K9 J9 I9 H9 G9 F8 G8 G7 F7 E7 D8 E8 E9 F9 C9 D9 B9 A9 A8 A7 B8 C8 C7 B7 D7"""
+
+
+# Imported pattern 4 -> flow
+test1 = Pattern()
+test1.name = "test1"
+test1.intervals_per_second = 3
+test1.hold = 0; # hold set to false
+test1.interval_power = 5
+test1.max_power = 30
+test1.start_power = 10
+test1.percent_power = 100
+test1.sequence = """E1 F1 ,E2 F2 ,E3  F3 ,E4 F4 ,E5 F5 ,E6 F6 ,E7 F7 ,E8 F8 ,E9 F9 ,E10  F10  ,E11 F11 ,E12 F12 ,E13 F13 ,E14 F14 ,E15 F15 ,E16 F16 ,E17 F17 ,E18 F18"""
+
+# E1 F1 ,E2 F2 ,E3  F3 ,E4 F4 ,E5 F5 ,E6 F6 ,E7 F7 ,E8 F8 ,E9 F9 ,E10  F10  ,E11 F11 ,E12 F12 ,E13 F13 ,E14 F14 ,E15 F15 ,E16 F16 ,E17 F17 ,E18 F18 ,  E18 F18 ,E17 F17 ,E16 F16 ,E15 F15 ,E14 F14 ,E13 F13 ,E12 F12 ,E11 F11 ,E10  F10  , E9 F9 ,E8 F8 ,E7 F7 , E6 F6 ,E5 F5 ,E4 F4 ,E3 F3 ,E2 F2 ,E1 F1 

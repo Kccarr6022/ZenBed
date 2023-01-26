@@ -33,7 +33,7 @@ class Zenbed:
             for y in range(0, MOTORGRIDYSIZE + 1):
                 self.mtr[x].append(Motor(x, y))
 
-        # Pattern variables
+        # Pattern variables  
         self.pattern_wave_length = 3
         self.pattern_intervals_per_second = 0.1  # frequency of element adjustment (every .1 seconds it increases by the rate of change)
         self.pattern_percent_power = 100
@@ -268,9 +268,9 @@ class Zenbed:
         Turns on selected range of motors to 25% power
         :return:
         """
-        for y in range(1, 4):
-            for x in range(A, D + 1):
-                self.mtr[x][y].percent(25)
+        for y in range(10, 14):
+            for x in range(E, H + 1):
+                self.mtr[x][y].percent(30)
 
     def testeachmotor(self):
         for x in range(1, 13):

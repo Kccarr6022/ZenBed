@@ -1,5 +1,5 @@
 from classes.zenbedclass import Zenbed
-from imported.patterns import expanding_circle, rectangle, goacross, flow, strobe, circle, leaf1, leaf2, duelrectangle, infinity, zigzag, scan, scans, alarm
+from imported.patterns import expanding_circle, rectangle, goacross, flow, strobe, circle, leaf1, leaf2, duelrectangle, infinity, zigzag, scan, scans, alarm, test1
 
 import sqlite3
 import time
@@ -66,10 +66,11 @@ flow
 def main():
 
     zenbed.off()
+    #zenbed.testeachmotor()
+    #zenbed.testmtrs()
     #zenbed.mtr[A][1].percent(0)
     #zenbed.on(10)
-    
-    #zenbed.pattern(alarm) # Forever loop comment out to turn off Motors
+    #zenbed.pattern(test1) # Forever loop comment out to turn off Motors
     
     zenbed.status()
     return 0
