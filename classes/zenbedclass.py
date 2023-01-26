@@ -203,6 +203,8 @@ class Zenbed:
                     print(str(self.mtr[x][y].motor_power), end=' ')
                 elif self.mtr[x][y].motor_power == 100:
                     print(str(self.mtr[x][y].motor_power), end='')
+                elif self.mtr[x][y].motor_power == 0:
+                    print("-", end='  ')
                 else:
                     print(str(self.mtr[x][y].motor_power), end='  ')
             print()
