@@ -37,7 +37,7 @@ class Zenbed:
         # Pattern variables  
         self.pattern_active: bool = False
         self.pattern_wave_length: int = 3
-        self.pattern_intervals_per_second: float = 0.1  # frequency of element adjustment (every .1 seconds it increases by the rate of change)
+        self.pattern_intervals_per_second: float = 3 # frequency of element adjustment (every .1 seconds it increases by the rate of change)
         self.pattern_percent_power: int = 100
         self.pattern_percent_power: float = self.pattern_percent_power / 100
         self.pattern_start_power: float = 20 * self.pattern_percent_power  # Power level previous element must reach for the next element to start increasing
@@ -51,6 +51,8 @@ class Zenbed:
                                 "H14 I14, H13 I13, H12 I12, H11 I11, H10 I10, H9 I9, H8 I8, H7 I7, H6 I6, H5 I5,
                                 "H4 I4, H3 I3 H2 I2, G2 G3, F2 F3, D2 E2 D3 E3 """
 
+        self.total_frame_time: int = 0
+        self.frames_ran: int = 0
 
         def __del__(self):
             self.stop()
@@ -216,6 +218,10 @@ class Zenbed:
             print()
 
         print('{:.6f}s for pattern frame'.format(self.cycle_time))
+
+        self.frames_ran += 1
+        self.total_frame_time += self.cycle_time
+        print('{:.6f}s average ({} frames)'.format(self.total_frame_time / self.frames_ran, self.frames_ran))
         print()
 
     def return_row(self, y):
