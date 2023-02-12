@@ -1,0 +1,8 @@
+Flask
+Werkzeug
+markupsafe
+flask-sqlalchemy
+flask-marshmallow
+Flask-Cors
+python-dotenv
+SQLAlchemy
