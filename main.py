@@ -36,7 +36,7 @@ zenbed = Zenbed()
 #         zenbed.testmtrs()
 #
 #     Turn all motors off
-#         zenbed.off()
+#         zenbed.stop()
 #
 #     Select pattern
 #        zenbed.pattern()
@@ -62,7 +62,7 @@ flow
 
 def main():
 
-    zenbed.off()
+    zenbed.stop()
     #zenbed.testeachmotor()
     #zenbed.testmtrs()
     #zenbed.mtr[A][1].percent(0)

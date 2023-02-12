@@ -2,7 +2,7 @@ from classes.zenbedclass import Zenbed
 
 def stop():
     zenbed = Zenbed()
-    zenbed.off()
+    zenbed.stop()
     zenbed.status()
     return 0
 

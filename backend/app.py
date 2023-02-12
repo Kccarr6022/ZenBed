@@ -13,10 +13,11 @@ from createapp import create_app,db
 from dotenv import load_dotenv
 from createapp import create_app, db, ma
 from classes.zenbedclass import Zenbed
+from threading import Thread
+
 app = create_app()
-
-
 zenbed = Zenbed()
+threads = []
 
 @app.route("/zenbed/start_pattern", methods=["POST"])
 def zenbed_start_pattern():
@@ -28,8 +29,7 @@ def zenbed_start_pattern():
 
 @app.route("/zenbed/stop_pattern", methods=['POST'])
 def zenbed_stop_pattern():
-
-    zenbed.off()
+    zenbed.stop()
     return {
         "zenbed": "Zenbed stopped"
     }

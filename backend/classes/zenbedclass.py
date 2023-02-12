@@ -35,6 +35,7 @@ class Zenbed:
                 self.mtr[x].append(Motor(x, y))
 
         # Pattern variables  
+        self.pattern_active: bool = False
         self.pattern_wave_length: int = 3
         self.pattern_intervals_per_second: float = 0.1  # frequency of element adjustment (every .1 seconds it increases by the rate of change)
         self.pattern_percent_power: int = 100
@@ -52,7 +53,7 @@ class Zenbed:
 
 
         def __del__(self):
-            self.off()
+            self.stop()
 
     # Algorithms
     def string_to_sequence(self, string):
@@ -121,11 +122,11 @@ class Zenbed:
         prev_sequence = list(sequence)
         prev_sequence.insert(0, sequence[-1])
 
-        sequence[0][0].increasing = True  # Pattern start
-
+        # Pattern start
+        self.pattern_active = True
+        sequence[0][0].increasing = True
         
-
-        while True:
+        while self.pattern_active:
             start_time= time.perf_counter()
 
             for prev_element, curr_element in zip(prev_sequence, sequence):
@@ -151,7 +152,7 @@ class Zenbed:
                         for hold_second in range(pattern.hold):
                             print("Hold for " + str(pattern.hold - hold_second) + " more seconds...")
                             time.sleep(1)
-                        self.off()
+                        self.stop()
                         sequence[0][0].increasing = True  # Pattern start
                     else:
                         curr_element[0].decreasing = True
@@ -285,7 +286,7 @@ class Zenbed:
                 self.mtr[x][y].percent(30)
                 self.status()
                 time.sleep(2)
-                self.off()
+                self.stop()
                 self.status()
                 time.sleep(1)
 
@@ -308,11 +309,12 @@ class Zenbed:
             for x in range(A, L + 1):
                 self.mtr[x][y].percent(percent)
 
-    def off(self):
+    def stop(self):
         """
         Turns all motors off
         :return:
         """
+        self.pattern_active = False
         for y in range(1, 19):
             for x in range(A, L + 1):
                 self.mtr[x][y].percent(0)

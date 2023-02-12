@@ -105,7 +105,7 @@ const PatternCreate = () => {
         </div>
       </div>
       <button onClick={() => zenbedOn()}>Play Pattern</button>
-      <button onClick={() => zenbedOn()}>Stop Pattern</button>
+      <button onClick={() => zenbedOff()}>Stop Pattern</button>
     </div>
   )
 }
