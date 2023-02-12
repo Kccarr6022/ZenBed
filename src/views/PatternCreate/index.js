@@ -113,9 +113,6 @@ const PatternCreate = () => {
           <div id='grid-item-border'></div>
         </div>
       </div>
-      <button className='control-button' onClick={() => zenbedOn()}>
-        Play Pattern
-      </button>
       <button className='control-button' onClick={() => zenbedOff()}>
         Stop Pattern
       </button>
