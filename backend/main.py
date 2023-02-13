@@ -67,7 +67,7 @@ def main():
     #zenbed.testmtrs()
     #zenbed.mtr[A][1].percent(0)
     #zenbed.on(10)
-    #zenbed.pattern(flow) # Forever loop comment out to turn off Motors
+    zenbed.pattern(flow) # Forever loop comment out to turn off Motors
     
     zenbed.status() 
     return 0
