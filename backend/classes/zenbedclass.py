@@ -26,13 +26,19 @@ L = 12
 
 class Zenbed:
 
-    def __init__(self):  # Initializing all the PCAs / Motors are connected to PCAs
+    def __init__(self, connect: bool):  # Initializing all the PCAs / Motors are connected to PCAs
         # Initializing a a double list of motors
+        if connect:
+            print("\033[92mConnecting to Motors...\033[0m")
+        else:
+            print("\033[91mNot connecting to Motors...\033[0m")
+
+        self.connect = connect
         self.mtr = []
         for x in range(0, MOTORGRIDXSIZE + 1):
             self.mtr.append([])
             for y in range(0, MOTORGRIDYSIZE + 1):
-                self.mtr[x].append(Motor(x, y))
+                self.mtr[x].append(Motor(x, y, connect))
 
         # Pattern variables  
         self.pattern_active: bool = False
@@ -51,8 +57,14 @@ class Zenbed:
                                 "H14 I14, H13 I13, H12 I12, H11 I11, H10 I10, H9 I9, H8 I8, H7 I7, H6 I6, H5 I5,
                                 "H4 I4, H3 I3 H2 I2, G2 G3, F2 F3, D2 E2 D3 E3 """
 
-        self.total_frame_time: int = 0
-        self.frames_ran: int = 0
+        # keeps list of frame times as it runs so we can get an average and also calculate variance
+        self.frame_list = []
+        # keeps a running total of frame time so we don't have to sum the frame_list twice
+        self.total_frame_time: float = 0
+        self.frame_high: float = 0 # the highest frame time
+        self.frame_low: float = 0 # the lowest frame time
+        # the number of motors which that had their power change during a frame/cycle
+        self.motors_changed_this_cycle: int = 0
 
         def __del__(self):
             self.stop()
@@ -82,7 +94,7 @@ class Zenbed:
                     continue
                 y = y + ord(string[char]) - ord('0')
                 motors.insert(element, self.mtr[x][y])
-                print("Added motor " + chr(x + 64) + str(y) + " to list ")
+                #print("Added motor " + chr(x + 64) + str(y) + " to list ")
                 x = 0
                 y = 0
 
@@ -98,7 +110,7 @@ class Zenbed:
             elif string[char] == '!':
                 sequence.insert(list, motors)
                 list = list + 1
-                print("Motors ")
+                print("Motors", end=' ')
                 for x in motors:
                     print(chr(x.x + 64) + str(x.y), end=' ')
                 print("passed successfully.")
@@ -130,6 +142,7 @@ class Zenbed:
         
         while self.pattern_active:
             start_time= time.perf_counter()
+            self.motors_changed_this_cycle = 0
 
             for prev_element, curr_element in zip(prev_sequence, sequence):
 
@@ -138,9 +151,11 @@ class Zenbed:
                 if curr_element[0].increasing:
                     for motor in curr_element:
                         motor.percent(motor.motor_power + self.pattern_interval_power)
+                        self.motors_changed_this_cycle += 1
                 elif curr_element[0].decreasing:
                     for motor in curr_element:
                         motor.percent(motor.motor_power - self.pattern_interval_power)
+                        self.motors_changed_this_cycle += 1
 
                 # sequence_indexs if motor power reaches start power
                 if prev_element[0].motor_power >= self.pattern_start_power and curr_element[
@@ -204,9 +219,17 @@ class Zenbed:
         """
         Relays grid information and algorithm delay/ frame delay
         :return:
-        """
+        """          
+        on_or_off = '\033[92m' if self.connect else '\033[91m'
+        print(f'   {on_or_off}A1 B2 C3 D4 E5 F6 G7 H8 I9 J0 K1 L12 \033[0m')
+
         for y in range(1, 19):
             for x in range(A, L + 1):
+                if x == 1:
+                    if y < 10:
+                        print('{} {}|\033[0m'.format(on_or_off, y), end=' ')
+                    else:
+                        print('{}{}|\033[0m'.format(on_or_off, y), end=' ')
                 if 10 <= self.mtr[x][y].motor_power <= 99:
                     print(str(self.mtr[x][y].motor_power), end=' ')
                 elif self.mtr[x][y].motor_power == 100:
@@ -217,11 +240,67 @@ class Zenbed:
                     print(str(self.mtr[x][y].motor_power), end='  ')
             print()
 
-        print('{:.6f}s for pattern frame'.format(self.cycle_time))
+        if self.pattern_active:
+            self.status_frame_info()
 
-        self.frames_ran += 1
-        self.total_frame_time += self.cycle_time
-        print('{:.6f}s average ({} frames)'.format(self.total_frame_time / self.frames_ran, self.frames_ran))
+    def status_frame_info(self):
+        # subtract the delay added by SLEEP to get the true cycle time
+        frame_time_offset: float = 1 / self.pattern_intervals_per_second
+        frame_time: float = self.cycle_time - frame_time_offset if self.cycle_time > 0 else 0
+        
+        self.frame_list.append(frame_time)
+        frame_count: int = len(self.frame_list)
+
+        # average frame time
+        self.total_frame_time += frame_time
+        average_time = self.total_frame_time / frame_count if frame_count > 0 else 0
+
+        # add up how much each frame differs from the new average frame time
+        total_variance: float = 0
+        for frame_time in self.frame_list:
+            total_variance += abs(frame_time - average_time)
+
+        # average variance
+        average_variance: float = total_variance / frame_count if frame_count > 0 else 0
+        average_variance_perc: float = 100 * (average_variance / average_time) if average_time > 0 else 0
+
+        # frame variance
+        frame_variance: float = abs(frame_time - average_time)
+        frame_variance_perc = 100 * (frame_variance / average_time) if average_time > 0 else 0
+        
+        # \033[0m = end coloring
+        # \033[91m = red
+        # \033[92m = green
+        # \033[93m = yellow
+        # \033[94m = blue
+        print('{:.7f}s average frame time (\033[94m{}\033[0m frames)'.format(average_time, frame_count))
+        print('{:.7f}s frame time (\033[94m{}\033[0m motors changed)'.format(frame_time, self.motors_changed_this_cycle))
+        text_color = '\033[91m' if frame_variance > average_variance else '\033[92m' # red if variance was higher than average
+        print('{:.7f}s frame variance   {}{:.1f}%\033[0m'.format(frame_variance, text_color, frame_variance_perc))
+        print('{:.7f}s average variance \033[33m{:.1f}%\033[0m'.format(average_variance, average_variance_perc))
+
+        # update high/low
+        if frame_count == 1:
+            self.frame_high = frame_time
+            self.frame_low = frame_time
+            print('Slowest Frame: \033[33m{:.7f}s\033[0m'.format(self.frame_high))
+            print('Fastest Frame: \033[33m{:.7f}s\033[0m'.format(self.frame_low))
+        else:
+            if frame_time > self.frame_high:
+                precent_change: float = 100 * (frame_time - self.frame_high) / self.frame_high if self.frame_high > 0 else 0
+                self.frame_high = frame_time
+                # a new high gets colored
+                print('Slowest Frame: \033[91m{:.7f}s\033[0m  (\033[91m{:.1f}%\033[0m slower)'.format(self.frame_high, precent_change))
+                print('Fastest Frame: {:.7f}s'.format(self.frame_low))
+            elif frame_time < self.frame_low:
+                precent_change: float = 100 * (self.frame_low - frame_time) / self.frame_low if self.frame_low > 0 else 0
+                self.frame_low = frame_time
+                # a new low gets colored
+                print('Slowest Frame: {:.7f}s'.format(self.frame_high))
+                print('Fastest Frame: \033[91m{:.7f}s\033[0m  (\033[91m{:.1f}%\033[0m faster)'.format(self.frame_low, precent_change))
+            else:
+                print('Slowest Frame: {:.7f}s'.format(self.frame_high))
+                print('Fastest Frame: {:.7f}s'.format(self.frame_low))
         print()
 
     def return_row(self, y):
