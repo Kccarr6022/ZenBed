@@ -51,8 +51,16 @@ class Zenbed:
                                 "H14 I14, H13 I13, H12 I12, H11 I11, H10 I10, H9 I9, H8 I8, H7 I7, H6 I6, H5 I5,
                                 "H4 I4, H3 I3 H2 I2, G2 G3, F2 F3, D2 E2 D3 E3 """
 
-        self.total_frame_time: int = 0
-        self.frames_ran: int = 0
+        # keeps list of frame times as it runs so we can get an average and also calculate variance
+        self.frame_list = []
+        # keeps a running total of frame time so we don't have to sum the frame_list twice
+        self.total_frame_time: float = 0
+        # keeps the previous average variance so we don't have to calculate it twice
+        self.previous_average_variance: float = 0
+        self.frame_high: float = 0
+        self.frame_low: float = 0
+        # the number of motors which that had their power change during a frame/cycle
+        self.motors_changed_this_cycle: int = 0
 
         def __del__(self):
             self.stop()
@@ -130,6 +138,7 @@ class Zenbed:
         
         while self.pattern_active:
             start_time= time.perf_counter()
+            self.motors_changed_this_cycle = 0
 
             for prev_element, curr_element in zip(prev_sequence, sequence):
 
@@ -138,9 +147,11 @@ class Zenbed:
                 if curr_element[0].increasing:
                     for motor in curr_element:
                         motor.percent(motor.motor_power + self.pattern_interval_power)
+                        self.motors_changed_this_cycle += 1
                 elif curr_element[0].decreasing:
                     for motor in curr_element:
                         motor.percent(motor.motor_power - self.pattern_interval_power)
+                        self.motors_changed_this_cycle += 1
 
                 # sequence_indexs if motor power reaches start power
                 if prev_element[0].motor_power >= self.pattern_start_power and curr_element[
@@ -205,8 +216,14 @@ class Zenbed:
         Relays grid information and algorithm delay/ frame delay
         :return:
         """
+        print('    A1 B2 C3 D4 E5 F6 G7 H8 I9 J0 K1 L12')
         for y in range(1, 19):
             for x in range(A, L + 1):
+                if x == 1:
+                    if y < 10:
+                        print('0{}'.format(y), end='  ')
+                    else:
+                        print(str(y), end='  ')
                 if 10 <= self.mtr[x][y].motor_power <= 99:
                     print(str(self.mtr[x][y].motor_power), end=' ')
                 elif self.mtr[x][y].motor_power == 100:
@@ -217,11 +234,80 @@ class Zenbed:
                     print(str(self.mtr[x][y].motor_power), end='  ')
             print()
 
-        print('{:.6f}s for pattern frame'.format(self.cycle_time))
+        self.status_frame_info()
 
-        self.frames_ran += 1
-        self.total_frame_time += self.cycle_time
-        print('{:.6f}s average ({} frames)'.format(self.total_frame_time / self.frames_ran, self.frames_ran))
+    # fix cache gitignore __pychace__
+    def status_frame_info(self):
+        # subtract the delay added by SLEEP to get the true delay. Set to 0 if you want total delay
+        frame_time_offset: float = 1/self.pattern_intervals_per_second
+        frame_time: float = self.cycle_time - frame_time_offset
+        frame_count: int = len(self.frame_list)
+        
+        frame_time_prev: float = self.frame_list[frame_count-1] if frame_count > 0 else 0
+        print('{:.7f}s previous frame time'.format(frame_time_prev))
+
+        frame_delta: float = frame_time - frame_time_prev if frame_time_prev > 0 else 0
+        frame_delta_perc: float = 100 * (frame_delta / frame_time_prev) if frame_time_prev > 0 else 0
+
+        # current frame delay
+        plus_minus = '+' if frame_delta > 0 else ''
+        text_color = '\033[91m' if abs(frame_delta_perc) > 33 else '\033[92m' # red if >33% higher OR lower than the previous frame
+        print('{:.7f}s frame time  '.format(frame_time), '({}{:.7f}s {}{}{:.1f}%\033[0m) ({} motors changed)'.format(plus_minus, frame_delta, text_color, plus_minus, frame_delta_perc, self.motors_changed_this_cycle))
+
+        # average frame delay
+        average_time_prev = self.total_frame_time / frame_count if frame_count > 0 else 0
+
+        frame_count += 1
+        self.total_frame_time += frame_time
+
+        average_time = self.total_frame_time / frame_count if frame_count > 0 else 0
+        average_delta: float = average_time - average_time_prev if average_time_prev > 0 else 0
+        average_perc: float = 100 * (average_delta / average_time_prev) if average_time_prev > 0 else 0
+
+        plus_minus = '+' if average_delta > 0 else ''
+        print('{:.7f}s average time'.format(average_time), '({}{:.7f}s {}{}{:.1f}%\033[0m) ({} frames)'.format(plus_minus, average_delta, text_color, plus_minus, average_perc, frame_count))
+        
+        # update high/low
+        if frame_count == 1:
+            self.frame_high = frame_time
+            self.frame_low = frame_time
+            print('high:{:.7f}s low:{:.7f}s'.format(self.frame_high, self.frame_low))
+        else:
+            if frame_time > self.frame_high:
+                self.frame_high = frame_time
+                print('high:\033[33m{:.7f}s\033[0m low:{:.7f}s'.format(self.frame_high, self.frame_low)) # color new high yellow
+            elif frame_time < self.frame_low:
+                self.frame_low = frame_time
+                print('high:{:.7f}s low:\033[33m{:.7f}s\033[0m'.format(self.frame_high, self.frame_low)) # color new low yellow
+            else:
+                print('high:{:.7f}s low:{:.7f}s'.format(self.frame_high, self.frame_low))
+        print()
+
+        # frame variance
+        print('{:.7f}s previous average variance'.format(self.previous_average_variance))
+
+        frame_variance: float = abs(frame_time - average_time)
+        frame_variance_change: float = frame_variance - self.previous_average_variance if self.previous_average_variance > 0 else 0
+        frame_variance_perc: float = 100 * (frame_variance_change / self.previous_average_variance) if self.previous_average_variance > 0 else 0
+
+        plus_minus = '+' if frame_variance_change > 0 else ''
+        text_color = '\033[91m' if frame_variance_perc > 33 else '\033[92m' # red if >33% higher than the previous average
+        print('{:.7f}s frame variance  '.format(frame_variance), '({}{:.7f}s {}{}{:.1f}%\033[0m)'.format(plus_minus, frame_variance_change, text_color, plus_minus, frame_variance_perc))
+
+        # average variance
+        self.frame_list.append(frame_time)
+
+        total_variance: float = 0
+        for frame_time in self.frame_list:
+            total_variance += abs(frame_time - average_time)
+        
+        average_variance: float = total_variance / frame_count if frame_count > 0 else 0
+        average_variance_change: float = average_variance - self.previous_average_variance if self.previous_average_variance > 0 else 0
+        average_variance_perc: float = 100 * (average_variance_change / self.previous_average_variance) if self.previous_average_variance > 0 else 0
+        self.previous_average_variance = average_variance
+
+        plus_minus = '+' if average_variance_change > 0 else ''
+        print('{:.7f}s average variance'.format(average_variance), '({}{:.7f}s {}{}{:.1f}%\033[0m)'.format(plus_minus, average_variance_change, text_color, plus_minus, average_variance_perc))
         print()
 
     def return_row(self, y):
