@@ -61,8 +61,10 @@ class Zenbed:
         self.frame_list = []
         # keeps a running total of frame time so we don't have to sum the frame_list twice
         self.total_frame_time: float = 0
-        self.frame_high: float = 0 # the highest frame time
-        self.frame_low: float = 0 # the lowest frame time
+        # keeps the previous average variance so we don't have to calculate it twice
+        self.previous_average_variance: float = 0
+        self.frame_high: float = 0
+        self.frame_low: float = 0
         # the number of motors which that had their power change during a frame/cycle
         self.motors_changed_this_cycle: int = 0
 

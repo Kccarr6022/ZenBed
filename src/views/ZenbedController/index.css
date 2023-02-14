@@ -1,0 +1,13 @@
+.pattern-entry {
+  display: block;
+  height: fit-content;
+  font-size: 50px;
+  margin: 4rem auto;
+}
+
+.controller-button {
+  display: block;
+  font-size: 50px;
+  margin: 4rem auto;
+  background-color: whitesmoke;
+}

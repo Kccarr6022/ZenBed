@@ -27,7 +27,7 @@ const colors_faded = [
 
 const PatternCreate = () => {
   const [zenbedGrid, setZenbedGrid] = useState()
-  const [test, setTest] = useState("test")
+  const [patterns, setPatterns] = useState()
   const cellClicked = cell => {
     console.log((cell.target.style.backgroundColor = 'red'))
   }
@@ -39,6 +39,14 @@ const PatternCreate = () => {
   const zenbedOff = () => {
     axios.post(process.env.REACT_APP_API_ADDRESS + '/zenbed/stop_pattern')
   }
+
+  const getZenbedPatterns = () => {
+    axios.get(process.env.REACT_APP_API_ADDRESS_CREATE + '/api/patterns').then(request => setPatterns(request.data))
+  }
+
+  useEffect(() => {
+    getZenbedPatterns()
+  }, [])
 
   return (
     <div className='pattern-create-page'>
@@ -105,10 +113,9 @@ const PatternCreate = () => {
           <div id='grid-item-border'></div>
         </div>
       </div>
-      <button onClick={() => zenbedOn()}>Play Pattern</button>
-      <button onClick={() => zenbedOff()}>Stop Pattern</button>
-      <button onClick={() => setTest("works")}>Test</button>
-      <h1>{test}</h1>
+      <button className='control-button' onClick={() => zenbedOff()}>
+        Stop Pattern
+      </button>
     </div>
   )
 }
