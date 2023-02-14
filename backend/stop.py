@@ -1,7 +1,7 @@
 from backend.classes.zenbedclass import Zenbed
 
 def stop():
-    zenbed = Zenbed()
+    zenbed = Zenbed(connected=True)
     zenbed.stop()
     zenbed.status()
 

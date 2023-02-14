@@ -14,6 +14,7 @@ from createapp import create_app,db
 from dotenv import load_dotenv
 from createapp import create_app, db, ma
 from classes.zenbedclass import Zenbed
+from classes.patternclass import Pattern
 from threading import Thread
 
 app = create_app()
@@ -22,9 +23,21 @@ threads = []
 
 @app.route("/zenbed/start_pattern", methods=["POST"])
 def zenbed_start_pattern():
-    pattern = Pattern()
-    pattern.sequence = request.get_json()['sequence']
-    zenbed.pattern(pattern)
+
+
+    requested_pattern = Pattern(
+        name=request.get_json()['name'],
+        intervals_per_second=request.get_json()['intervals_per_second'],
+        percent_power=request.get_json()['percent_power'],
+        start_power=request.get_json()['start_power'],
+        max_power=request.get_json()['max_power'],
+        interval_power=request.get_json()['interval_power'],
+        hold=request.get_json()['hold'],
+        reverse=request.get_json()['reverse'],
+        sequence=request.get_json()['sequence']
+    )
+
+    zenbed.pattern(requested_pattern)
     return {
         "zenbed": "Zenbed started"
     }

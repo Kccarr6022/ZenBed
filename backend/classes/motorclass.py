@@ -46,7 +46,7 @@ L = 12
 
 class Motor:
 
-    def __init__(self, motorX, motorY):  # Motor(x, y) Creating ZenBed Matrix
+    def __init__(self, motorX, motorY, connect: bool):  # Motor(x, y) Creating ZenBed Matrix
         try:
             pass
         except NameError as error:
@@ -66,7 +66,10 @@ class Motor:
             # PCA1 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x40)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x40)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 1")
                 pass
@@ -109,7 +112,10 @@ class Motor:
             # PCA2 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x41)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x41)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 2")
                 pass
@@ -153,7 +159,10 @@ class Motor:
             # PCA3 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x42)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x42)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 3")
                 pass
@@ -196,7 +205,10 @@ class Motor:
             # PCA4 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x43)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x43)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 4")
                 pass
@@ -220,7 +232,10 @@ class Motor:
             # PCA5 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x44)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x44)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 5")
                 pass
@@ -264,7 +279,10 @@ class Motor:
             # PCA6 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x45)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x45)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 6")
                 pass
@@ -307,7 +325,10 @@ class Motor:
             # PCA7 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x46)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x46)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 7")
                 pass
@@ -349,7 +370,10 @@ class Motor:
             # PCA8 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x47)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x47)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 8")
                 pass
@@ -372,7 +396,10 @@ class Motor:
             # PCA9 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x48)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x48)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 9")
                 pass
@@ -415,7 +442,10 @@ class Motor:
             # PCA10 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x49)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x49)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 10")
                 pass
@@ -458,7 +488,10 @@ class Motor:
             # PCA11 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x4a)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x4a)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 11")
                 pass
@@ -500,7 +533,10 @@ class Motor:
             # PCA12 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x4b)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x4b)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 12")
                 pass
@@ -523,7 +559,10 @@ class Motor:
             # PCA13 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x4c)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x4c)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 13")
                 pass
@@ -566,7 +605,10 @@ class Motor:
             # PCA14 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x4d)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x4d)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 14")
                 pass
@@ -609,7 +651,10 @@ class Motor:
             # PCA15 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x4e)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x4e)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 15")
                 pass
@@ -651,7 +696,10 @@ class Motor:
             # PCA16 < works correct
 
             try:
-                self.PCA = PCA9685(i2c_bus, 0x4f)
+                if connect:
+                    self.PCA = PCA9685(i2c_bus, 0x4f)
+                else:
+                    pass
             except NameError as error:
                 print("Could not connect to PCA 16")
                 pass
@@ -680,7 +728,7 @@ class Motor:
             quit()
 
         try:
-            self.PCA.frequency = 60
+            self.PCA.frequency = 1600
         except AttributeError as error:
             pass
 

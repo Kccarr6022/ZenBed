@@ -20,10 +20,6 @@ L = 12
 MOTORGRIDXSIZE = 12
 MOTORGRIDYSIZE = 18
 
-# Zenbed Initialization
-zenbed = Zenbed()
-
-
 # """ COMMANDS =============================================================
 #
 #     Set power level of all motors
@@ -35,7 +31,7 @@ zenbed = Zenbed()
 #     Set power level of specific group of motors (This has to be edited in zenbedclass.py)
 #         zenbed.testmtrs()
 #
-#     Turn all motors off
+#     Turn all motors off``
 #         zenbed.stop()
 #
 #     Select pattern
@@ -58,14 +54,14 @@ goacross
 flow
 """
             
-            
-
 def main():
 
+    # Zenbed Initialization
+    zenbed = Zenbed(connected=False)
+
     zenbed.stop()
-    #zenbed.testeachmotor()
     #zenbed.testmtrs()
-    #zenbed.mtr[A][1].percent(0)
+    #zenbed.mtr[D][3].percent(0)
     #zenbed.on(10)
     zenbed.pattern(flow) # Forever loop comment out to turn off Motors
     
