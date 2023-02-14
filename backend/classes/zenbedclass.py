@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from classes.motorclass import Motor
 from classes.patternclass import Pattern
+from typing import List
 import time
 
 # Grid size
@@ -25,20 +26,19 @@ L = 12
 
 
 class Zenbed:
-
-    def __init__(self, connect: bool):  # Initializing all the PCAs / Motors are connected to PCAs
+    def __init__(self, connected: bool = False):  # Initializing all the PCAs / Motors are connected to PCAs
         # Initializing a a double list of motors
-        if connect:
+        if connected:
             print("\033[92mConnecting to Motors...\033[0m")
         else:
             print("\033[91mNot connecting to Motors...\033[0m")
 
-        self.connect = connect
+        self.connected = connected
         self.mtr = []
         for x in range(0, MOTORGRIDXSIZE + 1):
             self.mtr.append([])
             for y in range(0, MOTORGRIDYSIZE + 1):
-                self.mtr[x].append(Motor(x, y, connect))
+                self.mtr[x].append(Motor(x, y, connected))
 
         # Pattern variables  
         self.pattern_active: bool = False
@@ -164,13 +164,22 @@ class Zenbed:
                 elif curr_element[0].motor_power >= self.pattern_max_power:
                     if pattern.hold and sequence[-1][0].motor_power < pattern.max_power:
                         curr_element[0].increasing = False
-                        
-                    elif pattern.hold and sequence[-1][0].motor_power >= pattern.max_power:
-                        for hold_second in range(pattern.hold):
-                            print("Hold for " + str(pattern.hold - hold_second) + " more seconds...")
-                            time.sleep(1)
-                        self.stop()
-                        sequence[0][0].increasing = True  # Pattern start
+                    elif sequence[-1][0].motor_power >= pattern.max_power:
+                        if pattern.hold:
+                            for hold_second in range(pattern.hold):
+                                print("Hold for " + str(pattern.hold - hold_second) + " more seconds...")
+                                time.sleep(1)
+                            self.off()
+                            sequence[0][0].increasing = True  # Pattern start
+                        if self.pattern_reverse:
+                            # set all decreasing to increasing
+                            sequence.reverse()
+                            prev_sequence = list(sequence)
+                            prev_sequence.insert(0, sequence[-1])
+                            print("REVERSING PATTERN")
+                            sequence[0][0].increasing = True # Pattern start
+                            sequence[0][0].decreasing = False
+
                     else:
                         curr_element[0].decreasing = True
                         curr_element[0].increasing = False
@@ -220,7 +229,7 @@ class Zenbed:
         Relays grid information and algorithm delay/ frame delay
         :return:
         """          
-        on_or_off = '\033[92m' if self.connect else '\033[91m'
+        on_or_off = '\033[92m' if self.connected else '\033[91m'
         print(f'   {on_or_off}A1 B2 C3 D4 E5 F6 G7 H8 I9 J0 K1 L12 \033[0m')
 
         for y in range(1, 19):
@@ -393,6 +402,14 @@ class Zenbed:
         for y in range(1, 19):
             for x in range(A, L + 1):
                 self.mtr[x][y].percent(percent)
+
+    def off(self):
+        for y in range(1, 19):
+            for x in range(A, L + 1):
+                self.mtr[x][y].percent(0)
+                self.mtr[x][y].increasing = False
+                self.mtr[x][y].decreasing = False
+
 
     def stop(self):
         """

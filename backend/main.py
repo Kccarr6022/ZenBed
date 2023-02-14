@@ -55,13 +55,11 @@ flow
 """
             
 def main():
-    on = True
-    off = False
+
     # Zenbed Initialization
-    zenbed = Zenbed(off)
+    zenbed = Zenbed(connected=False)
 
     zenbed.stop()
-    #zenbed.testeachmotor()
     #zenbed.testmtrs()
     #zenbed.mtr[D][3].percent(0)
     #zenbed.on(10)

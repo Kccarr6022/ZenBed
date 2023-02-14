@@ -17,11 +17,11 @@ from tokenize import Name
 try:
     i2c_bus = busio.I2C(SCL, SDA)
     print("Zenbed connected")
-    time.sleep(0.1)
+    time.sleep(1)
 
 except NameError as error:
     print("Zenbed not connected")
-    time.sleep(0.1)
+    time.sleep(1)
 
 # MotorGrid Size
 
@@ -728,7 +728,7 @@ class Motor:
             quit()
 
         try:
-            self.PCA.frequency = 60
+            self.PCA.frequency = 1600
         except AttributeError as error:
             pass
 
