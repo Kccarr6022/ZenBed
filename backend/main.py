@@ -1,5 +1,5 @@
 from classes.zenbedclass import Zenbed
-from imported.patterns import expanding_circle, rectangle, goacross, flow, strobe, circle, leaf1, leaf2, duelrectangle, infinity, zigzag, scan, scans, alarm1, alarm2, test1
+from patterns import expanding_circle, rectangle, goacross, flow, strobe, circle, leaf1, leaf2, duelrectangle, infinity, zigzag, scan, scans, alarm1, alarm2, test1
 
 
 # Letters
@@ -53,17 +53,18 @@ expanding_circle
 goacross
 flow
 """
-            
-def main():
 
+def main():
     # Zenbed Initialization
-    zenbed = Zenbed(connected=False)
+    # Zenbed() runs with motors OFF. Zenbed(on) runs with motors ON
+    on = True
+    zenbed = Zenbed(on) 
 
     zenbed.stop()
     #zenbed.testmtrs()
     #zenbed.mtr[D][3].percent(0)
     #zenbed.on(10)
-    zenbed.pattern(flow) # Forever loop comment out to turn off Motors
+    #zenbed.pattern(flow) # Forever loop comment out to turn off Motors
     
     zenbed.status() 
     return 0

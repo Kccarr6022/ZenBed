@@ -27,12 +27,12 @@ L = 12
 
 class Zenbed:
     def __init__(self, connected: bool = False):  # Initializing all the PCAs / Motors are connected to PCAs
-        # Initializing a a double list of motors
         if connected:
             print("\033[92mConnecting to Motors...\033[0m")
         else:
             print("\033[91mNot connecting to Motors...\033[0m")
-
+        
+        # Initializing a a double list of motors
         self.connected = connected
         self.mtr = []
         for x in range(0, MOTORGRIDXSIZE + 1):
@@ -61,8 +61,7 @@ class Zenbed:
         self.frame_list = []
         # keeps a running total of frame time so we don't have to sum the frame_list twice
         self.total_frame_time: float = 0
-        # keeps the previous average variance so we don't have to calculate it twice
-        self.previous_average_variance: float = 0
+        # tracks the highest and lowest frame time while a pattern runs
         self.frame_high: float = 0
         self.frame_low: float = 0
         # the number of motors which that had their power change during a frame/cycle
@@ -147,8 +146,6 @@ class Zenbed:
             self.motors_changed_this_cycle = 0
 
             for prev_element, curr_element in zip(prev_sequence, sequence):
-
-
                 # sequence_indexs if motor is increasing or decreasing
                 if curr_element[0].increasing:
                     for motor in curr_element:
@@ -166,21 +163,21 @@ class Zenbed:
                 elif curr_element[0].motor_power >= self.pattern_max_power:
                     if pattern.hold and sequence[-1][0].motor_power < pattern.max_power:
                         curr_element[0].increasing = False
-                    elif sequence[-1][0].motor_power >= pattern.max_power:
-                        if pattern.hold:
-                            for hold_second in range(pattern.hold):
-                                print("Hold for " + str(pattern.hold - hold_second) + " more seconds...")
-                                time.sleep(1)
-                            self.off()
-                            sequence[0][0].increasing = True  # Pattern start
-                        if self.pattern_reverse:
-                            # set all decreasing to increasing
-                            sequence.reverse()
-                            prev_sequence = list(sequence)
-                            prev_sequence.insert(0, sequence[-1])
-                            print("REVERSING PATTERN")
-                            sequence[0][0].increasing = True # Pattern start
-                            sequence[0][0].decreasing = False
+                    elif pattern.hold and sequence[-1][0].motor_power >= pattern.max_power:
+                        #if pattern.hold:
+                        for hold_second in range(pattern.hold):
+                            print("Hold for " + str(pattern.hold - hold_second) + " more seconds...")
+                            time.sleep(1)
+                        self.stop(pattern=True)
+                        sequence[0][0].increasing = True  # Pattern start
+                        # if self.pattern_reverse:
+                        #     # set all decreasing to increasing
+                        #     sequence.reverse()
+                        #     prev_sequence = list(sequence)
+                        #     prev_sequence.insert(0, sequence[-1])
+                        #     print("REVERSING PATTERN")
+                        #     sequence[0][0].increasing = True # Pattern start
+                        #     sequence[0][0].decreasing = False
 
                     else:
                         curr_element[0].decreasing = True
@@ -226,11 +223,8 @@ class Zenbed:
 
             self.status()
 
-    def status(self):
-        """
-        Relays grid information and algorithm delay/ frame delay
-        :return:
-        """          
+    # Prints grid information to the terminal, and also cycle times if a pattern is active
+    def status(self):      
         on_or_off = '\033[92m' if self.connected else '\033[91m'
         print(f'   {on_or_off}A1 B2 C3 D4 E5 F6 G7 H8 I9 J0 K1 L12 \033[0m')
 
@@ -254,6 +248,7 @@ class Zenbed:
         if self.pattern_active:
             self.status_frame_info()
 
+    # Prints cycle times and variance to the terminal
     def status_frame_info(self):
         # subtract the delay added by SLEEP to get the true cycle time
         frame_time_offset: float = 1 / self.pattern_intervals_per_second
@@ -405,20 +400,9 @@ class Zenbed:
             for x in range(A, L + 1):
                 self.mtr[x][y].percent(percent)
 
-    def off(self):
-        for y in range(1, 19):
-            for x in range(A, L + 1):
-                self.mtr[x][y].percent(0)
-                self.mtr[x][y].increasing = False
-                self.mtr[x][y].decreasing = False
-
-
-    def stop(self):
-        """
-        Turns all motors off
-        :return:
-        """
-        self.pattern_active = False
+    # Stops all motors, and also the pattern loop if passed True
+    def stop(self, pattern=False):
+        self.pattern_active = pattern
         for y in range(1, 19):
             for x in range(A, L + 1):
                 self.mtr[x][y].percent(0)
