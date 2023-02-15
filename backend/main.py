@@ -58,7 +58,7 @@ def main():
     # Zenbed Initialization
     # Zenbed() runs with motors OFF. Zenbed(on) runs with motors ON
     on = True
-    zenbed = Zenbed() 
+    zenbed = Zenbed(on) 
 
     zenbed.stop()
     #zenbed.testmtrs()

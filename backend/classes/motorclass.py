@@ -52,7 +52,7 @@ class Motor:
         except NameError as error:
             print("No PCA detected")
         self.channel = 0  # default value is first channel
-        self.motor_power = 0
+        self.motor_power = 0 # 0-100
         self.x = motorX
         self.y = motorY
         self.hold = None
@@ -728,7 +728,7 @@ class Motor:
             quit()
 
         try:
-            self.PCA.frequency = 1600
+            self.PCA.frequency = 300
         except AttributeError as error:
             pass
 
@@ -786,8 +786,8 @@ class Motor:
         percentpower (int): percentage of the motor power
         """
 
-        if percentpower > 80:  # safety lock / testing
-            percentpower = 80
+        if percentpower > 99:  # safety lock / testing
+            percentpower = 99
 
         if (percentpower < 0):
             print("Negative power level")
