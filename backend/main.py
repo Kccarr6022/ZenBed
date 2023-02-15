@@ -53,17 +53,18 @@ expanding_circle
 goacross
 flow
 """
-            
-def main():
 
+def main():
     # Zenbed Initialization
-    zenbed = Zenbed(connected=False)
+    # Zenbed() runs with motors OFF. Zenbed(on) runs with motors ON
+    on = True
+    zenbed = Zenbed() 
 
     zenbed.stop()
     #zenbed.testmtrs()
     #zenbed.mtr[D][3].percent(0)
     #zenbed.on(10)
-    zenbed.pattern(flow) # Forever loop comment out to turn off Motors
+    #zenbed.pattern(flow) # Forever loop comment out to turn off Motors
     
     zenbed.status() 
     return 0
