@@ -120,7 +120,7 @@ class PCA9685:
     prescale_reg = UnaryStruct(0xFE, "<B")
     pwm_regs = StructArray(0x06, "<HH", 16)
 
-    def __init__( self, I2C, address, reference_clock_speed: int = 50000000):
+    def __init__( self, I2C, address, reference_clock_speed: int = 25000000):
         self.i2c_device = i2c_device.I2CDevice(I2C, address)
         self.channels = PCAChannels(self)
         """Sequence of 16 `PWMChannel` objects. One for each channel."""
