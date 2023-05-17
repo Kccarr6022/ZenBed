@@ -1,12 +1,14 @@
 from classes.patternclass import Pattern
 
+#Webapp http://44.204.43.53:5000/
+
 # Imported pattern 1 -> rectangle
 rectangle = Pattern()
 rectangle.name = "rectangle"
 rectangle.intervals_per_second = 5
 rectangle.hold = 0; # Hold set to false
 rectangle.interval_power = 3
-rectangle.max_power = 24
+rectangle.max_power = 21
 rectangle.start_power = 6
 rectangle.percent_power = 100
 rectangle.sequence = """D4 E4, D5 E5, D6 E6, D7 E7, D8 E8, D9 E9, D10 E10, D11 E11, D12 E12, D13 E13,
@@ -17,9 +19,9 @@ G2 G3, F2 F3, D2 E2 D3 E3"""
 # Imported pattern 2 -> expanding_circle
 expanding_circle = Pattern()
 expanding_circle.name = "expanding_circle"
-expanding_circle.intervals_per_second = 8
+expanding_circle.intervals_per_second = 4
 expanding_circle.hold = 0; # hold set to false
-expanding_circle.interval_power = 1
+expanding_circle.interval_power = 2
 expanding_circle.max_power = 18
 expanding_circle.start_power = 6
 expanding_circle.percent_power = 100
@@ -57,9 +59,9 @@ flow = Pattern()
 flow.name = "flow"
 flow.intervals_per_second = 4
 flow.hold = 0; # hold set to false
-flow.interval_power = 3
-flow.max_power = 24
-flow.start_power = 9
+flow.interval_power = 2
+flow.max_power = 18
+flow.start_power = 6
 flow.percent_power = 100
 flow.sequence = """A1 A2 A3 A4 A5 A6 A7 A8 A9 A10 A11 A12 A13 A14 A15 A16 A17 A18, B1 B2 B3 B4 B5 B6 B7 B8 B9 B10 B11 B12 B13 B14 B15 B16 B17 B18, C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 C11 C12 C13 C14 C15 C16 C17 C18, D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12 D13 D14 D15 D16 D17 D18,
 E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14 E15 E16 E17 E18, F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 F13 F14 F15 F16 F17 F18,
@@ -227,3 +229,13 @@ test1.percent_power = 100
 test1.sequence = """E1 F1 ,E2 F2 ,E3  F3 ,E4 F4 ,E5 F5 ,E6 F6 ,E7 F7 ,E8 F8 ,E9 F9 ,E10  F10  ,E11 F11 ,E12 F12 ,E13 F13 ,E14 F14 ,E15 F15 ,E16 F16 ,E17 F17 ,E18 F18"""
 
 # E1 F1 ,E2 F2 ,E3  F3 ,E4 F4 ,E5 F5 ,E6 F6 ,E7 F7 ,E8 F8 ,E9 F9 ,E10  F10  ,E11 F11 ,E12 F12 ,E13 F13 ,E14 F14 ,E15 F15 ,E16 F16 ,E17 F17 ,E18 F18 ,  E18 F18 ,E17 F17 ,E16 F16 ,E15 F15 ,E14 F14 ,E13 F13 ,E12 F12 ,E11 F11 ,E10  F10  , E9 F9 ,E8 F8 ,E7 F7 , E6 F6 ,E5 F5 ,E4 F4 ,E3 F3 ,E2 F2 ,E1 F1 
+
+vert = Pattern()
+vert.name = "vert"
+vert.intervals_per_second = 4
+vert.hold = 0; # hold set to false
+vert.interval_power = 4
+vert.max_power = 16
+vert.start_power = 8
+vert.percent_power = 100
+vert.sequence = """A1 B1 C1 D1 E1 F1 G1 H1 I1 J1 K1 L1 ,A2 B2  C2 D2 E2 F2 G2 H2 I2 J2 K2 L2 ,A3 B3 C3 D3 E3 F3 G3 H3 I3 J3 K3 L3 ,A4 B4 C4 D4 E4 F4 G4 H4 I4 J4 K4 L4 ,A5 B5 C5 D5 E5 F5 G5 H5 I5 J5 K5 L5 ,A6 B6 C6 D6 E6 F6 G6 H6 I6 J6 K6 L6 ,A7 B7 C7 D7 E7 F7 G7 H7 I7 J7 K7 L7 ,A8 B8 C8 D8 E8 F8 G8 H8 I8 J8  K8 L8 ,A9 B9 C9 D9 E9  F9 G9 H9 I9 J9 K9 L9 ,A10  B10  C10  D10  E10  F10  G10  H10  I10  J10  K10  L10  ,A11  B11 C11 D11 E11 F11 G11 H11  I11 J11 K11 L11 ,A12  B12 C12 D12 E12 F12 G12 H12 I12 J12 K12 L12 ,A13 B13 C13 D13 E13 F13 G13 H13 I13 J13 K13 L13 ,A14 B14 C14 D14 E14 F14 G14 H14 I14 J14 K14 L14 ,A15 B15 C15 D15 E15 F15 G15 H15 I15 J15 K15 L15 ,A16 B16 C16 D16 E16 F16 G16 H16 I16 J16 K16 L16 ,A17 B17 C17 D17 E17 F17 G17 H17 I17 J17 K17 L17 ,A18 B18 C18 D18 E18 F18 G18 H18 I18 J18 K18 L18"""

@@ -1,5 +1,5 @@
 from classes.zenbedclass import Zenbed
-from patterns import expanding_circle, rectangle, goacross, flow, strobe, circle, leaf1, leaf2, duelrectangle, infinity, zigzag, scan, scans, alarm1, alarm2, test1
+from patterns import expanding_circle, rectangle, goacross, flow, strobe, circle, leaf1, leaf2, duelrectangle, infinity, zigzag, scan, scans, alarm1, alarm2, test1, vert
 
 
 # Letters
@@ -61,10 +61,11 @@ def main():
     zenbed = Zenbed(on) 
 
     zenbed.stop()
+    #zenbed.testeachmotor()
     #zenbed.testmtrs()
     #zenbed.mtr[D][3].percent(0)
-    #zenbed.on(10)
-    #zenbed.pattern(flow) # Forever loop comment out to turn off Motors
+    #zenbed.on(0)
+    #zenbed.pattern(rectangle) # Forever loop comment out to turn off Motors
     
     zenbed.status() 
     return 0
